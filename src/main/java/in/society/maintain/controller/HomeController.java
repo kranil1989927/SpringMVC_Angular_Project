@@ -51,12 +51,6 @@ public class HomeController {
 		return "redirect:/login?error=accessfailed";
 	}
 
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(Model model, HttpServletRequest request) {
-		request.getSession().invalidate();
-		return "logout";
-	}
-
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String getHomePage(Locale locale, ModelMap model) {
 		try {
