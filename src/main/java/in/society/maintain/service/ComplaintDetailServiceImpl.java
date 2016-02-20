@@ -10,7 +10,7 @@ import in.society.maintain.common.SocietyMaintenanceException;
 import in.society.maintain.controller.ComplaintDetailsFormBean;
 import in.society.maintain.controller.UserControllerHelper;
 import in.society.maintain.dao.ComplaintDAO;
-import in.society.maintain.dao.UserDAO;
+import in.society.maintain.dao.SocUserDetailsDAO;
 import in.society.maintain.model.Complaint;
 import in.society.maintain.model.User;
 

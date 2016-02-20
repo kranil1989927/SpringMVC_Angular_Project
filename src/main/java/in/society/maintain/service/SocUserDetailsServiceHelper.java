@@ -10,7 +10,7 @@ import in.society.maintain.model.SocUser;
 import in.society.maintain.model.User;
 
 @Component
-public class UserDetailServiceHelper {
+public class SocUserDetailsServiceHelper {
 
 	public User populateUser(UserDetailsVO userDetailsVO) {
 
@@ -63,10 +63,10 @@ public class UserDetailServiceHelper {
 			socUser.setIsOwner(socUserDetailsVO.getIsOwner());
 		}
 		if (!CommonUtils.isNullorEmpty(socUserDetailsVO.getStartDate())) {
-			socUser.setStartDate(socUserDetailsVO.getStartDate());
+			//socUser.setStartDate(socUserDetailsVO.getStartDate());
 		}
 		if (!CommonUtils.isNullorEmpty(socUserDetailsVO.getEndDate())) {
-			socUser.setEndDate(socUserDetailsVO.getEndDate());
+			//socUser.setEndDate(socUserDetailsVO.getEndDate());
 		}
 		
 		return socUser;

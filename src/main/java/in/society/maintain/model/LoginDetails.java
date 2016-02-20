@@ -1,20 +1,35 @@
 package in.society.maintain.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "LOGIN_DETAILS")
-public class LoginDetails {
+public class LoginDetails implements Serializable{
 
+	private static final long serialVersionUID = -6004583363863927934L;
+
+	@GenericGenerator(name = "userIdGenerator", strategy = "foreign", 
+			parameters = @Parameter(name = "property", value = "socUser") )
 	@Id
+	@GeneratedValue(generator = "userIdGenerator")
+	@Column(name = "USER_ID", unique = true, nullable = false)
+	private Long userId;
+
 	@Column(name = "USER_NAME", nullable = false, unique = true, length = 45)
 	private String userName;
 
@@ -27,20 +42,16 @@ public class LoginDetails {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "loginDetails")
 	private Set<UserRole> roles = new HashSet<UserRole>(0);
 
-	public LoginDetails() {
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	private SocUser socUser;
+
+	public Long getUserId() {
+		return userId;
 	}
 
-	public LoginDetails(String userName, String password, boolean isEnabled) {
-		this.userName = userName;
-		this.password = password;
-		this.isEnabled = isEnabled;
-	}
-
-	public LoginDetails(String userName, String password, boolean isEnabled, Set<UserRole> roles) {
-		this.userName = userName;
-		this.password = password;
-		this.isEnabled = isEnabled;
-		this.roles = roles;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public String getUserName() {
@@ -74,5 +85,40 @@ public class LoginDetails {
 	public void setRoles(Set<UserRole> roles) {
 		this.roles = roles;
 	}
+
+	public SocUser getSocUser() {
+		return socUser;
+	}
+
+	public void setSocUser(SocUser socUser) {
+		this.socUser = socUser;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LoginDetails other = (LoginDetails) obj;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
+	}
+
+	
 
 }

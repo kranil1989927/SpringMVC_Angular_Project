@@ -3,8 +3,6 @@ package in.society.maintain.controller;
 import java.util.List;
 import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,33 +24,19 @@ import in.society.maintain.service.ModuleService;
 public class HomeController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
-	
+
 	@Autowired
 	private ModuleService moduleService;
-	
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
+		LOGGER.debug("Successfully login to application, now redirecting to application home page");
 		return "redirect:/home";
-	}
-
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(Model model, @RequestParam(value = "error", required = false) String error, @RequestParam(value = "msg", required = false) String msg) {
-		if (error != null) {
-			model.addAttribute("error", "Invalid username and password!");
-		}
-		if(msg != null){
-			model.addAttribute("msg", "You've been logged out successfully.");
-		}
-		return "login";
-	}
-
-	@RequestMapping(value = "/accessdenied", method = RequestMethod.GET)
-	public String accessdenied(Model model) {
-		return "redirect:/login?error=accessfailed";
 	}
 
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String getHomePage(Locale locale, ModelMap model) {
+		LOGGER.debug("Accessing to application home page");
 		try {
 			List<Module> modulelist = moduleService.getAllTopModules("ADMIN_ROLE");
 			model.addAttribute("modulelist", modulelist);
@@ -61,4 +45,23 @@ public class HomeController {
 		}
 		return "home";
 	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(Model model, @RequestParam(value = "error", required = false) String error, @RequestParam(value = "msg", required = false) String msg) {
+		LOGGER.debug("Trying to login the application");
+		if (error != null) {
+			model.addAttribute("error", "Invalid username and password!");
+		}
+		if (msg != null) {
+			model.addAttribute("msg", "You've been logged out successfully.");
+		}
+		return "login";
+	}
+
+	@RequestMapping(value = "/accessdenied", method = RequestMethod.GET)
+	public String accessdenied(Model model) {
+		LOGGER.debug("Login to application is failed due to access control");
+		return "redirect:/login?error=accessfailed";
+	}
+
 }

@@ -1,19 +1,30 @@
 package in.society.maintain.model;
 
+import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "SOC_USER")
-public class SocUser {
+public class SocUser implements Serializable {
+
+	private static final long serialVersionUID = 2130860082357875378L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USER_ID", unique = true, nullable = false)
-	private Integer userId;
+	private Long userId;
 
 	@Column(name = "FIRST_NAME")
 	private String firstName;
@@ -42,18 +53,23 @@ public class SocUser {
 	@Column(name = "NO_OF_MEMBERS")
 	private String noOfMembers;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "START_DATE")
-	private String startDate;
+	private Date startDate;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "END_DATE")
-	private String endDate;
+	private Date endDate;
 
-	public Integer getUserId() {
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "socUser", cascade = CascadeType.ALL)
+	private LoginDetails loginDetails;
+
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer integer) {
-		this.userId = integer;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public String getFirstName() {
@@ -128,20 +144,52 @@ public class SocUser {
 		this.noOfMembers = noOfMembers;
 	}
 
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
+	public LoginDetails getLoginDetails() {
+		return loginDetails;
+	}
+
+	public void setLoginDetails(LoginDetails loginDetails) {
+		this.loginDetails = loginDetails;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SocUser other = (SocUser) obj;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
+	}
 }

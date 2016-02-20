@@ -16,7 +16,7 @@ public class ModuleServiceImpl implements ModuleService {
 	private ModuleDAO moduleDAO;
 
 	@Autowired
-	private UserDetailServiceHelper userDetailServiceHelper;
+	private SocUserDetailsServiceHelper userDetailServiceHelper;
 
 	@Override
 	@Transactional

@@ -1,48 +1,92 @@
 package in.society.maintain.service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import in.society.maintain.dao.LoginDetailsDAO;
-import in.society.maintain.model.LoginDetails;
-import in.society.maintain.model.UserRole;
+import in.society.maintain.common.SocietyMaintenanceException;
+import in.society.maintain.dao.SocUserDetailsDAO;
+import in.society.maintain.model.SocUser;
 
+/**
+ * This contains the business logic of User management module
+ * @author ANIL
+ *
+ */
 @Service
 public class SocUserDetailsServiceImpl implements SocUserDetailsService {
+	
+	/** Logger */
+	private static final Logger LOGGER = LoggerFactory.getLogger(SocUserDetailsServiceImpl.class);
 
+	/** socUserDAO represents the user management related DAO operations*/
 	@Autowired
-	private LoginDetailsDAO loginDetailsDAO;
-
-	@Transactional(readOnly = true)
+	private SocUserDetailsDAO socUserDAO;
+	
+	/** userDetailServiceHelper it take cares of user management service overhead*/
+	@Autowired
+	private SocUserDetailsServiceHelper socUserDetailsServiceHelper;
+	
 	@Override
-	public UserDetails loadUserByUsername(final String userName) throws UsernameNotFoundException {
-		LoginDetails loginDetails = loginDetailsDAO.loadUserByUsername(userName);
-		List<GrantedAuthority> authorities = getUserRolesAuthority(loginDetails.getRoles());
-		return getUserForAuthentication(loginDetails, authorities);
-	}
-
-	private User getUserForAuthentication(LoginDetails loginDetails, List<GrantedAuthority> authorities) {
-		return new User(loginDetails.getUserName(), loginDetails.getPassword(), loginDetails.isEnabled(), true, true,
-				true, authorities);
-	}
-
-	private List<GrantedAuthority> getUserRolesAuthority(Set<UserRole> userRoles) {
-		Set<GrantedAuthority> setAuths = new HashSet<GrantedAuthority>();
-		for (UserRole userRole : userRoles) {
-			setAuths.add(new SimpleGrantedAuthority(userRole.getRole()));
+	public String addSocUser(SocUserDetailsVO socUserDetailsVO) throws SocietyMaintenanceException {
+		String userName = null;
+		
+		
+		try {
+			//UserDetailServiceHelper userDetailServiceHelper = new UserDetailServiceHelper(); 
+			SocUser socUser = socUserDetailsServiceHelper.populateSocUser(socUserDetailsVO);
+			//userName = userDAO.addSocUser(socUser);
+		} catch (Exception e) {
+			System.out.println("Execption while adding user");
+			throw new SocietyMaintenanceException(e.getMessage(), e);
 		}
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(setAuths);
-		return authorities;
+		return userName;
 	}
+
+	@Override
+	public List<UserDetailsVO> getAllUsers() throws SocietyMaintenanceException {
+		//List<User> user=userDAO.getAllUsers();
+		//List<UserDetailsVO> userDetailsVOList=userDetailServiceHelper.populateUserDetailVOList(user);
+		return null;
+	}
+
+
+	@Override
+	public UserDetailsVO updateUser(UserDetailsVO userDetail) throws SocietyMaintenanceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String deleteUser(Integer userId) throws SocietyMaintenanceException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public UserDetailsVO getUserDetails(Long userId) throws SocietyMaintenanceException {
+		LOGGER.debug("Method to fetch the society user details for the user id :{} ", userId);
+		
+		return null;
+	}
+
+	public SocUserDetailsDAO getSocUserDAO() {
+		return socUserDAO;
+	}
+
+	public void setSocUserDAO(SocUserDetailsDAO socUserDAO) {
+		this.socUserDAO = socUserDAO;
+	}
+
+	public SocUserDetailsServiceHelper getSocUserDetailsServiceHelper() {
+		return socUserDetailsServiceHelper;
+	}
+
+	public void setSocUserDetailsServiceHelper(SocUserDetailsServiceHelper socUserDetailsServiceHelper) {
+		this.socUserDetailsServiceHelper = socUserDetailsServiceHelper;
+	}
+	
 }

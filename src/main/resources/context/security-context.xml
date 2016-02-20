@@ -18,10 +18,10 @@
 	</http>
 
 	<authentication-manager erase-credentials="false">
-		<authentication-provider user-service-ref="socUserDetailsService">
+		<authentication-provider user-service-ref="loginUserDetailsService">
 			<password-encoder hash="md5"></password-encoder>
 		</authentication-provider>
 	</authentication-manager>
-	<beans:bean id="socUserDetailsService"
-		class="in.society.maintain.service.SocUserDetailsServiceImpl"></beans:bean>
+	<beans:bean id="loginUserDetailsService"
+		class="in.society.maintain.service.LoginUserDetailsServiceImpl"></beans:bean>
 </beans:beans>
