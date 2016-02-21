@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import in.society.maintain.common.SocietyMaintenanceException;
@@ -13,80 +14,99 @@ import in.society.maintain.model.SocUser;
 
 /**
  * This contains the business logic of User management module
+ * 
  * @author ANIL
  *
  */
 @Service
 public class SocUserDetailsServiceImpl implements SocUserDetailsService {
-	
+
 	/** Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SocUserDetailsServiceImpl.class);
 
-	/** socUserDAO represents the user management related DAO operations*/
+	/** socUserDAO represents the user management related DAO operations */
 	@Autowired
 	private SocUserDetailsDAO socUserDAO;
-	
-	/** userDetailServiceHelper it take cares of user management service overhead*/
+
+	/** socUserDetailsServiceHelper it take cares of user management service overhead */
 	@Autowired
 	private SocUserDetailsServiceHelper socUserDetailsServiceHelper;
-	
+
 	@Override
-	public String addSocUser(SocUserDetailsVO socUserDetailsVO) throws SocietyMaintenanceException {
-		String userName = null;
-		
-		
+	public SocUserDetailsVO saveOrUpdate(SocUserDetailsVO socUserDetailsVO) throws SocietyMaintenanceException {
+		SocUserDetailsVO socUserDetails = null;
+		LOGGER.debug("Saving Society User Details");
 		try {
-			//UserDetailServiceHelper userDetailServiceHelper = new UserDetailServiceHelper(); 
-			SocUser socUser = socUserDetailsServiceHelper.populateSocUser(socUserDetailsVO);
-			//userName = userDAO.addSocUser(socUser);
-		} catch (Exception e) {
-			System.out.println("Execption while adding user");
-			throw new SocietyMaintenanceException(e.getMessage(), e);
+
+			SocUser socUser = null;
+			this.getSocUserDAO().saveOrUpdateSocUser(socUser);
+
+		} catch (DataAccessException dae) {
+			LOGGER.error("Database exception while saving details of society user due to {}", dae.getMessage());
+			throw new SocietyMaintenanceException("Exception while saving details of society user due to : " + dae.getMessage(), dae);
+		} catch (Exception ex) {
+			LOGGER.error("Exception while saving details of society user of user due to {}", ex.getMessage());
+			throw new SocietyMaintenanceException("Exception while saving details of society user due to : " + ex.getMessage(), ex);
 		}
-		return userName;
+		return socUserDetailsVO;
 	}
 
 	@Override
-	public List<UserDetailsVO> getAllUsers() throws SocietyMaintenanceException {
-		//List<User> user=userDAO.getAllUsers();
-		//List<UserDetailsVO> userDetailsVOList=userDetailServiceHelper.populateUserDetailVOList(user);
-		return null;
-	}
-
-
-	@Override
-	public UserDetailsVO updateUser(UserDetailsVO userDetail) throws SocietyMaintenanceException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String deleteUser(Integer userId) throws SocietyMaintenanceException {
-		// TODO Auto-generated method stub
-		return null;
+	public Boolean deleteSocUser(Long userId) throws SocietyMaintenanceException {
+		Boolean isDeleted = Boolean.FALSE;
+		LOGGER.debug("Deleting a society user of user id : {}", userId);
+		try {
+			isDeleted = this.getSocUserDAO().deleteSocUser(userId);
+			LOGGER.info("Society User of user id {} is deleted successfully", userId);
+		} catch (DataAccessException dae) {
+			LOGGER.error("Database exception while deleting the society user of user id : {} due to {}", userId, dae.getMessage());
+			throw new SocietyMaintenanceException("Exception while deleting the society user of user id : " + userId + "due to : " + dae.getMessage(), dae);
+		} catch (Exception ex) {
+			LOGGER.error("Exception while deleting the society user of user id : {} due to {}", userId, ex.getMessage());
+			throw new SocietyMaintenanceException("Exception while deleting the society user of user id : " + userId + "due to : " + ex.getMessage(), ex);
+		}
+		return isDeleted;
 	}
 
 	@Override
-	public UserDetailsVO getUserDetails(Long userId) throws SocietyMaintenanceException {
-		LOGGER.debug("Method to fetch the society user details for the user id :{} ", userId);
-		
-		return null;
+	public SocUserDetailsVO getSocUserDetails(Long userId) throws SocietyMaintenanceException {
+		SocUserDetailsVO socUserDetailsVO = null;
+		LOGGER.debug("Getting a society user details of user id : {}", userId);
+		try {
+			SocUser socUser = this.getSocUserDAO().getSocUserDetails(userId);
+			socUserDetailsVO = new SocUserDetailsVO();
+		} catch (DataAccessException dae) {
+			LOGGER.error("Database exception while getting details of society user of user id : {} due to {}", userId, dae.getMessage());
+			throw new SocietyMaintenanceException("Exception while getting details of society user of user id : " + userId + "due to : " + dae.getMessage(), dae);
+		} catch (Exception ex) {
+			LOGGER.error("Exception while getting details of society user of user id : {} due to {}", userId, ex.getMessage());
+			throw new SocietyMaintenanceException("Exception while getting details of society user of user id : " + userId + "due to : " + ex.getMessage(), ex);
+		}
+		return socUserDetailsVO;
+	}
+
+	@Override
+	public List<SocUserDetailsVO> getAllUsers() throws SocietyMaintenanceException {
+		List<SocUserDetailsVO> socUserDetailsVOList = null;
+		LOGGER.debug("Getting a details of all society user");
+		try {
+			List<SocUser> socUserList = this.getSocUserDAO().getAllSocUsers();
+		} catch (DataAccessException dae) {
+			LOGGER.error("Database exception while getting details of all society user due to {}", dae.getMessage());
+			throw new SocietyMaintenanceException("Exception while getting details of all society user due to : " + dae.getMessage(), dae);
+		} catch (Exception ex) {
+			LOGGER.error("Exception while getting details of all society user due to {}", ex.getMessage());
+			throw new SocietyMaintenanceException("Exception while getting details of all society user due to : " + ex.getMessage(), ex);
+		}
+		return socUserDetailsVOList;
 	}
 
 	public SocUserDetailsDAO getSocUserDAO() {
 		return socUserDAO;
 	}
 
-	public void setSocUserDAO(SocUserDetailsDAO socUserDAO) {
-		this.socUserDAO = socUserDAO;
-	}
-
 	public SocUserDetailsServiceHelper getSocUserDetailsServiceHelper() {
 		return socUserDetailsServiceHelper;
 	}
 
-	public void setSocUserDetailsServiceHelper(SocUserDetailsServiceHelper socUserDetailsServiceHelper) {
-		this.socUserDetailsServiceHelper = socUserDetailsServiceHelper;
-	}
-	
 }

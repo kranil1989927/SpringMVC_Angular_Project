@@ -3,7 +3,7 @@ package in.society.maintain.common;
 public class SocietyMaintenanceException extends Exception {
 
 	private static final long serialVersionUID = 1628812411933981424L;
-
+	
 	public SocietyMaintenanceException() {
 		super();
 	}

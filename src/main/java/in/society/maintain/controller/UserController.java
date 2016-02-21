@@ -52,7 +52,7 @@ public class UserController {
 		String userName = null;
 		try {
 			SocUserDetailsVO socUserVO = userControllerHelper.populateUsersDetailsVO(socUserFormBean);
-			userName = socUserDetailsService.addSocUser(socUserVO);
+			socUserDetailsService.saveOrUpdate(new SocUserDetailsVO());
 			System.out.println("User ADDED Sucessfuly : " + userName);
 		} catch (SocietyMaintenanceException e) {
 			System.out.println("User ADDED Sucessfuly" + e.getMessage());
@@ -114,10 +114,8 @@ public class UserController {
 	@RequestMapping(value = "/viewAll", method = RequestMethod.GET)
 	public String getAllUsers(ModelMap model) {
 		try {
-			List<UserDetailsVO> userDetailVOList = socUserDetailsService.getAllUsers();
-			List<UserDetailsFormBean> userDetailFormBeanList = userControllerHelper.populateUserDetailsFormBeanVOList(userDetailVOList);
-			model.addAttribute("userDetailList", userDetailFormBeanList);
-
+			List<SocUserDetailsVO> socUserDetailsVOList = this.getSocUserDetailsService().getAllUsers();
+			model.addAttribute("userDetailList", socUserDetailsVOList);
 		} catch (SocietyMaintenanceException ex) {
 			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage());
 		} catch (Exception ex) {
@@ -126,11 +124,12 @@ public class UserController {
 		return VIEW_ALL_USER;
 	}
 
-	public SocUserDetailsService getUserDetailService() {
+	public SocUserDetailsService getSocUserDetailsService() {
 		return socUserDetailsService;
 	}
 
 	public UserControllerHelper getUserControllerHelper() {
 		return userControllerHelper;
 	}
+
 }
