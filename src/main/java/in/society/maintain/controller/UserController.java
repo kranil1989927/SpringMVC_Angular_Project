@@ -74,7 +74,7 @@ public class UserController {
 		LOGGER.debug("Trying to save the user details");
 		try {
 			SocUserFormBean socUserFormBean = new SocUserFormBean();
-			SocUserDetailsVO socUserDetailsVO = userControllerHelper.populateUsersDetailsVO(socUserFormBean);
+			SocUserDetailsVO socUserDetailsVO = this.getUserControllerHelper().populateUsersDetailsVO(socUserFormBean);
 			this.getSocUserDetailsService().saveOrUpdate(socUserDetailsVO);
 		} catch (SocietyMaintenanceException ex) {
 			LOGGER.error("Service exception while saving the user of user id : {} due to : {}", "", ex.getMessage());
@@ -143,9 +143,9 @@ public class UserController {
 			List<SocUserDetailsVO> socUserDetailsVOList = this.getSocUserDetailsService().getAllUsers();
 			model.addAttribute("userDetailList", socUserDetailsVOList);
 		} catch (SocietyMaintenanceException ex) {
-			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage());
+			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
 		} catch (Exception ex) {
-			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage());
+			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
 		}
 		return VIEW_ALL_USER;
 	}
