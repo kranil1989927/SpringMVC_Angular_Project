@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import in.society.maintain.common.SocietyMaintenanceException;
 import in.society.maintain.service.SocUserDetailsService;
-import in.society.maintain.service.UserDetailsVO;
 import in.society.maintain.service.SocUserDetailsVO;
 
 /**
@@ -49,14 +49,6 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String getAddUserPage(@ModelAttribute("socUserFormBean") SocUserFormBean socUserFormBean) {
-		String userName = null;
-		try {
-			SocUserDetailsVO socUserVO = userControllerHelper.populateUsersDetailsVO(socUserFormBean);
-			socUserDetailsService.saveOrUpdate(new SocUserDetailsVO());
-			System.out.println("User ADDED Sucessfuly : " + userName);
-		} catch (SocietyMaintenanceException e) {
-			System.out.println("User ADDED Sucessfuly" + e.getMessage());
-		}
 		return ADD_UPDATE_USER;
 	}
 
@@ -79,6 +71,16 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/save", method = RequestMethod.GET)
 	public void saveOrUpdate(Model model) {
+		LOGGER.debug("Trying to save the user details");
+		try {
+			SocUserFormBean socUserFormBean = new SocUserFormBean();
+			SocUserDetailsVO socUserDetailsVO = userControllerHelper.populateUsersDetailsVO(socUserFormBean);
+			this.getSocUserDetailsService().saveOrUpdate(socUserDetailsVO);
+		} catch (SocietyMaintenanceException ex) {
+			LOGGER.error("Service exception while saving the user of user id : {} due to : {}", "", ex.getMessage());
+		} catch (Exception ex) {
+			LOGGER.error("Exception while saving the user of user id : {} due to : {}", "", ex.getMessage());
+		}
 	}
 
 	/**
@@ -90,6 +92,18 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/delete/{userId}", method = RequestMethod.GET)
 	public String deleteUser(Model model, @PathVariable(value = "userId") Long userId) {
+		Boolean isDeleted = Boolean.FALSE;
+		LOGGER.debug("Request for deleting the user of userid : {}", userId);
+		try {
+			isDeleted = this.getSocUserDetailsService().deleteSocUser(userId);
+			if (isDeleted) {
+				LOGGER.info("User of Id : {} is deleted successfully", userId);
+			}
+		} catch (SocietyMaintenanceException ex) {
+			LOGGER.error("Service exception while deleting the user of user id : {} due to : {}", userId, ex.getMessage());
+		} catch (Exception ex) {
+			LOGGER.error("Exception while deleting the user of user id : {} due to : {}", userId, ex.getMessage());
+		}
 		return "redirect:/viewAll";
 	}
 
@@ -102,6 +116,17 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/view/{userId}", method = RequestMethod.GET)
 	public String getUserDetails(ModelMap model, @PathVariable(value = "userId") Long userId) {
+		LOGGER.debug("Request to get the user details of userid : {}", userId);
+		try {
+			SocUserDetailsVO socUserDetailsVO = this.getSocUserDetailsService().getSocUserDetails(userId);
+			if (socUserDetailsVO != null) {
+				LOGGER.info("User Details of User Id : {} is fetched successfully", userId);
+			}
+		} catch (SocietyMaintenanceException ex) {
+			LOGGER.error("Service exception while getting the user details of user id : {} due to : {}", userId, ex.getMessage());
+		} catch (Exception ex) {
+			LOGGER.error("Exception while getting the user details of user id : {} due to : {}", userId, ex.getMessage());
+		}
 		return USER_DETAILS_VIEW;
 	}
 

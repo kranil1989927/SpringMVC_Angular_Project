@@ -1,8 +1,10 @@
 package in.society.maintain.service;
 
+import java.util.Date;
+
 public class SocUserDetailsVO {
 
-	private Integer userId;
+	private Long userId;
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -12,16 +14,15 @@ public class SocUserDetailsVO {
 	private String isOwner;
 	private String address;
 	private String noOfMembers;
-	private String startDate;
-	private String endDate;
+	private Date startDate;
+	private Date endDate;
 
-
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer integer) {
-		this.userId = integer;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 	public String getFirstName() {
@@ -96,19 +97,19 @@ public class SocUserDetailsVO {
 		this.noOfMembers = noOfMembers;
 	}
 
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 

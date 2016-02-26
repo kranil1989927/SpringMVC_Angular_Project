@@ -34,13 +34,10 @@ public class SocUserDetailsServiceImpl implements SocUserDetailsService {
 
 	@Override
 	public SocUserDetailsVO saveOrUpdate(SocUserDetailsVO socUserDetailsVO) throws SocietyMaintenanceException {
-		SocUserDetailsVO socUserDetails = null;
 		LOGGER.debug("Saving Society User Details");
 		try {
-
-			SocUser socUser = null;
+			SocUser socUser = this.getSocUserDetailsServiceHelper().populateSocUserDetailsModelFromVO(socUserDetailsVO);
 			this.getSocUserDAO().saveOrUpdateSocUser(socUser);
-
 		} catch (DataAccessException dae) {
 			LOGGER.error("Database exception while saving details of society user due to {}", dae.getMessage());
 			throw new SocietyMaintenanceException("Exception while saving details of society user due to : " + dae.getMessage(), dae);
@@ -73,8 +70,8 @@ public class SocUserDetailsServiceImpl implements SocUserDetailsService {
 		SocUserDetailsVO socUserDetailsVO = null;
 		LOGGER.debug("Getting a society user details of user id : {}", userId);
 		try {
-			SocUser socUser = this.getSocUserDAO().getSocUserDetails(userId);
-			socUserDetailsVO = new SocUserDetailsVO();
+			final SocUser socUser = this.getSocUserDAO().getSocUserDetails(userId);
+			socUserDetailsVO = this.getSocUserDetailsServiceHelper().populateSocUserDetailVOFromModel(socUser);
 		} catch (DataAccessException dae) {
 			LOGGER.error("Database exception while getting details of society user of user id : {} due to {}", userId, dae.getMessage());
 			throw new SocietyMaintenanceException("Exception while getting details of society user of user id : " + userId + "due to : " + dae.getMessage(), dae);
@@ -90,7 +87,8 @@ public class SocUserDetailsServiceImpl implements SocUserDetailsService {
 		List<SocUserDetailsVO> socUserDetailsVOList = null;
 		LOGGER.debug("Getting a details of all society user");
 		try {
-			List<SocUser> socUserList = this.getSocUserDAO().getAllSocUsers();
+			final List<SocUser> socUserList = this.getSocUserDAO().getAllSocUsers();
+			socUserDetailsVOList = this.getSocUserDetailsServiceHelper().populateSocUserDetailsVOListFromModelList(socUserList);
 		} catch (DataAccessException dae) {
 			LOGGER.error("Database exception while getting details of all society user due to {}", dae.getMessage());
 			throw new SocietyMaintenanceException("Exception while getting details of all society user due to : " + dae.getMessage(), dae);

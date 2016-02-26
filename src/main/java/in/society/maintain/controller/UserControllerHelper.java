@@ -76,10 +76,10 @@ public class UserControllerHelper {
 			userVO.setIsOwner(userFormBean.getIsOwner());
 		}
 		if (!CommonUtils.isNullorEmpty(userFormBean.getStartDate())) {
-			userVO.setStartDate(userFormBean.getStartDate());
+			//userVO.setStartDate(userFormBean.getStartDate());
 		}
 		if (!CommonUtils.isNullorEmpty(userFormBean.getEndDate())) {
-			userVO.setEndDate(userFormBean.getEndDate());
+			//userVO.setEndDate(userFormBean.getEndDate());
 		}
 		return userVO;
 	}

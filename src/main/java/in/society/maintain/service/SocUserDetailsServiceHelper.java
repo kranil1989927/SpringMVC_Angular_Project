@@ -5,99 +5,52 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import in.society.maintain.common.CommonUtils;
 import in.society.maintain.model.SocUser;
-import in.society.maintain.model.User;
 
 @Component
 public class SocUserDetailsServiceHelper {
 
-	public User populateUser(UserDetailsVO userDetailsVO) {
-
-		User user = new User();
-
-		/*
-		 * if (null != Integer.valueOf(userDetailsVO.getUserId())) {
-		 * user.setUserId(userDetailsVO.getUserId()); }
-		 */
-
-		if (!CommonUtils.isNullorEmpty(userDetailsVO.getUserName())) {
-			user.setUserName(userDetailsVO.getUserName());
+	public List<SocUserDetailsVO> populateSocUserDetailsVOListFromModelList(List<SocUser> socUserList) {
+		List<SocUserDetailsVO> socUserDetailsVOList = new ArrayList<SocUserDetailsVO>(socUserList.size());
+		for (SocUser socUser : socUserList) {
+			SocUserDetailsVO socUserDetailsVO = populateSocUserDetailVOFromModel(socUser);
+			socUserDetailsVOList.add(socUserDetailsVO);
 		}
-		if (!CommonUtils.isNullorEmpty(userDetailsVO.getPassword())) {
-			user.setPassword(userDetailsVO.getPassword());
-		}
-		return user;
+		return socUserDetailsVOList;
 	}
-	public SocUser populateSocUser(SocUserDetailsVO socUserDetailsVO) {
 
+	public SocUserDetailsVO populateSocUserDetailVOFromModel(SocUser socUser) {
+		SocUserDetailsVO socUserDetailsVO = new SocUserDetailsVO();
+		socUserDetailsVO.setUserId(socUser.getUserId());
+		socUserDetailsVO.setFirstName(socUser.getFirstName());
+		socUserDetailsVO.setMiddleName(socUser.getMiddleName());
+		socUserDetailsVO.setLastName(socUser.getLastName());
+		socUserDetailsVO.setEmailId(socUser.getEmailId());
+		socUserDetailsVO.setPhoneNo(socUser.getPhoneNo());
+		socUserDetailsVO.setPanNo(socUser.getPanNo());
+		socUserDetailsVO.setIsOwner(socUser.getIsOwner());
+		socUserDetailsVO.setAddress(socUser.getAddress());
+		socUserDetailsVO.setNoOfMembers(socUser.getNoOfMembers());
+		socUserDetailsVO.setStartDate(socUser.getStartDate());
+		socUserDetailsVO.setEndDate(socUser.getEndDate());
+		return socUserDetailsVO;
+	}
+
+	public SocUser populateSocUserDetailsModelFromVO(SocUserDetailsVO socUserDetailsVO) {
 		SocUser socUser = new SocUser();
-
-
-		if (!CommonUtils.isNullorEmpty(socUserDetailsVO.getFirstName())) {
-			socUser.setFirstName(socUserDetailsVO.getFirstName());
-		}
-
-		if (!CommonUtils.isNullorEmpty(socUserDetailsVO.getMiddleName())) {
-			socUser.setMiddleName(socUserDetailsVO.getMiddleName());
-		}
-		if (!CommonUtils.isNullorEmpty(socUserDetailsVO.getLastName())) {
-			socUser.setLastName(socUserDetailsVO.getLastName());
-		}
-		if (!CommonUtils.isNullorEmpty(socUserDetailsVO.getEmailId())) {
-			socUser.setEmailId(socUserDetailsVO.getEmailId());
-		}
-		if (!CommonUtils.isNullorEmpty(socUserDetailsVO.getPanNo())) {
-			socUser.setPanNo(socUserDetailsVO.getPanNo());
-		}
-		if (!CommonUtils.isNullorEmpty(socUserDetailsVO.getPhoneNo())) {
-			socUser.setPhoneNo(socUserDetailsVO.getPhoneNo());
-		}
-		if (!CommonUtils.isNullorEmpty(socUserDetailsVO.getAddress())) {
-			socUser.setAddress(socUserDetailsVO.getAddress());
-		}
-		if (!CommonUtils.isNullorEmpty(socUserDetailsVO.getNoOfMembers())) {
-			socUser.setNoOfMembers(socUserDetailsVO.getNoOfMembers());
-		}
-		if (!CommonUtils.isNullorEmpty(socUserDetailsVO.getIsOwner())) {
-			socUser.setIsOwner(socUserDetailsVO.getIsOwner());
-		}
-		if (!CommonUtils.isNullorEmpty(socUserDetailsVO.getStartDate())) {
-			//socUser.setStartDate(socUserDetailsVO.getStartDate());
-		}
-		if (!CommonUtils.isNullorEmpty(socUserDetailsVO.getEndDate())) {
-			//socUser.setEndDate(socUserDetailsVO.getEndDate());
-		}
-		
+		socUser.setUserId(socUserDetailsVO.getUserId());
+		socUser.setFirstName(socUserDetailsVO.getFirstName());
+		socUser.setMiddleName(socUserDetailsVO.getMiddleName());
+		socUser.setLastName(socUserDetailsVO.getLastName());
+		socUser.setEmailId(socUserDetailsVO.getEmailId());
+		socUser.setPhoneNo(socUserDetailsVO.getPhoneNo());
+		socUser.setPanNo(socUserDetailsVO.getPanNo());
+		socUser.setIsOwner(socUserDetailsVO.getIsOwner());
+		socUser.setAddress(socUserDetailsVO.getAddress());
+		socUser.setNoOfMembers(socUserDetailsVO.getNoOfMembers());
+		socUser.setStartDate(socUserDetailsVO.getStartDate());
+		socUser.setEndDate(socUserDetailsVO.getEndDate());
 		return socUser;
 	}
 
-	public UserDetailsVO populateUserDetailVO(User user) {
-
-		UserDetailsVO userDetailsVO = new UserDetailsVO();
-
-		if (null != Integer.valueOf(user.getUserId())) {
-			userDetailsVO.setUserId(user.getUserId());
-		}
-		if (!CommonUtils.isNullorEmpty(user.getUserName())) {
-			userDetailsVO.setUserName(user.getUserName());
-		}
-		if (!CommonUtils.isNullorEmpty(user.getPassword())) {
-			userDetailsVO.setPassword(user.getPassword());
-		}
-		return userDetailsVO;
-	}
-
-	public List<UserDetailsVO> populateUserDetailVOList(List<User> user) {
-
-		List<UserDetailsVO> userDetailvo = new ArrayList<UserDetailsVO>();
-		for (User user1 : user) {
-			UserDetailsVO userDetailsVO = new UserDetailsVO();
-			userDetailsVO.setUserId(user1.getUserId());
-			userDetailsVO.setUserName(user1.getUserName());
-			userDetailsVO.setPassword(user1.getPassword());
-			userDetailvo.add(userDetailsVO);
-		}
-		return userDetailvo;
-	}
 }
