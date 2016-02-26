@@ -138,6 +138,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/viewAll", method = RequestMethod.GET)
 	public String getAllUsers(ModelMap model) {
+		LOGGER.debug("Fetching all the society users");
 		try {
 			List<SocUserDetailsVO> socUserDetailsVOList = this.getSocUserDetailsService().getAllUsers();
 			model.addAttribute("userDetailList", socUserDetailsVOList);
