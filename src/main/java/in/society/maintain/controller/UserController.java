@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import in.society.maintain.common.SocietyMaintenanceException;
 import in.society.maintain.service.SocUserDetailsService;
@@ -114,7 +115,8 @@ public class UserController {
 	 * @param userId {@link Long}
 	 * @return User Details view page.
 	 */
-	@RequestMapping(value = "/view/{userId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/view/{userId}", method = RequestMethod.GET, produces="application/json")
+	@ResponseBody
 	public String getUserDetails(ModelMap model, @PathVariable(value = "userId") Long userId) {
 		LOGGER.debug("Request to get the user details of userid : {}", userId);
 		try {
