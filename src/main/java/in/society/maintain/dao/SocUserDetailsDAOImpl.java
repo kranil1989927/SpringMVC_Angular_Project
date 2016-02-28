@@ -48,7 +48,7 @@ public class SocUserDetailsDAOImpl implements SocUserDetailsDAO {
 	@Override
 	public SocUser getSocUserDetails(Long userId) {
 		LOGGER.debug("Fetching society user with user id {}", userId);
-		return (SocUser) this.getSessionFactory().openSession().load(SocUser.class, userId);
+		return (SocUser) this.getCurrSession().load(SocUser.class, userId);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import in.society.maintain.common.SocietyMaintenanceException;
 import in.society.maintain.dao.SocUserDetailsDAO;
@@ -33,6 +34,7 @@ public class SocUserDetailsServiceImpl implements SocUserDetailsService {
 	private SocUserDetailsServiceHelper socUserDetailsServiceHelper;
 
 	@Override
+	@Transactional
 	public SocUserDetailsVO saveOrUpdate(SocUserDetailsVO socUserDetailsVO) throws SocietyMaintenanceException {
 		LOGGER.debug("Saving Society User Details");
 		try {
@@ -49,6 +51,7 @@ public class SocUserDetailsServiceImpl implements SocUserDetailsService {
 	}
 
 	@Override
+	@Transactional
 	public Boolean deleteSocUser(Long userId) throws SocietyMaintenanceException {
 		Boolean isDeleted = Boolean.FALSE;
 		LOGGER.debug("Deleting a society user of user id : {}", userId);
@@ -66,6 +69,7 @@ public class SocUserDetailsServiceImpl implements SocUserDetailsService {
 	}
 
 	@Override
+	@Transactional
 	public SocUserDetailsVO getSocUserDetails(Long userId) throws SocietyMaintenanceException {
 		SocUserDetailsVO socUserDetailsVO = null;
 		LOGGER.debug("Getting a society user details of user id : {}", userId);
@@ -83,6 +87,7 @@ public class SocUserDetailsServiceImpl implements SocUserDetailsService {
 	}
 
 	@Override
+	@Transactional
 	public List<SocUserDetailsVO> getAllUsers() throws SocietyMaintenanceException {
 		List<SocUserDetailsVO> socUserDetailsVOList = null;
 		LOGGER.debug("Getting a details of all society user");

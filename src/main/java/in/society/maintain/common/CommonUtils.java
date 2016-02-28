@@ -16,7 +16,7 @@ public class CommonUtils {
 	}
 	public static boolean isNullorEmpty(Integer str) {
 		
-		if (str.SIZE==10) {
+		if (str==10) {
 			return false;
 		} else {
 			return true;

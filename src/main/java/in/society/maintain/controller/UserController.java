@@ -41,6 +41,7 @@ public class UserController {
 	private static final String USER_DETAILS_VIEW = "/usermgmt/view";
 	private static final String VIEW_ALL_USER = "/usermgmt/viewall";
 	private static final String ADD_UPDATE_USER = "/usermgmt/user";
+	private static final String SEARCH_USER = "/usermgmt/search";
 
 	/**
 	 * Method to get the add new user page.
@@ -115,7 +116,7 @@ public class UserController {
 	 * @param userId {@link Long}
 	 * @return User Details view page.
 	 */
-	@RequestMapping(value = "/view/{userId}", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/view/{userId}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public String getUserDetails(ModelMap model, @PathVariable(value = "userId") Long userId) {
 		LOGGER.debug("Request to get the user details of userid : {}", userId);
@@ -136,20 +137,42 @@ public class UserController {
 	 * Method to get all the society user.
 	 * 
 	 * @param model {@link ModelMap}
-	 * @return All society user view page.
+	 * @return List of all society user.
 	 */
-	@RequestMapping(value = "/viewAll", method = RequestMethod.GET)
-	public String getAllUsers(ModelMap model) {
+	@RequestMapping(value = "/viewAll", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<SocUserDetailsVO> getAllUsers(ModelMap model) {
 		LOGGER.debug("Fetching all the society users");
+		List<SocUserDetailsVO> socUserDetailsVOList = null;
 		try {
-			List<SocUserDetailsVO> socUserDetailsVOList = this.getSocUserDetailsService().getAllUsers();
-			model.addAttribute("userDetailList", socUserDetailsVOList);
+			socUserDetailsVOList = this.getSocUserDetailsService().getAllUsers();
+			//model.addAttribute("userDetailList", socUserDetailsVOList);
 		} catch (SocietyMaintenanceException ex) {
 			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
 		} catch (Exception ex) {
 			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
 		}
-		return VIEW_ALL_USER;
+		return socUserDetailsVOList;
+	}
+
+	/**
+	 * Method to get all the society user.
+	 * 
+	 * @param model {@link ModelMap}
+	 * @return All society user view page.
+	 */
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String getAllSocUsers(ModelMap model) {
+		LOGGER.debug("Fetching all the society users");
+		/*try {
+			//List<SocUserDetailsVO> socUserDetailsVOList = this.getSocUserDetailsService().getAllUsers();
+			//model.addAttribute("userDetailList", socUserDetailsVOList);
+		} catch (SocietyMaintenanceException ex) {
+			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
+		} catch (Exception ex) {
+			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
+		}*/
+		return SEARCH_USER;
 	}
 
 	public SocUserDetailsService getSocUserDetailsService() {
