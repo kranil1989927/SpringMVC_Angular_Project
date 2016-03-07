@@ -7,7 +7,7 @@ var usermgmtService = angular.module('usermgmtService', []);
 usermgmtService.factory('socUserService', ['$http','$q', function($http, $q){
 	return {
 		getAllUsers : function(){
-			return $http.get('http://localhost:9082/socmaintain/user/viewAll')
+			return $http.get('/socmaintain/user/viewAll')
 			.then(
 					function(response){
 						return response.data;

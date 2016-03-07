@@ -1,0 +1,131 @@
+*/*Set's border, padding and margin to 0 for all values*/
+{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+body, html {
+    color: #373C40;
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+    margin:10px;
+}
+body {
+    font-size: 100%;
+}
+p {
+    padding: 7px 0 7px 0;
+    font-weight: 500;
+    font-size: 10pt;
+}
+
+h1 {
+    font-weight:200;
+    color: #888888;
+    font-size:18pt;
+    padding-left:33px;
+    margin:7px 5px 8px 8px;
+}
+
+form.socuser{
+    margin: 20px auto 0px auto;
+    height:530px;
+    background-color:#fff;
+    padding:5px;
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+}
+form p{
+    font-size: 9pt;
+    clear:both;
+    margin: 0;
+    color:gray;
+    padding:4px;
+}
+form.socuser fieldset.row1
+{
+    width:100%;
+    padding:12px;
+    float:left;
+    border-top:1px solid #F5F5F5;
+    margin-bottom:15px;
+}
+form.socuser fieldset.row1 label{
+    float: left;
+    text-align: right;
+    margin-right: 6px;
+    margin-top:2px;
+}
+
+form.socuser legend
+{
+    color: #abda0f;
+    padding:2px;
+    margin-left: 16px;
+    font-weight:bold;
+    font-size: 14px;
+    font-weight:100;
+}
+form.socuser label{
+    color:#444;
+    width:98px;
+    float: left;
+    text-align: right;
+    margin-right: 6px;
+    margin-top:2px;
+}
+
+form.socuser input{
+    width: 140px;
+    color: #505050;
+    float: left;
+    margin-right: 5px;
+}
+
+form.socuser input[type=radio]
+{
+    float:left;
+    width:25px;
+}
+form.socuser label.residenttype{
+    margin-top:-1px;
+    margin-bottom:2px;
+    width:34px;
+    float:left;
+    text-align:left;
+    line-height:19px;
+}
+form.socuser input[type=text]
+{
+    border: 1px solid #E1E1E1;
+    height: 18px;
+}
+
+.button
+{
+    background: #abda0f url(../img/overlay.png) repeat-x;
+    padding: 8px 10px 8px;
+    color: #fff;
+    text-decoration: none;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+    cursor: pointer;
+    float:center;
+    font-size:18px;
+    margin:10px;
+}
+form.socuser textarea
+{
+    border: 1px solid #E1E1E1;
+    float:left;
+    margin-bottom:3px;
+    color: #505050;
+    margin-right:5px;
+}
+input:focus, select:focus{
+    background-color: #efffe0;
+}
+

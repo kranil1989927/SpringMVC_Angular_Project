@@ -39,9 +39,10 @@ public class UserController {
 
 	/** User Management View */
 	private static final String USER_DETAILS_VIEW = "/usermgmt/view";
-	private static final String VIEW_ALL_USER = "/usermgmt/viewall";
-	private static final String ADD_UPDATE_USER = "/usermgmt/user";
+	private static final String ADD_USER = "/usermgmt/user";
+	private static final String UPDATE_USER = "/usermgmt/edituser";
 	private static final String SEARCH_USER = "/usermgmt/search";
+	private static final String SEARCH_USER_ALL = "/usermgmt/searchuser";
 
 	/**
 	 * Method to get the add new user page.
@@ -49,9 +50,9 @@ public class UserController {
 	 * @param model {@link ModelMap}
 	 * @return Add new user page
 	 */
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String getAddUserPage(@ModelAttribute("socUserFormBean") SocUserFormBean socUserFormBean) {
-		return ADD_UPDATE_USER;
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String getAddUserPage() {
+		return ADD_USER;
 	}
 
 	/**
@@ -63,7 +64,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/update/{userId}", method = RequestMethod.GET)
 	public String getUpdateUserPage(Model model, @PathVariable(value = "userId") Long userId) {
-		return ADD_UPDATE_USER;
+		return UPDATE_USER;
 	}
 
 	/**
@@ -172,7 +173,7 @@ public class UserController {
 		} catch (Exception ex) {
 			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
 		}*/
-		return SEARCH_USER;
+		return SEARCH_USER_ALL;
 	}
 
 	public SocUserDetailsService getSocUserDetailsService() {

@@ -6,7 +6,7 @@
 
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Home Page</title>
+<title>Home</title>
 
 </head>
 <body>
@@ -15,20 +15,9 @@
 	<div id='cssmenu'>
 		<ul>
 			<li class='active'><a href='#'><span>Home</span></a></li>
-			<c:forEach var="topModule" items="${topModuleList}">
-				<li class='has-sub'><a href='#'><span>${topModule}</span></a>
-					<ul>
-						<c:forEach items="${subModuleMap}" var="entry">
-							<c:choose>
-								<c:when test="${entry.key == topModule }">
-									<c:forEach items="${entry.value}" var="mapEntry">. 
-       					<li><a href='${mapEntry.moduleUrl}'><span>${mapEntry.moduleName}</span></a></li>
-									</c:forEach>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-					</ul></li>
-			</c:forEach>
+			<li class='active'><a href='<c:url value="/user/search"/>'><span>Manage User</span></a></li>
+			<li class='active'><a href='<c:url value="/user/add"/>'><span>Add User</span></a></li>
+			<li class='active'><a href='<c:url value="/user/search"/>'><span>Search User</span></a></li>
 			<li class='active'><a href='<c:url value="/j_spring_security_logout"/>'><span>Log out</span></a></li>
 		</ul>
 	</div>

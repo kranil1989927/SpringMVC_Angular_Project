@@ -1,6 +1,7 @@
 package in.society.maintain.service;
 
 import java.util.Date;
+import java.util.Set;
 
 public class SocUserDetailsVO {
 
@@ -16,6 +17,9 @@ public class SocUserDetailsVO {
 	private String noOfMembers;
 	private Date startDate;
 	private Date endDate;
+	private String userName;
+	private String password;
+	private Set<UserRoleVO> roles;
 
 	public Long getUserId() {
 		return userId;
@@ -111,6 +115,30 @@ public class SocUserDetailsVO {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Set<UserRoleVO> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<UserRoleVO> roles) {
+		this.roles = roles;
 	}
 
 }
