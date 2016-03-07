@@ -5046,7 +5046,7 @@ div.k-flatcolorpicker {
 }
 
 .k-flatcolorpicker .k-selected-color {
-	background-image: url(textures/transtexture.png);
+	background-image: url(../../images/transtexture.png);
 	background-position: 50% 50%;
 	text-align: right
 }
@@ -5153,7 +5153,7 @@ div.k-flatcolorpicker {
 }
 
 .k-flatcolorpicker .k-transparency-slider .k-slider-track {
-	background-image: url(textures/transparency.png);
+	background-image: url(../../images/transparency.png);
 	-webkit-background-size: 100% auto;
 	background-size: 100% auto;
 	background-position: 100% 50%;
@@ -5195,11 +5195,11 @@ div.k-flatcolorpicker {
 }
 
 .k-ie8 .k-flatcolorpicker .k-hue-slider .k-slider-track {
-	background: url(textures/hue.png) repeat 0 50%
+	background: url(../../images/hue.png) repeat 0 50%
 }
 
 .k-ie8 .k-flatcolorpicker .k-transparency-slider .k-slider-track {
-	background: url(textures/transparency.png) repeat 0 50%
+	background: url(../../images/transparency.png) repeat 0 50%
 }
 
 .k-ie8 .k-flatcolorpicker .k-hsv-gradient {

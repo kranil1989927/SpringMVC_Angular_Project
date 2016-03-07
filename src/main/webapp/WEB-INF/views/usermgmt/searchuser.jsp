@@ -34,16 +34,17 @@
                 columns: [{
                     template: "<div class='customer-photo' style='background-image: url(../content/web/Customers/#:data.CustomerID#.jpg);'></div> <div class='customer-name'>#: ContactName #</div>",
                     field: "ContactName",
-                    title: "Contact Name",
+                    title: "Name",
                     width: 240
                 }, {
                     field: "ContactTitle",
-                    title: "Contact Title"
+                    title: "Address"
                 }, {
                     field: "CompanyName",
-                    title: "Company Name"
+                    title: "Owner"
                 }, {
                     field: "Country",
+                    title: "Email Id",
                     width: 150
                 }]
             });
