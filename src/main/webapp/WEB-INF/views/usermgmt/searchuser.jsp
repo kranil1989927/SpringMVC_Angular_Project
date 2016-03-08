@@ -11,6 +11,7 @@
 	<script	src="<c:url value="/resources/js/vendor/kendo.all.min.js"/>"></script>
 </head>
 <body>
+<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
 
 <div id="example">
     <div id="grid"></div>
@@ -18,9 +19,10 @@
         $(document).ready(function () {
             $("#grid").kendoGrid({
                 dataSource: {
-                    type: "odata",
+                    //type: "odata",
                     transport: {
-                        read: "http://demos.telerik.com/kendo-ui/service/Northwind.svc/Customers"
+                        read: $('#context').val()+"/user/viewAll",
+                        dataType: "Json"
                     },
                     pageSize: 20
                 },
@@ -32,18 +34,18 @@
                     buttonCount: 5
                 },
                 columns: [{
-                    template: "<div class='customer-photo' style='background-image: url(../content/web/Customers/#:data.CustomerID#.jpg);'></div> <div class='customer-name'>#: ContactName #</div>",
-                    field: "ContactName",
+                    //template: "<div class='customer-photo' style='background-image: url(../content/web/Customers/#:data.CustomerID#.jpg);'></div> <div class='customer-name'>#: ContactName #</div>",
+                    field: "firstName",
                     title: "Name",
                     width: 240
                 }, {
-                    field: "ContactTitle",
+                    field: "address",
                     title: "Address"
                 }, {
-                    field: "CompanyName",
+                    field: "lastName",
                     title: "Owner"
                 }, {
-                    field: "Country",
+                    field: "emailId",
                     title: "Email Id",
                     width: 150
                 }]
