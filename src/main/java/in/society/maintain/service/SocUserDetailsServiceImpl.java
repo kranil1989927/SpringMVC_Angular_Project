@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import in.society.maintain.common.SocietyMaintenanceException;
 import in.society.maintain.dao.SocUserDetailsDAO;
+import in.society.maintain.model.LoginDetails;
 import in.society.maintain.model.SocUser;
+import in.society.maintain.model.UserRole;
 
 /**
  * This contains the business logic of User management module
@@ -39,7 +41,22 @@ public class SocUserDetailsServiceImpl implements SocUserDetailsService {
 		LOGGER.debug("Saving Society User Details");
 		try {
 			SocUser socUser = this.getSocUserDetailsServiceHelper().populateSocUserDetailsModelFromVO(socUserDetailsVO);
+			LoginDetails loginDetails = this.getSocUserDetailsServiceHelper().populateLoginDetailsModelFromVO(socUserDetailsVO);
+			loginDetails.setSocUser(socUser);
+			socUser.setLoginDetails(loginDetails);
 			this.getSocUserDAO().saveOrUpdateSocUser(socUser);
+
+			// Add Roles to User
+			for (UserRoleVO userRoleVO : socUserDetailsVO.getRoles()) {
+				UserRole userRole = new UserRole();
+				if (userRoleVO == null) {
+					userRole.setRole("ROLE_USER");
+				}
+				userRole.setRole(userRoleVO.getRole());
+				userRole.setLoginDetails(loginDetails);
+				loginDetails.getRoles().add(userRole);
+				this.getSocUserDAO().saveOrUpdateUserRole(userRole);
+			}
 		} catch (DataAccessException dae) {
 			LOGGER.error("Database exception while saving details of society user due to {}", dae.getMessage());
 			throw new SocietyMaintenanceException("Exception while saving details of society user due to : " + dae.getMessage(), dae);

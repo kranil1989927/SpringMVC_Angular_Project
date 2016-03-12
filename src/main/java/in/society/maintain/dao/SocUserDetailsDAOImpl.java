@@ -10,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import in.society.maintain.model.SocUser;
+import in.society.maintain.model.UserRole;
 
 @Repository
 public class SocUserDetailsDAOImpl implements SocUserDetailsDAO {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SocUserDetailsDAOImpl.class);
-	
+
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -37,7 +38,7 @@ public class SocUserDetailsDAOImpl implements SocUserDetailsDAO {
 		LOGGER.debug("Deleting user with user id {}", userId);
 		SocUser socUser = this.getSocUserDetails(userId);
 		if (null != socUser) {
-			String userName = socUser.getFirstName() + " " +socUser.getLastName();
+			String userName = socUser.getFirstName() + " " + socUser.getLastName();
 			this.getCurrSession().delete(socUser);
 			isDeleted = Boolean.TRUE;
 			LOGGER.debug("user {} is deleted successfully", userName);
@@ -57,16 +58,23 @@ public class SocUserDetailsDAOImpl implements SocUserDetailsDAO {
 		LOGGER.debug("Getting all the society user");
 		return this.getCurrSession().createQuery("from SocUser").list();
 	}
-	
+
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
-	
+
+	@Override
+	public UserRole saveOrUpdateUserRole(UserRole userRole) {
+		this.getCurrSession().saveOrUpdate(userRole);
+		return userRole;
+	}
+
 	/**
 	 * Method to get current session.
+	 * 
 	 * @return Session from session factory.
 	 */
-	private Session getCurrSession(){
+	private Session getCurrSession() {
 		return this.getSessionFactory().getCurrentSession();
 	}
 

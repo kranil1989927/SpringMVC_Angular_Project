@@ -1,5 +1,11 @@
 package in.society.maintain.common;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.apache.commons.lang.time.DateFormatUtils;
+
 public class CommonUtils {
 
 	/**
@@ -21,5 +27,16 @@ public class CommonUtils {
 		} else {
 			return true;
 		}
+	}
+	
+	public static Date convertToDate(String date, String format){
+		SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+		Date convertedDate = null;
+		try {
+			convertedDate = dateFormat.parse(date);
+			convertedDate = dateFormat.parse(DateFormatUtils.format(convertedDate, format));
+		} catch (ParseException e) {
+		}
+		 return convertedDate;
 	}
 }

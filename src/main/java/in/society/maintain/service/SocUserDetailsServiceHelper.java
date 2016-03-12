@@ -18,10 +18,9 @@ import in.society.maintain.model.UserRole;
 
 @Component
 public class SocUserDetailsServiceHelper {
-	
+
 	/** Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-
 
 	public List<SocUserDetailsVO> populateSocUserDetailsVOListFromModelList(List<SocUser> socUserList) {
 		List<SocUserDetailsVO> socUserDetailsVOList = new ArrayList<SocUserDetailsVO>(socUserList.size());
@@ -51,7 +50,9 @@ public class SocUserDetailsServiceHelper {
 
 	public SocUser populateSocUserDetailsModelFromVO(SocUserDetailsVO socUserDetailsVO) {
 		SocUser socUser = new SocUser();
-		socUser.setUserId(socUserDetailsVO.getUserId());
+		if (socUserDetailsVO.getUserId() != null) {
+			socUser.setUserId(socUserDetailsVO.getUserId());
+		}
 		socUser.setFirstName(socUserDetailsVO.getFirstName());
 		socUser.setMiddleName(socUserDetailsVO.getMiddleName());
 		socUser.setLastName(socUserDetailsVO.getLastName());
@@ -65,21 +66,12 @@ public class SocUserDetailsServiceHelper {
 		socUser.setEndDate(socUserDetailsVO.getEndDate());
 		return socUser;
 	}
-	
-	public LoginDetails populateLoginDetailsModelFromVO(SocUserDetailsVO socUserDetailsVO){
+
+	public LoginDetails populateLoginDetailsModelFromVO(SocUserDetailsVO socUserDetailsVO) {
 		LoginDetails loginDetails = new LoginDetails();
-		loginDetails.setUserId(socUserDetailsVO.getUserId());
 		loginDetails.setUserName(socUserDetailsVO.getUserName());
 		loginDetails.setPassword(generateMD5Password("NEW_USER"));
 		loginDetails.setEnabled(Boolean.TRUE);
-		
-		Set<UserRole> userRoles = new HashSet<UserRole>();
-		for (UserRoleVO userRoleVO : socUserDetailsVO.getRoles()) {
-			UserRole userRole = new UserRole();
-			userRole.setRole("ROLE_USER");
-			userRoles.add(userRole);
-		}
-		loginDetails.setRoles(userRoles );
 		return loginDetails;
 	}
 

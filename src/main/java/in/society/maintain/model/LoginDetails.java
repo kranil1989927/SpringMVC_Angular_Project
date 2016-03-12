@@ -19,12 +19,11 @@ import org.hibernate.annotations.Parameter;
 
 @Entity
 @Table(name = "LOGIN_DETAILS")
-public class LoginDetails implements Serializable{
+public class LoginDetails implements Serializable {
 
 	private static final long serialVersionUID = -6004583363863927934L;
 
-	@GenericGenerator(name = "userIdGenerator", strategy = "foreign", 
-			parameters = @Parameter(name = "property", value = "socUser") )
+	@GenericGenerator(name = "userIdGenerator", strategy = "foreign", parameters = @Parameter(name = "property", value = "socUser") )
 	@Id
 	@GeneratedValue(generator = "userIdGenerator")
 	@Column(name = "USER_ID", unique = true, nullable = false)
@@ -118,7 +117,5 @@ public class LoginDetails implements Serializable{
 			return false;
 		return true;
 	}
-
-	
 
 }

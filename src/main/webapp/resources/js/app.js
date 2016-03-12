@@ -8,8 +8,10 @@ socUserMgmtApp.config(['$routeProvider',function($routeProvider) {
 	$routeProvider.when('/user/search', {
 		templateUrl:'/usermgmt/search.jsp',
 		controller:'socUserCtrl'
-	}).
-      otherwise({
+	}).when('/user/add', {
+		templateUrl:'/usermgmt/user.jsp',
+		controller:'socUserCtrl'
+	}).otherwise({
         redirectTo: '/user/search'
       });
 }])

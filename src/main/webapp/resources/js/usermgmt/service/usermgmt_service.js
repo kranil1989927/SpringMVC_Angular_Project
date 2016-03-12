@@ -17,6 +17,19 @@ usermgmtService.factory('socUserService', ['$http','$q', function($http, $q){
                     	return $q.reject(errResponse);
                     }
 			);
+		},
+		
+		createSocUser : function(socUser){
+			return $http.post('/socmaintain/user/save',socUser )
+			.then(
+					function(response){
+						return response.data;
+					}, 
+                    function(errResponse){
+                    	console.error('Error while saving users');
+                    	return $q.reject(errResponse);
+                    }
+			);
 		}
 	};
 }])

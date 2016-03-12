@@ -2,7 +2,8 @@ package in.society.maintain.controller;
 
 public class SocUserFormBean {
 
-	private Integer userId;
+	private String userId;
+	private String userName;
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -14,14 +15,22 @@ public class SocUserFormBean {
 	private String noOfMembers;
 	private String startDate;
 	private String endDate;
+	private String userRoles;
 
-
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer integer) {
-		this.userId = integer;
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getFirstName() {
@@ -112,6 +121,12 @@ public class SocUserFormBean {
 		this.endDate = endDate;
 	}
 
+	public String getUserRoles() {
+		return userRoles;
+	}
 
+	public void setUserRoles(String userRoles) {
+		this.userRoles = userRoles;
+	}
 
 }

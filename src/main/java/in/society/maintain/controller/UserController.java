@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -70,13 +70,12 @@ public class UserController {
 	/**
 	 * Method to save or update the user details.
 	 * 
-	 * @param model {@link ModelMap}
+	 * @param socUserFormBean {@link SocUserFormBean}
 	 */
-	@RequestMapping(value = "/save", method = RequestMethod.GET)
-	public void saveOrUpdate(Model model) {
+	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes="application/json")
+	public String saveOrUpdate(@RequestBody SocUserFormBean socUserFormBean) {
 		LOGGER.debug("Trying to save the user details");
 		try {
-			SocUserFormBean socUserFormBean = new SocUserFormBean();
 			SocUserDetailsVO socUserDetailsVO = this.getUserControllerHelper().populateUsersDetailsVO(socUserFormBean);
 			this.getSocUserDetailsService().saveOrUpdate(socUserDetailsVO);
 		} catch (SocietyMaintenanceException ex) {
@@ -84,6 +83,7 @@ public class UserController {
 		} catch (Exception ex) {
 			LOGGER.error("Exception while saving the user of user id : {} due to : {}", "", ex.getMessage());
 		}
+		return "Success";
 	}
 
 	/**
@@ -173,7 +173,7 @@ public class UserController {
 		} catch (Exception ex) {
 			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
 		}*/
-		return SEARCH_USER_ALL;
+		return SEARCH_USER;
 	}
 
 	public SocUserDetailsService getSocUserDetailsService() {

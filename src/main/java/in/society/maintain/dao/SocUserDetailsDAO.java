@@ -3,6 +3,7 @@ package in.society.maintain.dao;
 import java.util.List;
 
 import in.society.maintain.model.SocUser;
+import in.society.maintain.model.UserRole;
 
 public interface SocUserDetailsDAO {
 
@@ -36,4 +37,13 @@ public interface SocUserDetailsDAO {
 	 * @return List of Users {@link List<SocUser>}
 	 */
 	List<SocUser> getAllSocUsers();
+
+	
+	/**
+	 * Method to add/update the user role.
+	 * 
+	 * @param userRole {@link UserRole}
+	 * @return Newly created/Updated user role.
+	 */
+	UserRole saveOrUpdateUserRole(UserRole userRole);
 }

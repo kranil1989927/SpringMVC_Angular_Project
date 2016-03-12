@@ -1,13 +1,16 @@
 package in.society.maintain.controller;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
 import in.society.maintain.common.CommonUtils;
-import in.society.maintain.service.UserDetailsVO;
 import in.society.maintain.service.SocUserDetailsVO;
+import in.society.maintain.service.UserDetailsVO;
+import in.society.maintain.service.UserRoleVO;
 
 @Component
 public class UserControllerHelper {
@@ -44,43 +47,57 @@ public class UserControllerHelper {
 	}
 
 	
-	public SocUserDetailsVO populateUsersDetailsVO(SocUserFormBean userFormBean) {
-		SocUserDetailsVO userVO = new SocUserDetailsVO();
-
-		if (!CommonUtils.isNullorEmpty(userFormBean.getFirstName())) {
-			userVO.setFirstName(userFormBean.getFirstName());
+	public SocUserDetailsVO populateUsersDetailsVO(SocUserFormBean socUserFormBean) {
+		SocUserDetailsVO socUserDetailsVO = new SocUserDetailsVO();
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getUserId())) {
+			socUserDetailsVO.setUserId(Long.valueOf(socUserFormBean.getUserId()));
 		}
-
-		if (!CommonUtils.isNullorEmpty(userFormBean.getMiddleName())) {
-			userVO.setMiddleName(userFormBean.getMiddleName());
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getUserName())) {
+			socUserDetailsVO.setUserName(socUserFormBean.getUserName());
 		}
-		if (!CommonUtils.isNullorEmpty(userFormBean.getLastName())) {
-			userVO.setLastName(userFormBean.getLastName());
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getFirstName())) {
+			socUserDetailsVO.setFirstName(socUserFormBean.getFirstName());
 		}
-		if (!CommonUtils.isNullorEmpty(userFormBean.getEmailId())) {
-			userVO.setEmailId(userFormBean.getEmailId());
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getMiddleName())) {
+			socUserDetailsVO.setMiddleName(socUserFormBean.getMiddleName());
 		}
-		if (!CommonUtils.isNullorEmpty(userFormBean.getPanNo())) {
-			userVO.setPanNo(userFormBean.getPanNo());
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getLastName())) {
+			socUserDetailsVO.setLastName(socUserFormBean.getLastName());
 		}
-		if (!CommonUtils.isNullorEmpty(userFormBean.getPhoneNo())) {
-			userVO.setPhoneNo(userFormBean.getPhoneNo());
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getEmailId())) {
+			socUserDetailsVO.setEmailId(socUserFormBean.getEmailId());
 		}
-		if (!CommonUtils.isNullorEmpty(userFormBean.getAddress())) {
-			userVO.setAddress(userFormBean.getAddress());
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getPanNo())) {
+			socUserDetailsVO.setPanNo(socUserFormBean.getPanNo());
 		}
-		if (!CommonUtils.isNullorEmpty(userFormBean.getNoOfMembers())) {
-			userVO.setNoOfMembers(userFormBean.getNoOfMembers());
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getPhoneNo())) {
+			socUserDetailsVO.setPhoneNo(socUserFormBean.getPhoneNo());
 		}
-		if (!CommonUtils.isNullorEmpty(userFormBean.getIsOwner())) {
-			userVO.setIsOwner(userFormBean.getIsOwner());
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getAddress())) {
+			socUserDetailsVO.setAddress(socUserFormBean.getAddress());
 		}
-		if (!CommonUtils.isNullorEmpty(userFormBean.getStartDate())) {
-			//userVO.setStartDate(userFormBean.getStartDate());
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getNoOfMembers())) {
+			socUserDetailsVO.setNoOfMembers(socUserFormBean.getNoOfMembers());
 		}
-		if (!CommonUtils.isNullorEmpty(userFormBean.getEndDate())) {
-			//userVO.setEndDate(userFormBean.getEndDate());
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getIsOwner())) {
+			socUserDetailsVO.setIsOwner(socUserFormBean.getIsOwner());
 		}
-		return userVO;
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getStartDate())) {
+			socUserDetailsVO.setStartDate(CommonUtils.convertToDate(socUserFormBean.getStartDate(), "MM/dd/yyyy"));
+		}
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getEndDate())) {
+			socUserDetailsVO.setEndDate(CommonUtils.convertToDate(socUserFormBean.getEndDate(), "MM/dd/yyyy"));
+		}
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getUserRoles())) {
+			String[] roles = socUserFormBean.getUserRoles().split(",");
+			Set<UserRoleVO> userRoleSet = new HashSet<UserRoleVO>();
+			for (String userRole : roles) {
+				UserRoleVO userRoleVO = new UserRoleVO();
+				userRoleVO.setRole(userRole);
+				userRoleSet.add(userRoleVO);
+			}
+			socUserDetailsVO.setRoles(userRoleSet);
+		}
+		return socUserDetailsVO;
 	}
 }
