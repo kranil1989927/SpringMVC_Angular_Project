@@ -72,18 +72,19 @@ public class UserController {
 	 * 
 	 * @param socUserFormBean {@link SocUserFormBean}
 	 */
-	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes="application/json")
-	public String saveOrUpdate(@RequestBody SocUserFormBean socUserFormBean) {
+	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
+	@ResponseBody
+	public SocUserFormBean saveOrUpdate(@RequestBody SocUserFormBean socUserFormBean) {
 		LOGGER.debug("Trying to save the user details");
 		try {
 			SocUserDetailsVO socUserDetailsVO = this.getUserControllerHelper().populateUsersDetailsVO(socUserFormBean);
-			this.getSocUserDetailsService().saveOrUpdate(socUserDetailsVO);
+			socUserDetailsVO = this.getSocUserDetailsService().saveOrUpdate(socUserDetailsVO);
 		} catch (SocietyMaintenanceException ex) {
 			LOGGER.error("Service exception while saving the user of user id : {} due to : {}", "", ex.getMessage());
 		} catch (Exception ex) {
 			LOGGER.error("Exception while saving the user of user id : {} due to : {}", "", ex.getMessage());
 		}
-		return "Success";
+		return socUserFormBean;
 	}
 
 	/**
@@ -147,7 +148,7 @@ public class UserController {
 		List<SocUserDetailsVO> socUserDetailsVOList = null;
 		try {
 			socUserDetailsVOList = this.getSocUserDetailsService().getAllUsers();
-			//model.addAttribute("userDetailList", socUserDetailsVOList);
+			// model.addAttribute("userDetailList", socUserDetailsVOList);
 		} catch (SocietyMaintenanceException ex) {
 			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
 		} catch (Exception ex) {
@@ -165,14 +166,11 @@ public class UserController {
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
 	public String getAllSocUsers(ModelMap model) {
 		LOGGER.debug("Fetching all the society users");
-		/*try {
-			//List<SocUserDetailsVO> socUserDetailsVOList = this.getSocUserDetailsService().getAllUsers();
-			//model.addAttribute("userDetailList", socUserDetailsVOList);
-		} catch (SocietyMaintenanceException ex) {
-			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
-		} catch (Exception ex) {
-			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
-		}*/
+		/*
+		 * try { //List<SocUserDetailsVO> socUserDetailsVOList = this.getSocUserDetailsService().getAllUsers(); //model.addAttribute("userDetailList", socUserDetailsVOList); }
+		 * catch (SocietyMaintenanceException ex) { LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex); } catch (Exception ex) { LOGGER.error(
+		 * "Exception of getting all the users due to {}", ex.getMessage(), ex); }
+		 */
 		return SEARCH_USER;
 	}
 

@@ -23,6 +23,7 @@ usermgmtService.factory('socUserService', ['$http','$q', function($http, $q){
 			return $http.post('/socmaintain/user/save',socUser )
 			.then(
 					function(response){
+						console.log('New User', response);
 						return response.data;
 					}, 
                     function(errResponse){

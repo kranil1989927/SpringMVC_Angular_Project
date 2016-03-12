@@ -23,18 +23,16 @@
 <body>
 <input type="hidden" id="context" value="<%=request.getContextPath()%>" />
 
-<!-- <div ng-controller="socUserCtrl"> -->
-<div >
-
-	<!-- <div id="example">
+<div ng-controller="socUserCtrl">
+	<div id="example">
     	<div id="grid"></div>
-	</div> -->
+	</div>
 	<ul>
 		Hello friends
-		<!-- <li ng-repeat="socUser in socusers">		
+		<li ng-repeat="socUser in socusers">		
 	    	<p>{{socUser.firstName}}</p>
 	        <p>{{socUser.lastName}}</p>
-	 	</li> -->
+	 	</li>
  	</ul>
 </div>
 

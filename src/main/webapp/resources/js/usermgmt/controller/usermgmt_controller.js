@@ -8,6 +8,7 @@ usermgmtController.controller('socUserCtrl', [ '$scope', 'socUserService',
 		function($scope, socUserService) {
 
 			var self = this;
+			$scope.isNew = false;
 			self.socUser = {
 				userId : null,
 				firstName : '',
@@ -26,7 +27,8 @@ usermgmtController.controller('socUserCtrl', [ '$scope', 'socUserService',
 
 			self.getAllUsers = function() {
 				socUserService.getAllUsers().then(function(responseData) {
-					/*$("#grid").kendoGrid({
+					console.log(responseData);
+					$("#grid").kendoGrid({
 					    dataSource: {
 					        transport: {
 					            read:  $('#context').val()+"/user/viewAll",
@@ -45,21 +47,19 @@ usermgmtController.controller('socUserCtrl', [ '$scope', 'socUserService',
 					        //template: "<div class='customer-photo' style='background-image: url(../content/web/Customers/#:data.CustomerID#.jpg);'></div> <div class='customer-name'>#: ContactName #</div>",
 					        field: "firstName",
 					        title: "Name",
-					        width: 240
+					        width: 200
 					    }, {
 					        field: "address",
 					        title: "Address"
 					    }, {
 					        field: "lastName",
-					        title: "Owner"
+					        title: "Last Name",
+						    width: 200
 					    }, {
 					        field: "emailId",
 					        title: "Email Id",
-					        width: 150
 					    }]
-					});*/
-
-					$scope.socusers = responseData;
+					});
 				}, function(errResponse) {
 					console.error('Error while fetching User Details');
 				});
@@ -67,8 +67,13 @@ usermgmtController.controller('socUserCtrl', [ '$scope', 'socUserService',
 
 			self.createSocUser = function(socUser) {
 				socUserService.createSocUser(socUser).then(
-				//console.log("Success"),
-				function(errResponse) {
+				   function(response) {
+					console.log('New User', response);
+					self.getAllUsers();
+					$scope.isNew = true;
+					$scope.message = "User name : " + response.userName + " - is created successfully";
+					self.reset();
+				}, function(errResponse) {
 					console.error('Error while creating User.');
 				});
 			};
@@ -78,10 +83,28 @@ usermgmtController.controller('socUserCtrl', [ '$scope', 'socUserService',
 					console.log('Saving New User', self.socUser);
 					self.createSocUser(self.socUser);
 				} else {
-					//self.updateUser(this.socUser, this.socUser.id);
 					console.log('User updated with id ', this.socUser.id);
 				}
 			};
+			
+			self.reset = function(){
+				self.socUser = {
+						userId : null,
+						firstName : '',
+						middleName : '',
+						lastName : '',
+						userName : '',
+						emailId : '',
+						panNo : '',
+						phoneNo : '',
+						address : '',
+						noOfMembers : '',
+						isOwner : '',
+						startDate : '',
+						endDate : ''
+					};
+	              $scope.socUserMaintain.$setPristine(); //reset Form
+	          };
 
 			self.getAllUsers();
 		} ]);

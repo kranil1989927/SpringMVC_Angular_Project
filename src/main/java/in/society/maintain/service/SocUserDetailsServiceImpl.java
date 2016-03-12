@@ -47,16 +47,18 @@ public class SocUserDetailsServiceImpl implements SocUserDetailsService {
 			this.getSocUserDAO().saveOrUpdateSocUser(socUser);
 
 			// Add Roles to User
-			for (UserRoleVO userRoleVO : socUserDetailsVO.getRoles()) {
-				UserRole userRole = new UserRole();
-				if (userRoleVO == null) {
-					userRole.setRole("ROLE_USER");
-				}
+			// for (UserRoleVO userRoleVO : socUserDetailsVO.getRoles()) {
+			UserRoleVO userRoleVO = new UserRoleVO();
+			UserRole userRole = new UserRole();
+			if (userRoleVO.getRole() == null) {
+				userRole.setRole("ROLE_USER");
+			} else {
 				userRole.setRole(userRoleVO.getRole());
-				userRole.setLoginDetails(loginDetails);
-				loginDetails.getRoles().add(userRole);
-				this.getSocUserDAO().saveOrUpdateUserRole(userRole);
 			}
+			userRole.setLoginDetails(loginDetails);
+			loginDetails.getRoles().add(userRole);
+			this.getSocUserDAO().saveOrUpdateUserRole(userRole);
+			// }
 		} catch (DataAccessException dae) {
 			LOGGER.error("Database exception while saving details of society user due to {}", dae.getMessage());
 			throw new SocietyMaintenanceException("Exception while saving details of society user due to : " + dae.getMessage(), dae);

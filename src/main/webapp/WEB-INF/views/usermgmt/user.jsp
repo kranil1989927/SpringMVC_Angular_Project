@@ -26,9 +26,17 @@
 	});
 </script>
 </head>
-<body >
+<body data-ng-controller="socUserCtrl as newCtrl">
+	<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
+	
+	<div ng-if="isNew">
+		<div class="reportMsg"><label class="userMsg" for="message">{{message}}</label></div>
+	</div>
+	
+	<div id="example"><div id="grid"></div>	</div>
+	
 	<h1>Add New User</h1>
-	<form class="socuser" data-ng-submit="newCtrl.submit()" data-ng-controller="socUserCtrl as newCtrl">
+	<form class="socuser" data-ng-submit="newCtrl.submit()" name="socUserMaintain">
 		<input type="hidden" data-ng-model="newCtrl.socUser.userId" />
 		<fieldset class="row1">
 			<legend>Personal Details </legend>
@@ -38,7 +46,7 @@
 				<label>Last Name </label> <input type="text" data-ng-model="newCtrl.socUser.lastName" id="lastName" />
 			</p>
 			<p>
-				<label>User Name </label> <input type="text" data-ng-model="newCtrl.socUser.userName" id="userName"/>
+				<label>User Name </label> <input type="text" data-ng-model="newCtrl.socUser.userName" ng-bind="{{newCtrl.socUser.firstName}}{{newCtrl.socUser.lastName}}" id="userName"/>
 			</p>
 			<p>
 				<label>Email </label> <input type="email"  data-ng-model="newCtrl.socUser.emailId" id="emailId"/> 
