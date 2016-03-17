@@ -46,10 +46,10 @@
 				<label>Last Name </label> <input type="text" data-ng-model="newCtrl.socUser.lastName" id="lastName" />
 			</p>
 			<p>
-				<label>User Name </label> <input type="text" data-ng-model="newCtrl.socUser.userName" ng-bind="{{newCtrl.socUser.firstName}}{{newCtrl.socUser.lastName}}" id="userName"/>
+				<label>User Name </label> <input type="text" data-ng-model="newCtrl.socUser.userName" ng-readonly="true" id="userName"/>
 			</p>
 			<p>
-				<label>Email </label> <input type="email"  data-ng-model="newCtrl.socUser.emailId" id="emailId"/> 
+				<label>Email </label> <input type="email"  data-ng-model="newCtrl.socUser.emailId" ng-focus="getUserName()" id="emailId"/> 
 				<label>PAN Number </label> <input type="text" data-ng-model="newCtrl.socUser.panNo" id="panNo" data-ng-minlength="10"/>
 			</p>
 			<p>
@@ -69,15 +69,17 @@
 			</p>
 			<p>
 				<label>Is Owner? </label> 
-				<input type="radio" name="isOwner" value="owner" data-ng-model="newCtrl.socUser.isOwner" checked /> <label class="residenttype">Owner</label>
+				<input type="radio" name="isOwner" value="owner" data-ng-model="newCtrl.socUser.isOwner" ng-checked="true" /> <label class="residenttype">Owner</label>
 				<input type="radio" name="isOwner" value="tenant" data-ng-model="newCtrl.socUser.isOwner" /> <label class="residenttype">Tenant</label>
 			</p>
 			<p>
 				<label>Start Date </label> <input type="text" id="startDate" data-ng-model="newCtrl.socUser.startDate" />
+				
+				<span ng-show="newCtrl.socUser.isOwner == 'tenant'">
+					<label>End Date </label> <input type="text" id="endDate" data-ng-model="newCtrl.socUser.endDate"/>
+				</span>
 			</p>
-			<p>
-				<label>End Date </label> <input type="text" id="endDate" data-ng-model="newCtrl.socUser.endDate"/>
-			</p>
+			
 		</fieldset>
 		<fieldset class="row1">
 			<div align="center">

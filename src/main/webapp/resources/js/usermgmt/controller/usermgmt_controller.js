@@ -25,6 +25,10 @@ usermgmtController.controller('socUserCtrl', [ '$scope', 'socUserService',
 				endDate : ''
 			};
 
+			$scope.getUserName = function(){
+				self.socUser.userName = angular.lowercase(self.socUser.firstName + self.socUser.lastName);
+			};
+			
 			self.getAllUsers = function() {
 				socUserService.getAllUsers().then(function(responseData) {
 					console.log(responseData);
@@ -44,7 +48,8 @@ usermgmtController.controller('socUserCtrl', [ '$scope', 'socUserService',
 					        buttonCount: 5
 					    },
 					    columns: [{
-					        //template: "<div class='customer-photo' style='background-image: url(../content/web/Customers/#:data.CustomerID#.jpg);'></div> <div class='customer-name'>#: ContactName #</div>",
+					    	//../content/web/Customers/#:data.CustomerID#.jpg
+					        template: "<div class='customer-photo' style='background-image: url(../resources/images/profile.png);'></div> <div class='customer-name'>#: firstName #</div>",
 					        field: "firstName",
 					        title: "Name",
 					        width: 200
