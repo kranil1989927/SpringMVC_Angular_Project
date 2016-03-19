@@ -63,8 +63,8 @@
 				</p>
 				</div>
 				<div class="uploadImage">
-					<img ng-src="{{imageSrc}}" class="imgDiv"/><br />
-					<input type="file" ng-file-select="onFileSelect($files)"/>
+					<img ng-src="{{imageSrc}}" class="imgDiv" /><br />
+					<input type="file"  accept=".jpg,.jpeg,.png" ng-file-select="onFileSelect($files)" data-ng-model="newCtrl.socUser.profileImage"/>
 					<br/>
 					<b>Progress:</b><br/>
 					<progress value="{{progress}}"></progress>

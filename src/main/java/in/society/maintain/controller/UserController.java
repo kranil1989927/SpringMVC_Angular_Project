@@ -148,7 +148,6 @@ public class UserController {
 		List<SocUserDetailsVO> socUserDetailsVOList = null;
 		try {
 			socUserDetailsVOList = this.getSocUserDetailsService().getAllUsers();
-			// model.addAttribute("userDetailList", socUserDetailsVOList);
 		} catch (SocietyMaintenanceException ex) {
 			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
 		} catch (Exception ex) {

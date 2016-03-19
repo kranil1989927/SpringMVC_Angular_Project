@@ -3,9 +3,7 @@ package in.society.maintain.service;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +12,6 @@ import org.springframework.stereotype.Component;
 import in.society.maintain.controller.UserController;
 import in.society.maintain.model.LoginDetails;
 import in.society.maintain.model.SocUser;
-import in.society.maintain.model.UserRole;
 
 @Component
 public class SocUserDetailsServiceHelper {
@@ -40,6 +37,9 @@ public class SocUserDetailsServiceHelper {
 		socUserDetailsVO.setEmailId(socUser.getEmailId());
 		socUserDetailsVO.setPhoneNo(socUser.getPhoneNo());
 		socUserDetailsVO.setPanNo(socUser.getPanNo());
+		if (socUser.getProfileImage() != null) {
+			socUserDetailsVO.setProfileImage(new String(socUser.getProfileImage()));
+		}
 		socUserDetailsVO.setIsOwner(socUser.getIsOwner());
 		socUserDetailsVO.setAddress(socUser.getAddress());
 		socUserDetailsVO.setNoOfMembers(socUser.getNoOfMembers());
@@ -58,6 +58,7 @@ public class SocUserDetailsServiceHelper {
 		socUser.setLastName(socUserDetailsVO.getLastName());
 		socUser.setEmailId(socUserDetailsVO.getEmailId());
 		socUser.setPhoneNo(socUserDetailsVO.getPhoneNo());
+		socUser.setProfileImage(socUserDetailsVO.getProfileImage().getBytes());
 		socUser.setPanNo(socUserDetailsVO.getPanNo());
 		socUser.setIsOwner(socUserDetailsVO.getIsOwner());
 		socUser.setAddress(socUserDetailsVO.getAddress());

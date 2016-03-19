@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -60,6 +61,10 @@ public class SocUser implements Serializable {
 	@Temporal(TemporalType.DATE)
 	@Column(name = "END_DATE")
 	private Date endDate;
+
+	//@Lob
+	@Column(name = "USER_PROFILE_PIC", nullable=true, columnDefinition="bytea")
+	private byte[] profileImage;
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "socUser", cascade = CascadeType.ALL)
 	private LoginDetails loginDetails;
@@ -160,6 +165,14 @@ public class SocUser implements Serializable {
 		this.endDate = endDate;
 	}
 
+	public byte[] getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(byte[] profileImage) {
+		this.profileImage = profileImage;
+	}
+
 	public LoginDetails getLoginDetails() {
 		return loginDetails;
 	}
@@ -192,4 +205,5 @@ public class SocUser implements Serializable {
 			return false;
 		return true;
 	}
+
 }

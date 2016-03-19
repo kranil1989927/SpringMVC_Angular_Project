@@ -9,6 +9,7 @@ public class SocUserFormBean {
 	private String lastName;
 	private String emailId;
 	private String phoneNo;
+	private String profileImage;
 	private String panNo;
 	private String isOwner;
 	private String address;
@@ -71,6 +72,14 @@ public class SocUserFormBean {
 
 	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
+	}
+
+	public String getProfileImage() {
+		return profileImage;
+	}
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
 	}
 
 	public String getPanNo() {

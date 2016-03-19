@@ -22,6 +22,7 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'fileReader' 
 				noOfMembers : '',
 				isOwner : '',
 				startDate : '',
+				profileImage : '',
 				endDate : ''
 			};
 
@@ -48,6 +49,7 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'fileReader' 
 		         $scope.progress = 0;
 		         fileReader.readAsDataURL($scope.file, $scope).then(function(result) {
 		        	 $scope.imageSrc = result;
+		        	 self.socUser.profileImage = result;
 		         });
 		     };
 		  
@@ -75,8 +77,7 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'fileReader' 
 					        buttonCount: 5
 					    },
 					    columns: [{
-					    	//../content/web/Customers/#:data.CustomerID#.jpg
-					        template: "<div class='customer-photo' style='background-image: url(../resources/images/profile.png);'></div> <div class='customer-name'>#: firstName #</div>",
+					        template: "<div class='customer-photo' style='background-image: url(data:image/JPEG;base64,#: profileImage #);'></div> <div class='customer-name'>#: firstName #</div>",
 					        field: "firstName",
 					        title: "Name",
 					        width: 200
@@ -133,6 +134,7 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'fileReader' 
 						noOfMembers : '',
 						isOwner : '',
 						startDate : '',
+						profileImage : '',
 						endDate : ''
 					};
 	              $scope.socUserMaintain.$setPristine(); //reset Form
