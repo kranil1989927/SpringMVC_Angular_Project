@@ -22,7 +22,7 @@
 <script type="text/javascript" src="<c:url value="/resources/js/usermgmt/service/usermgmt_service.js"/>"></script>
 <script>
 	$(document).ready(function() {
-		$("#startDate, #endDate").datepicker();
+		$("#startDate").datepicker();
 	});
 </script>
 </head>
@@ -73,10 +73,10 @@
 				<input type="radio" name="isOwner" value="tenant" data-ng-model="newCtrl.socUser.isOwner" /> <label class="residenttype">Tenant</label>
 			</p>
 			<p>
-				<label>Start Date </label> <input type="text" id="startDate" data-ng-model="newCtrl.socUser.startDate" />
+				<label>Start Date </label> <input type="text" id="startDate" data-ng-model="newCtrl.socUser.startDate" ng-change="calAgreementEndDate()" />
 				
 				<span ng-show="newCtrl.socUser.isOwner == 'tenant'">
-					<label>End Date </label> <input type="text" id="endDate" data-ng-model="newCtrl.socUser.endDate"/>
+					<label>End Date </label> <input type="text" id="endDate" data-ng-model="newCtrl.socUser.endDate" ng-readonly="true" />
 				</span>
 			</p>
 			

@@ -4,8 +4,8 @@
 
 var usermgmtController = angular.module('usermgmtController', []);
 
-usermgmtController.controller('socUserCtrl', [ '$scope', 'socUserService',
-		function($scope, socUserService) {
+usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'socUserService',
+		function($scope, $filter, socUserService) {
 
 			var self = this;
 			$scope.isNew = false;
@@ -28,6 +28,19 @@ usermgmtController.controller('socUserCtrl', [ '$scope', 'socUserService',
 			$scope.getUserName = function(){
 				self.socUser.userName = angular.lowercase(self.socUser.firstName + self.socUser.lastName);
 			};
+			
+			
+			$scope.calAgreementEndDate = function(){
+				if(self.socUser.isOwner == 'tenant'){
+					var selStartDate = new Date(self.socUser.startDate);
+					selStartDate.setMonth(selStartDate.getMonth() + 11);
+					selStartDate.setDate(selStartDate.getDate() - 1);
+				    self.socUser.endDate = $filter('date')(selStartDate, "MM/dd/yyyy");
+				}
+				else {
+					return;
+				}
+			}
 			
 			self.getAllUsers = function() {
 				socUserService.getAllUsers().then(function(responseData) {
@@ -76,8 +89,8 @@ usermgmtController.controller('socUserCtrl', [ '$scope', 'socUserService',
 					console.log('New User', response);
 					self.getAllUsers();
 					$scope.isNew = true;
-					$scope.message = "User name : " + response.userName + " - is created successfully";
 					self.reset();
+					$scope.message = "User name : " + response.userName + " - is created successfully";
 				}, function(errResponse) {
 					console.error('Error while creating User.');
 				});
