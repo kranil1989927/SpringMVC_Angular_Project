@@ -4,8 +4,8 @@
 
 var usermgmtController = angular.module('usermgmtController', []);
 
-usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'socUserService',
-		function($scope, $filter, socUserService) {
+usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'fileReader' ,'socUserService' ,
+		function($scope, $filter, fileReader, socUserService) {
 
 			var self = this;
 			$scope.isNew = false;
@@ -40,8 +40,22 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'socUserServi
 				else {
 					return;
 				}
-			}
+			};
 			
+			// File Upload functions
+		     console.log(fileReader)
+		     $scope.getFile = function () {
+		         $scope.progress = 0;
+		         fileReader.readAsDataURL($scope.file, $scope).then(function(result) {
+		        	 $scope.imageSrc = result;
+		         });
+		     };
+		  
+		     $scope.$on("fileProgress", function(e, progress) {
+		         $scope.progress = progress.loaded / progress.total;
+		     });
+			
+		    // User Management controller functions 
 			self.getAllUsers = function() {
 				socUserService.getAllUsers().then(function(responseData) {
 					console.log(responseData);

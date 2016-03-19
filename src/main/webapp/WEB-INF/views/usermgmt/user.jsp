@@ -17,9 +17,11 @@
 <script type="text/javascript" src="<c:url value="/resources/js/vendor/angular.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/vendor/angular-route.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/vendor/angular-resource.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/fileUpload.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/app.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/resources/js/usermgmt/controller/usermgmt_controller.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/usermgmt/service/usermgmt_service.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/usermgmt/controller/usermgmt_controller.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/usermgmt/directive/usermgmt_directive.js"/>"></script>
 <script>
 	$(document).ready(function() {
 		$("#startDate").datepicker();
@@ -38,26 +40,38 @@
 	<h1>Add New User</h1>
 	<form class="socuser" data-ng-submit="newCtrl.submit()" name="socUserMaintain">
 		<input type="hidden" data-ng-model="newCtrl.socUser.userId" />
-		<fieldset class="row1">
+		<fieldset class="profileDetails">
 			<legend>Personal Details </legend>
-			<p>
-				<label>First Name </label> <input type="text" data-ng-model="newCtrl.socUser.firstName" id="firstName" /> 
-				<label>Middle Name </label> <input type="text" data-ng-model="newCtrl.socUser.middleName" id="middleName" /> 
-				<label>Last Name </label> <input type="text" data-ng-model="newCtrl.socUser.lastName" id="lastName" />
-			</p>
-			<p>
-				<label>User Name </label> <input type="text" data-ng-model="newCtrl.socUser.userName" ng-readonly="true" id="userName"/>
-			</p>
-			<p>
-				<label>Email </label> <input type="email"  data-ng-model="newCtrl.socUser.emailId" ng-focus="getUserName()" id="emailId"/> 
-				<label>PAN Number </label> <input type="text" data-ng-model="newCtrl.socUser.panNo" id="panNo" data-ng-minlength="10"/>
-			</p>
-			<p>
-				<label>Mobile </label> <input type="text" data-ng-minlength="10" data-ng-model="newCtrl.socUser.phoneNo" id="phoneNo" />
-			</p>
-
-
+			<div class="container">
+				<div class="personalInformation">
+				<p>
+					<label>First Name </label> <input type="text" data-ng-model="newCtrl.socUser.firstName" id="firstName" /> 
+					<label>Middle Name </label> <input type="text" data-ng-model="newCtrl.socUser.middleName" id="middleName" /> 
+					<label>Last Name </label> <input type="text" data-ng-model="newCtrl.socUser.lastName" id="lastName" />
+				</p>
+				<p>
+					<label>User Name </label> <input type="text" data-ng-model="newCtrl.socUser.userName" ng-readonly="true" id="userName"/>
+				</p>
+				<p>
+					<label>Email </label> <input type="email"  data-ng-model="newCtrl.socUser.emailId" ng-focus="getUserName()" id="emailId"/>
+				</p>
+				<p>
+					<label>PAN Number </label> <input type="text" data-ng-model="newCtrl.socUser.panNo" id="panNo" data-ng-minlength="10"/>
+				</p>
+				<p>
+					<label>Mobile </label> <input type="text" data-ng-minlength="10" data-ng-model="newCtrl.socUser.phoneNo" id="phoneNo" />
+				</p>
+				</div>
+				<div class="uploadImage">
+					<img ng-src="{{imageSrc}}" class="imgDiv"/><br />
+					<input type="file" ng-file-select="onFileSelect($files)"/>
+					<br/>
+					<b>Progress:</b><br/>
+					<progress value="{{progress}}"></progress>
+				</div>
+			</div>
 		</fieldset>
+		
 		<fieldset class="row1">
 			<legend>Residential Information </legend>
 			<p>

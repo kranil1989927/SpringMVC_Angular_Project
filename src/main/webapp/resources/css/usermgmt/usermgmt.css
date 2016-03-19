@@ -43,6 +43,14 @@ form p {
 	padding: 4px;
 }
 
+form.socuser fieldset.profileDetails {
+	width: 100%;
+	padding: 12px;
+	float: left;
+	border-top: 1px solid #F5F5F5;
+	margin-bottom: 15px;
+}
+
 form.socuser fieldset.row1 {
 	width: 100%;
 	padding: 12px;
@@ -88,6 +96,7 @@ form.socuser input[type=radio] {
 	width: 25px;
 }
 
+
 form.socuser label.residenttype {
 	margin-top: -1px;
 	margin-bottom: 2px;
@@ -105,6 +114,31 @@ form.socuser input[type=text] {
 form.socuser input[type=email] {
 	border: 1px solid #E1E1E1;
 	height: 18px;
+}
+
+form.socuser input[type=file] {
+	width: 100% !important; 
+	height: 21px !important;
+}
+
+
+.container{
+	width: 100%; 
+}
+
+.imgDiv{
+	width: 140px; 
+	height: 140px;
+}
+
+
+.uploadImage{
+	float: left;
+}
+
+.personalInformation{
+	max-width: 100%;
+	float: left;
 }
 
 .button {

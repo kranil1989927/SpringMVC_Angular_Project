@@ -2,7 +2,7 @@
 
 /* Society Maintenance Application Module */
 
-var socUserMgmtApp = angular.module('socUserMgmtApp', ['ngRoute','usermgmtService','usermgmtController']);
+var socUserMgmtApp = angular.module('socUserMgmtApp', ['ngRoute','usermgmtDirective' ,'fileUploader' ,'usermgmtService' ,'usermgmtController']);
 
 socUserMgmtApp.config(['$routeProvider',function($routeProvider) {
 	$routeProvider.when('/user/search', {
