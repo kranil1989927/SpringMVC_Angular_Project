@@ -5,14 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Add New User</title>
-<%-- <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/bootstrap.css"/>"></link> --%>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/grid/kendo.common.min.css"/>"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/grid/kendo.default.min.css"/>"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/jquery-ui.css"/>"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/usermgmt/usermgmt.css"/>"></link>
 
 <script type="text/javascript" src="<c:url value="/resources/js/vendor/jquery-1.12.1.js"/>"></script>
-<script type="text/javascript"	src="<c:url value="/resources/js/vendor/jquery-ui.js"/>"></script>
+<script type="text/javascript" src="<c:url value="/resources/js/vendor/jquery-ui.js"/>"></script>
 <script	type="text/javascript" src="<c:url value="/resources/js/vendor/kendo.all.min.js"/>"></script> 
 <script type="text/javascript" src="<c:url value="/resources/js/vendor/angular.js"/>"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/vendor/angular-route.js"/>"></script>

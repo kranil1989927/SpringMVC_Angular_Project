@@ -31,6 +31,20 @@ usermgmtService.factory('socUserService', ['$http','$q', function($http, $q){
                     	return $q.reject(errResponse);
                     }
 			);
+		},
+		
+		viewUserDetails : function(userId){
+			return $http.get('/socmaintain/user/viewuser/'+ userId)
+			.then(
+					function(response){
+						console.log('User Details', response);
+						return response.data;
+					}, 
+                    function(errResponse){
+                    	console.error('Error while viewing the User Details.');
+                    	return $q.reject(errResponse);
+                    }
+			);
 		}
 	};
 }])

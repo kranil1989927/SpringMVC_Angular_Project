@@ -15,8 +15,6 @@ import in.society.maintain.service.UserRoleVO;
 @Component
 public class UserControllerHelper {
 	
-	private static final String IMG_BASE_64 = "data:image/jpeg;base64,";
-
 	public UserDetailsVO populateUserDetailsVO(UserDetailsFormBean userDetailsFormBean) {
 		UserDetailsVO userDetailsVO = new UserDetailsVO();
 
@@ -74,8 +72,8 @@ public class UserControllerHelper {
 		}
 		
 		if(!CommonUtils.isNullorEmpty(socUserFormBean.getProfileImage())){
-			String profilePic = socUserFormBean.getProfileImage().replace(IMG_BASE_64, "");
-			socUserDetailsVO.setProfileImage(profilePic);
+			String[] profilePicBase64 = socUserFormBean.getProfileImage().split(",");
+			socUserDetailsVO.setProfileImage(profilePicBase64[1].toString());
 		}
 		
 		if (!CommonUtils.isNullorEmpty(socUserFormBean.getPhoneNo())) {

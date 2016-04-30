@@ -62,7 +62,6 @@ public class SocUser implements Serializable {
 	@Column(name = "END_DATE")
 	private Date endDate;
 
-	//@Lob
 	@Column(name = "USER_PROFILE_PIC", nullable=true, columnDefinition="bytea")
 	private byte[] profileImage;
 

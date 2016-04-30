@@ -39,7 +39,7 @@ public class UserController {
 
 	/** User Management View */
 	private static final String USER_DETAILS_VIEW = "/usermgmt/view";
-	private static final String ADD_USER = "/usermgmt/user";
+	private static final String ADD_USER = "/usermgmt/adduser";
 	private static final String UPDATE_USER = "/usermgmt/edituser";
 	private static final String SEARCH_USER = "/usermgmt/search";
 	private static final String SEARCH_USER_ALL = "/usermgmt/searchuser";
@@ -119,14 +119,16 @@ public class UserController {
 	 * @return User Details view page.
 	 */
 	@RequestMapping(value = "/view/{userId}", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
 	public String getUserDetails(ModelMap model, @PathVariable(value = "userId") Long userId) {
 		LOGGER.debug("Request to get the user details of userid : {}", userId);
+		SocUserDetailsVO socUserDetailsVO = null;
 		try {
-			SocUserDetailsVO socUserDetailsVO = this.getSocUserDetailsService().getSocUserDetails(userId);
+			 socUserDetailsVO = this.getSocUserDetailsService().getSocUserDetails(userId);
 			if (socUserDetailsVO != null) {
 				LOGGER.info("User Details of User Id : {} is fetched successfully", userId);
 			}
+			model.put("userId", userId);
+			model.put("socUserDetails", socUserDetailsVO);
 		} catch (SocietyMaintenanceException ex) {
 			LOGGER.error("Service exception while getting the user details of user id : {} due to : {}", userId, ex.getMessage());
 		} catch (Exception ex) {
@@ -134,7 +136,7 @@ public class UserController {
 		}
 		return USER_DETAILS_VIEW;
 	}
-
+	
 	/**
 	 * Method to get all the society user.
 	 * 

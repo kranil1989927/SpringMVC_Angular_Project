@@ -202,3 +202,10 @@ input:focus, select:focus {
 	font-size: 16px !important;
 	padding: 5px;
 }
+
+#example{
+	width: 90%;
+    align-content: center;
+    position: absolute;
+    padding-left: 70px;
+}

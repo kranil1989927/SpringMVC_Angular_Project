@@ -37,12 +37,12 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String getHomePage(Locale locale, ModelMap model) {
 		LOGGER.debug("Accessing to application home page");
-		try {
+		/*try {
 			List<Module> modulelist = moduleService.getAllTopModules("ADMIN_ROLE");
 			model.addAttribute("modulelist", modulelist);
 		} catch (SocietyMaintenanceException e) {
 			e.printStackTrace();
-		}
+		}*/
 		return "home";
 	}
 

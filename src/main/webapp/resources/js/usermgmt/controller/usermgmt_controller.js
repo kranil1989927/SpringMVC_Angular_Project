@@ -67,17 +67,23 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'fileReader' 
 					            read:  $('#context').val()+"/user/viewAll",
 					            dataType: "Json"
 					        },
-					        pageSize: 20
+					        pageSize: 10
 					    },
-					    height: 400,
+					    height: 325,
 					    sortable: true,
 					    pageable: {
 					        refresh: true,
 					        pageSizes: true,
 					        buttonCount: 5
 					    },
-					    columns: [{
-					        template: "<div class='customer-photo' style='background-image: url(data:image/JPEG;base64,#: profileImage #);'></div> <div class='customer-name'>#: firstName #</div>",
+					    columns: [
+					       {
+					        template: "<div align=right><a href='"+ $('#context').val()+"/user/view/#: userId #'> #: userId #</a></div>",
+					        field: "userId",
+					        title: "Id",
+					        width: 50
+					    }, {
+					        template: "<div class='customer-photo' style='background-image: url(data:image/JPEG;base64,#: profileImage #);'></div> <div class='customer-name'>#: firstName # #: lastName #</div>",
 					        field: "firstName",
 					        title: "Name",
 					        width: 200
@@ -119,6 +125,15 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'fileReader' 
 					console.log('User updated with id ', this.socUser.id);
 				}
 			};
+			
+			// Get User Details based on user Id
+			self.viewUserDetails = function(userId){
+				socUserService.viewUserDetails(userId).then(function(response) {
+					console.log('User Details', response);
+				}, function(errResponse) {
+					console.error('Error while viewing the User Details.');
+				});
+			}
 			
 			self.reset = function(){
 				self.socUser = {
