@@ -10,9 +10,14 @@
 <body>
 	<jsp:include page="../header.jsp" />
 	<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
-	<div ng-app="socUserMgmtApp" ng-controller="socUserCtrl">
+	<div ng-app="socUserMgmtApp" ng-controller="socUserCtrl as searchCtrl">
 		<div id="example">
 			<div id="grid"></div>
+			<div style="padding-top: 15px;"><span width="100%"></span></div>
+			<div>
+				<button class="button" data-ng-click="searchCtrl.editUserDetails()" id="edit">Edit</button>
+				<button class="button deleteButton" data-ng-click="searchCtrl.deleteUserDetails()" id="delete">Delete</button>
+			</div>
 		</div>
 	</div>
 </body>

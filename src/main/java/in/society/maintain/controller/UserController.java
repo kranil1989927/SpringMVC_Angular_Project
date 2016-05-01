@@ -63,7 +63,21 @@ public class UserController {
 	 * @return update existing user page
 	 */
 	@RequestMapping(value = "/update/{userId}", method = RequestMethod.GET)
-	public String getUpdateUserPage(Model model, @PathVariable(value = "userId") Long userId) {
+	public String getUpdateUserPage(ModelMap model, @PathVariable(value = "userId") Long userId) {
+		LOGGER.debug("Request to get the user details of userid : {}", userId);
+		SocUserDetailsVO socUserDetailsVO = null;
+		try {
+			 socUserDetailsVO = this.getSocUserDetailsService().getSocUserDetails(userId);
+			if (socUserDetailsVO != null) {
+				LOGGER.info("User Details of User Id : {} is fetched successfully", userId);
+			}
+			model.put("userId", userId);
+			model.put("socUserDetails", socUserDetailsVO);
+		} catch (SocietyMaintenanceException ex) {
+			LOGGER.error("Service exception while getting the user details of user id : {} due to : {}", userId, ex.getMessage());
+		} catch (Exception ex) {
+			LOGGER.error("Exception while getting the user details of user id : {} due to : {}", userId, ex.getMessage());
+		}
 		return UPDATE_USER;
 	}
 

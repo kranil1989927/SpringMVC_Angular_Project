@@ -12,7 +12,12 @@
 	<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
 	<jsp:include page="../header.jsp" />
 	<input type="hidden" id="userId" value="${userId}">
-
+	
+	<fieldset class="row1">
+		<div align="right">
+			<button class="button">Edit</button>
+		</div>
+	</fieldset>
 	<fieldset class="profileDetails">
 		<legend>Personal Details </legend>
 		<div class="container">
@@ -35,7 +40,9 @@
 					<label>Mobile </label> <span>${socUserDetails.phoneNo}</span>
 				</p>
 			</div>
-			<div class="uploadImage"></div>
+			<div class="uploadImage">
+				<img  src="data:image/jpeg;base64,${socUserDetails.profileImage}" height="120px" width="120px"/>
+			</div>
 		</div>
 	</fieldset>
 
@@ -55,11 +62,6 @@
 			<label>End Date </label> <span>${socUserDetails.endDate}</span>
 		</p>
 
-	</fieldset>
-	<fieldset class="row1">
-		<div align="center">
-			<button class="button">Cancel</button>
-		</div>
 	</fieldset>
 </body>
 </html>

@@ -45,6 +45,20 @@ usermgmtService.factory('socUserService', ['$http','$q', function($http, $q){
                     	return $q.reject(errResponse);
                     }
 			);
-		}
+		},
+		
+		deleteUserDetails : function(userId){
+			return $http.get('/socmaintain/user/delete/'+ userId)
+			.then(
+					function(response){
+						console.log('User Details is deleted successfully', response);
+						return response.data;
+					}, 
+                    function(errResponse){
+                    	console.error('Error while deleting the User Details.');
+                    	return $q.reject(errResponse);
+                    }
+			);
+		},
 	};
 }])

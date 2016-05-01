@@ -4,8 +4,8 @@
 
 var usermgmtController = angular.module('usermgmtController', []);
 
-usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'fileReader' ,'socUserService' ,
-		function($scope, $filter, fileReader, socUserService) {
+usermgmtController.controller('socUserCtrl', [ '$scope','$filter', '$window' ,'fileReader' ,'socUserService' ,
+		function($scope, $filter,$window, fileReader, socUserService) {
 
 			var self = this;
 			$scope.isNew = false;
@@ -43,6 +43,27 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'fileReader' 
 				}
 			};
 			
+			self.editUserDetails = function(){
+				console.log("Edit button is clicked");
+				var userGrid = $("#grid").data("kendoGrid");
+				var selectedItem = userGrid.dataItem(userGrid.select());
+				if(selectedItem !== null){
+					self.socUser = selectedItem;
+					$window.location = $('#context').val()+"/user/update/"+ selectedItem.userId;
+					return false;
+				}
+			};
+			
+			self.deleteUserDetails = function(){
+				console.log("Delete button is clicked");
+				var userGrid = $("#grid").data("kendoGrid");
+				var selectedItem = userGrid.dataItem(userGrid.select());
+				if(selectedItem !== null){
+					$window.location = $('#context').val()+"/user/delete/"+ selectedItem.userId;
+					return false;
+				}
+			};
+			
 			// File Upload functions
 		     console.log(fileReader)
 		     $scope.getFile = function () {
@@ -67,9 +88,10 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'fileReader' 
 					            read:  $('#context').val()+"/user/viewAll",
 					            dataType: "Json"
 					        },
-					        pageSize: 10
+					        pageSize: 5
 					    },
-					    height: 325,
+					    selectable: true,
+					    height: 265,
 					    sortable: true,
 					    pageable: {
 					        refresh: true,
@@ -78,22 +100,20 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'fileReader' 
 					    },
 					    columns: [
 					       {
-					        template: "<div align=right><a href='"+ $('#context').val()+"/user/view/#: userId #'> #: userId #</a></div>",
+					    	hidden: true,
 					        field: "userId",
-					        title: "Id",
-					        width: 50
 					    }, {
-					        template: "<div class='customer-photo' style='background-image: url(data:image/JPEG;base64,#: profileImage #);'></div> <div class='customer-name'>#: firstName # #: lastName #</div>",
+					        template: "<div class='customer-photo' style='background-image: url(data:image/JPEG;base64,#: profileImage #);'></div> <div class='customer-name'><a href='"+ $('#context').val()+"/user/view/#: userId #'>#: firstName # #: lastName #</a></div>",
 					        field: "firstName",
 					        title: "Name",
 					        width: 200
+					    },{
+					        field: "userName",
+					        title: "User Name",
+						    width: 150
 					    }, {
 					        field: "address",
 					        title: "Address"
-					    }, {
-					        field: "lastName",
-					        title: "Last Name",
-						    width: 200
 					    }, {
 					        field: "emailId",
 					        title: "Email Id",
@@ -134,6 +154,21 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter' ,'fileReader' 
 					console.error('Error while viewing the User Details.');
 				});
 			}
+			
+			// Delete User
+			self.deleteUserDetails = function(){
+				console.log("Delete button is clicked");
+				var userGrid = $("#grid").data("kendoGrid");
+				var selectedItem = userGrid.dataItem(userGrid.select());
+				if(selectedItem !== null){
+					var user = selectedItem.fisrtName + " " + selectedItem.lastName;
+					socUserService.deleteUserDetails(selectedItem.userId).then(function(response) {
+						console.log('User Details', response);
+					}, function(errResponse) {
+						console.error('Error while deleting the User Details of User :  ' +user);
+					});
+				}
+			};
 			
 			self.reset = function(){
 				self.socUser = {

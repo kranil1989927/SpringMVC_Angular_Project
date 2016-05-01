@@ -4,13 +4,13 @@
 	border: 0;
 }
 
-body, html {
+/* body, html {
 	color: #373C40;
 	font-family: sans-serif;
 	background-color: #f0f0f0;
 	margin: 10px;
 	font-size: 10pt;
-}
+} */
 
 p {
 	padding: 7px 0 7px 0;
@@ -91,6 +91,13 @@ form.socuser input {
 	margin-right: 5px;
 }
 
+form.socuser input[type=submit] {
+	width: 60px;
+	color: #505050;
+	float: left;
+	margin-right: 5px;
+}
+
 form.socuser input[type=radio] {
 	float: left;
 	width: 25px;
@@ -142,19 +149,19 @@ form.socuser input[type=file] {
 }
 
 .button {
-	background: #abda0f url(../../images/overlay.png) repeat-x;
+	background: #B6CDD4 url(../../images/overlay.png) repeat-x;
 	padding: 8px 10px 8px;
-	color: #fff !important;
+	color: #000000 !important;
 	text-decoration: none;
-	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.25);
 	cursor: pointer;
 	float: left !important;
-	font-size: 18px;
-	margin: 10px;
+	font-size: 14px;
+}
+
+.deleteButton{
+	margin-left: 10px;
 }
 
 form.socuser textarea {
@@ -208,4 +215,9 @@ input:focus, select:focus {
     align-content: center;
     position: absolute;
     padding-left: 70px;
+}
+
+.userId{
+	 width: 15px; 
+	 height: 15px;
 }

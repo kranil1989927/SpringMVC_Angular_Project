@@ -39,6 +39,11 @@ public class SocUserDetailsDAOImpl implements SocUserDetailsDAO {
 		SocUser socUser = this.getSocUserDetails(userId);
 		if (null != socUser) {
 			String userName = socUser.getFirstName() + " " + socUser.getLastName();
+			for(UserRole role : socUser.getLoginDetails().getRoles()){
+				LOGGER.debug("The Role {} is deleted successfully", role.getRole());
+				this.getCurrSession().delete(role);
+			}
+			
 			this.getCurrSession().delete(socUser);
 			isDeleted = Boolean.TRUE;
 			LOGGER.debug("user {} is deleted successfully", userName);
