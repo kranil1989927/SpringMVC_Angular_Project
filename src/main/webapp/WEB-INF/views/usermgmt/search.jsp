@@ -9,6 +9,7 @@
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
+	<br/><br/>
 	<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
 	<div ng-app="socUserMgmtApp" ng-controller="socUserCtrl as searchCtrl">
 		<div id="example">

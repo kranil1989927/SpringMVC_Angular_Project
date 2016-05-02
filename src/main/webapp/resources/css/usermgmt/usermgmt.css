@@ -84,6 +84,12 @@ form.socuser label {
 	margin-top: 2px;
 }
 
+.viewName {
+	float: left;
+	padding-top: 2px;
+	font-weight: bold;
+}
+
 form.socuser input {
 	width: 140px;
 	color: #505050;
@@ -220,4 +226,8 @@ input:focus, select:focus {
 .userId{
 	 width: 15px; 
 	 height: 15px;
+}
+
+.button-left{
+	padding-left: 17px;
 }

@@ -36,8 +36,7 @@
 		<div class="cl">&nbsp;</div>
 	</header>
 </div>
-</br>
-</br>
+
 <!-- Import all the required CSS and JS files -->
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/grid/kendo.common.min.css"/>"></link>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/grid/kendo.default.min.css"/>"></link>
