@@ -36,11 +36,11 @@
 					</p>
 					<p>
 						<label>PAN Number </label> 
-						<input type="text" value="${socUserDetails.panNo}" id="panNo" data-ng-minlength="10"/>
+						<input type="text" value="${socUserDetails.panNo}" id="panNo" length="10"/>
 					</p>
 					<p>
 						<label>Mobile </label> 
-						<input type="text" data-ng-minlength="10" value="${socUserDetails.phoneNo}" id="phoneNo"/>
+						<input type="text" length="10" value="${socUserDetails.phoneNo}" id="phoneNo"/>
 					</p>
 					</div>
 					<div class="uploadImage">
@@ -87,15 +87,45 @@
 		</form>
 	</div>
 	<script language="javascript" type="text/javascript">
+	debugger;
 		$( document ).ready(function() {
 			$('#updateRecord').click(function(){
-				alert("Are you realy want to update the record ? ");
-				return false;
-				/* $('#updateUserForm').submit(function(){
-		    		 alert("Are you realy want to update the record ? ");
-		    	 	 return false;
-		    	}); */
+				 var updateUrl = $('#context').val() +"/user/save";
+
+				 var socUser = {
+					userId:$('#userId').val(),
+					userName: $('#userName').val(),
+					firstName: $('#firstName').val(),
+					middleName: $('#middleName').val(),
+					lastName: $('#lastName').val(),
+					emailId: $('#emailId').val(),
+					phoneNo: $('#panNo').val(),
+					profileImage: $('#profileImage').attr('src'),
+					panNo: $('#phoneNo').val(),
+					isOwner: "owner",
+					address: $('#address').val(),
+					noOfMembers: $('#noOfMembers').val(),
+					startDate: $('#startDate').val(),
+					endDate:$('#endDate').val()
+				 }
+				
+	    	 	 $.ajax({
+	                 type: "post",
+	                 url: updateUrl,
+	                 data: JSON.stringify(socUser),
+	                 dataType: "json",
+	                 contentType: "application/json",
+	                 error: function(jqXHR, textStatus, errorMessage) {
+	                    console.log(errorMessage); // Optional
+	                 },
+	                 success: function(data) {
+	                	 console.log(data)
+	               	 } 
+	             });
+	    	 	 
+	    	 	 return false;
 			});
+			
 			$('#cancel').click(function(){
 				location.href = $('#context').val() +"/user/search";
 		    	return false;
