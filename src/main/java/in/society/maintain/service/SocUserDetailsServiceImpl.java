@@ -39,26 +39,35 @@ public class SocUserDetailsServiceImpl implements SocUserDetailsService {
 	@Transactional
 	public SocUserDetailsVO saveOrUpdate(SocUserDetailsVO socUserDetailsVO) throws SocietyMaintenanceException {
 		LOGGER.debug("Saving Society User Details");
+		SocUser socUser = null;
 		try {
-			SocUser socUser = this.getSocUserDetailsServiceHelper().populateSocUserDetailsModelFromVO(socUserDetailsVO);
-			LoginDetails loginDetails = this.getSocUserDetailsServiceHelper().populateLoginDetailsModelFromVO(socUserDetailsVO);
-			loginDetails.setSocUser(socUser);
-			socUser.setLoginDetails(loginDetails);
-			this.getSocUserDAO().saveOrUpdateSocUser(socUser);
-
-			// Add Roles to User
-			// for (UserRoleVO userRoleVO : socUserDetailsVO.getRoles()) {
-			UserRoleVO userRoleVO = new UserRoleVO();
-			UserRole userRole = new UserRole();
-			if (userRoleVO.getRole() == null) {
-				userRole.setRole("ROLE_USER");
-			} else {
-				userRole.setRole(userRoleVO.getRole());
+			socUser = this.getSocUserDetailsServiceHelper().populateSocUserDetailsModelFromVO(socUserDetailsVO);
+			// Update existing user
+			if (socUserDetailsVO.getUserId() != null) {
+				this.getSocUserDAO().saveOrUpdateSocUser(socUser);
 			}
-			userRole.setLoginDetails(loginDetails);
-			loginDetails.getRoles().add(userRole);
-			this.getSocUserDAO().saveOrUpdateUserRole(userRole);
-			// }
+			// Create new society user.
+			else {
+				LoginDetails loginDetails = this.getSocUserDetailsServiceHelper().populateLoginDetailsModelFromVO(socUserDetailsVO);
+				loginDetails.setSocUser(socUser);
+				socUser.setLoginDetails(loginDetails);
+				this.getSocUserDAO().saveOrUpdateSocUser(socUser);
+
+				// Add Roles to User
+				// for (UserRoleVO userRoleVO : socUserDetailsVO.getRoles()) {
+				UserRoleVO userRoleVO = new UserRoleVO();
+				UserRole userRole = new UserRole();
+				if (userRoleVO.getRole() == null) {
+					userRole.setRole("ROLE_USER");
+				} else {
+					userRole.setRole(userRoleVO.getRole());
+				}
+				userRole.setLoginDetails(loginDetails);
+				loginDetails.getRoles().add(userRole);
+				this.getSocUserDAO().saveOrUpdateUserRole(userRole);
+				// }
+			}
+
 		} catch (DataAccessException dae) {
 			LOGGER.error("Database exception while saving details of society user due to {}", dae.getMessage());
 			throw new SocietyMaintenanceException("Exception while saving details of society user due to : " + dae.getMessage(), dae);
