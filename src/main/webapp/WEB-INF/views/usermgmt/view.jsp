@@ -54,8 +54,8 @@
 					<label>Resident Type </label> <span>${socUserDetails.isOwner}</span>
 				</p>
 				<p>
-					<label>Start Date </label> <span>${socUserDetails.startDate}</span> 
-					<label>End Date </label> <span>${socUserDetails.endDate}</span>
+					<label>Start Date </label> <span  class="viewName">${socUserDetails.startDate}</span> 
+					<label>End Date </label> <span  class="viewName">${socUserDetails.endDate}</span>
 				</p>
 		
 			</fieldset>

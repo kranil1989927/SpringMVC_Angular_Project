@@ -36,6 +36,7 @@ public class CommonUtils {
 			convertedDate = dateFormat.parse(date);
 			convertedDate = dateFormat.parse(DateFormatUtils.format(convertedDate, format));
 		} catch (ParseException e) {
+			System.out.println("Excetipn while parse date : " + e.getMessage());
 		}
 		 return convertedDate;
 	}

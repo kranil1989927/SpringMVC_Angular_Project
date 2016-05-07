@@ -61,7 +61,7 @@ public class SocUserDetailsDAOImpl implements SocUserDetailsDAO {
 	@Override
 	public List<SocUser> getAllSocUsers() {
 		LOGGER.debug("Getting all the society user");
-		return this.getCurrSession().createQuery("from SocUser").list();
+		return this.getCurrSession().createQuery("from SocUser order by firstName").list();
 	}
 
 	public SessionFactory getSessionFactory() {

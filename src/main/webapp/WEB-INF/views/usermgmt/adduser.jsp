@@ -5,11 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Add User</title>
-<script>
-	$(document).ready(function() {
-		$("#startDate").datepicker();
-	});
-</script>
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
@@ -88,5 +83,11 @@
 			</form>
 		</div>
 	</div>
+	<script language="javascript" type="text/javascript">
+		debugger;
+		$(document).ready(function() {
+			$("#startDate, #endDate").datepicker();
+		});
+	</script>
 </body>
 </html>

@@ -32,15 +32,10 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter', '$window' ,'f
 			
 			
 			$scope.calAgreementEndDate = function(){
-				if(self.socUser.isOwner == 'tenant'){
-					var selStartDate = new Date(self.socUser.startDate);
-					selStartDate.setMonth(selStartDate.getMonth() + 11);
-					selStartDate.setDate(selStartDate.getDate() - 1);
-				    self.socUser.endDate = $filter('date')(selStartDate, "MM/dd/yyyy");
-				}
-				else {
-					return;
-				}
+				var selStartDate = new Date(self.socUser.startDate);
+				selStartDate.setMonth(selStartDate.getMonth() + 11);
+				selStartDate.setDate(selStartDate.getDate() - 1);
+				self.socUser.endDate = $filter('date')(selStartDate, "MM/dd/yyyy");
 			};
 			
 			self.editUserDetails = function(){

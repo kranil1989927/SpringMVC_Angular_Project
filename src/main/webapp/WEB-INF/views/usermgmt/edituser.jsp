@@ -62,9 +62,9 @@
 				</p>
 				<p>
 					<label>Is Owner? </label> 
-					<input type="radio" name="isOwner" value="owner" value="${socUserDetails.isOwner}" checked='true' />
+					<input type="radio" name="isOwner" value="owner" ${socUserDetails.isOwner == 'owner'?'checked':''}/>
 					<label class="residenttype">Owner</label>
-					<input type="radio" name="isOwner" value="tenant" value="${socUserDetails.isOwner}" /> 
+					<input type="radio" name="isOwner" value="tenant" ${socUserDetails.isOwner == 'tenant'?'checked':''} /> 
 					<label class="residenttype">Tenant</label>
 				</p>
 				<p>
@@ -73,7 +73,7 @@
 					
 					<span>
 						<label>End Date </label> 
-						<input type="text" id="endDate" value="${socUserDetails.endDate}" />
+						<input type="text" id="endDate" value="${socUserDetails.endDate}" ${socUserDetails.isOwner == 'owner'?'disabled':''}/>
 					</span>
 				</p>
 				
@@ -89,6 +89,8 @@
 	<script language="javascript" type="text/javascript">
 	debugger;
 		$( document ).ready(function() {
+			$("#startDate, #endDate").datepicker();
+			
 			$('#updateRecord').click(function(){
 				 var updateUrl = $('#context').val() +"/user/save";
 
@@ -102,7 +104,7 @@
 					phoneNo: $('#panNo').val(),
 					profileImage: $('#profileImage').attr('src'),
 					panNo: $('#phoneNo').val(),
-					isOwner: "owner",
+					isOwner: $("input:radio[name='isOwner']:checked").val(),
 					address: $('#address').val(),
 					noOfMembers: $('#noOfMembers').val(),
 					startDate: $('#startDate').val(),
@@ -119,7 +121,7 @@
 	                    console.log(errorMessage); // Optional
 	                 },
 	                 success: function(data) {
-	                	 console.log(data)
+	                	 console.log(data);
 	               	 } 
 	             });
 	    	 	 
@@ -130,6 +132,15 @@
 				location.href = $('#context').val() +"/user/search";
 		    	return false;
 			});
+			
+			$('input[type=radio][name=isOwner]').change(function() {
+		        if (this.value == 'owner') {
+		        	$('#endDate').attr('disabled','disabled');
+		        }
+		        else if (this.value == 'tenant') {
+		        	$('#endDate').removeAttr('disabled');
+		        }
+		    });
 	    	
 		});
 		var loadFile = function(event) {
@@ -138,8 +149,8 @@
 				var output = document.getElementById('profileImage');
 				output.src = reader.result;
 			  };
-			  reader.readAsDataURL(event.target.files[0]);
-			};
+			reader.readAsDataURL(event.target.files[0]);
+		};
 	</script>
 </body>
 </html>
