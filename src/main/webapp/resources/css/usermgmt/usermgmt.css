@@ -231,3 +231,17 @@ input:focus, select:focus {
 .button-left{
 	padding-left: 17px;
 }
+
+#headerTitle{
+	font-size: 16px;
+    float: left;
+    border-top: 1px solid #F5F5F5;
+    margin-bottom: 10px;
+    padding-left: 36px;
+}
+
+#searchTitle{
+	font-size: 16px;
+    border-top: 1px solid #F5F5F5;
+    padding-left: 69px;
+}

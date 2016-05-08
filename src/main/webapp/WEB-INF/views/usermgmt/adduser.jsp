@@ -11,12 +11,10 @@
 	<div data-ng-controller="socUserCtrl as newCtrl">
 		<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
 		
-		<div ng-if="isNew">
-			<div class="reportMsg"><label class="userMsg" for="message">{{message}}</label></div>
-		</div>
-		
-		<h1>Add New User</h1>
 		<div id="container" style="padding-left: 34px;">
+			<div>
+				<span id="headerTitle"><b>Add User</b></span> 
+			</div>
 			<form class="socuser" data-ng-submit="newCtrl.submit()" name="socUserMaintain">
 				<input type="hidden" data-ng-model="newCtrl.socUser.userId" />
 				<fieldset class="profileDetails">

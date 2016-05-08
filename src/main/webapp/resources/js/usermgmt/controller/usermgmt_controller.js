@@ -8,7 +8,7 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter', '$window' ,'f
 		function($scope, $filter,$window, fileReader, socUserService) {
 
 			var self = this;
-			$scope.isNew = false;
+			$scope.isSuccessMsg = false;
 			self.socUser = {
 				userId : null,
 				firstName : '',
@@ -45,16 +45,6 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter', '$window' ,'f
 				if(selectedItem !== null){
 					self.socUser = selectedItem;
 					$window.location = $('#context').val()+"/user/update/"+ selectedItem.userId;
-					return false;
-				}
-			};
-			
-			self.deleteUserDetails = function(){
-				console.log("Delete button is clicked");
-				var userGrid = $("#grid").data("kendoGrid");
-				var selectedItem = userGrid.dataItem(userGrid.select());
-				if(selectedItem !== null){
-					$window.location = $('#context').val()+"/user/delete/"+ selectedItem.userId;
 					return false;
 				}
 			};
@@ -124,7 +114,7 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter', '$window' ,'f
 				   function(response) {
 					console.log('New User', response);
 					self.getAllUsers();
-					$scope.isNew = true;
+					$scope.isSuccessMsg = true;
 					self.reset();
 					$scope.message = "User name : " + response.userName + " - is created successfully";
 				}, function(errResponse) {
@@ -156,12 +146,21 @@ usermgmtController.controller('socUserCtrl', [ '$scope','$filter', '$window' ,'f
 				var userGrid = $("#grid").data("kendoGrid");
 				var selectedItem = userGrid.dataItem(userGrid.select());
 				if(selectedItem !== null){
-					var user = selectedItem.fisrtName + " " + selectedItem.lastName;
-					socUserService.deleteUserDetails(selectedItem.userId).then(function(response) {
-						console.log('User Details', response);
-					}, function(errResponse) {
-						console.error('Error while deleting the User Details of User :  ' +user);
-					});
+					var user = selectedItem.firstName + " " + selectedItem.lastName;
+					var isDeleteUser = $window.confirm("Do you want to delete : " + user +" ?");
+					if(isDeleteUser){
+						socUserService.deleteUserDetails(selectedItem.userId).then(function(response) {
+							console.log('User Details', response);
+							self.getAllUsers();
+							$scope.isSuccessMsg = true;
+							$scope.message = response;
+						}, function(errResponse) {
+							console.error('Error while deleting the User Details of User :  ' + user);
+							self.getAllUsers();
+							$scope.isSuccessMsg = true;
+							$scope.message = "Failed to delete User : " + user;
+						});
+					}
 				}
 			};
 			

@@ -9,9 +9,9 @@
 <body>
 	<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
 	<jsp:include page="../header.jsp" />
-	
-	<h1>Update User Details</h1>
+
 	<div id="container" style="padding-left: 34px;">
+		<div><span id="headerTitle"><b>Update User</b> -  ${socUserDetails.firstName} ${socUserDetails.lastName} - ${userId}</span> </div>
 		<form class="socuser" id="updateUserForm">
 			<input type="hidden" id="userId" value="${userId}">
 			<fieldset class="profileDetails">

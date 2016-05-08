@@ -9,9 +9,17 @@
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
-	<br/><br/>
+	<br/>
 	<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
+	<div>
+		<span id="searchTitle" > <b>Search User</b></span> 
+	</div>
+	<br/>
+	
 	<div ng-app="socUserMgmtApp" ng-controller="socUserCtrl as searchCtrl">
+		<div ng-if="isSuccessMsg">
+			<div class="reportMsg"><label class="userMsg" for="message">{{message}}</label></div>
+		</div>
 		<div id="example">
 			<div id="grid"></div>
 			<div style="padding-top: 15px;"><span width="100%"></span></div>
@@ -20,6 +28,6 @@
 				<button class="button deleteButton" data-ng-click="searchCtrl.deleteUserDetails()" id="delete">Delete</button>
 			</div>
 		</div>
-	</div>
+	</div>	
 </body>
 </html>

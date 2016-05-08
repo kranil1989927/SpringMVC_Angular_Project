@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import in.society.maintain.common.SocietyMaintenanceException;
 import in.society.maintain.service.SocUserDetailsService;
 import in.society.maintain.service.SocUserDetailsVO;
@@ -42,7 +41,7 @@ public class UserController {
 	private static final String ADD_USER = "/usermgmt/adduser";
 	private static final String UPDATE_USER = "/usermgmt/edituser";
 	private static final String SEARCH_USER = "/usermgmt/search";
-	private static final String SEARCH_USER_ALL = "/usermgmt/searchuser";
+	//private static final String SEARCH_USER_ALL = "/usermgmt/searchuser";
 
 	/**
 	 * Method to get the add new user page.
@@ -67,7 +66,7 @@ public class UserController {
 		LOGGER.debug("Request to get the user details of userid : {}", userId);
 		SocUserDetailsVO socUserDetailsVO = null;
 		try {
-			 socUserDetailsVO = this.getSocUserDetailsService().getSocUserDetails(userId);
+			socUserDetailsVO = this.getSocUserDetailsService().getSocUserDetails(userId);
 			if (socUserDetailsVO != null) {
 				LOGGER.info("User Details of User Id : {} is fetched successfully", userId);
 			}
@@ -108,13 +107,16 @@ public class UserController {
 	 * @param userId {@link Long}
 	 * @return update existing user page
 	 */
-	@RequestMapping(value = "/delete/{userId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete/{userId}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
 	public String deleteUser(Model model, @PathVariable(value = "userId") Long userId) {
+		String message = "Failed to delete User of Id : "+ userId;
 		Boolean isDeleted = Boolean.FALSE;
 		LOGGER.debug("Request for deleting the user of userid : {}", userId);
 		try {
 			isDeleted = this.getSocUserDetailsService().deleteSocUser(userId);
 			if (isDeleted) {
+				message = "User of Id : "+ userId +" is deleted successfully";
 				LOGGER.info("User of Id : {} is deleted successfully", userId);
 			}
 		} catch (SocietyMaintenanceException ex) {
@@ -122,7 +124,7 @@ public class UserController {
 		} catch (Exception ex) {
 			LOGGER.error("Exception while deleting the user of user id : {} due to : {}", userId, ex.getMessage());
 		}
-		return "redirect:/viewAll";
+		return message;
 	}
 
 	/**
@@ -137,7 +139,7 @@ public class UserController {
 		LOGGER.debug("Request to get the user details of userid : {}", userId);
 		SocUserDetailsVO socUserDetailsVO = null;
 		try {
-			 socUserDetailsVO = this.getSocUserDetailsService().getSocUserDetails(userId);
+			socUserDetailsVO = this.getSocUserDetailsService().getSocUserDetails(userId);
 			if (socUserDetailsVO != null) {
 				LOGGER.info("User Details of User Id : {} is fetched successfully", userId);
 			}
@@ -150,7 +152,7 @@ public class UserController {
 		}
 		return USER_DETAILS_VIEW;
 	}
-	
+
 	/**
 	 * Method to get all the society user.
 	 * 

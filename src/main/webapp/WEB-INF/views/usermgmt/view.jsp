@@ -13,6 +13,9 @@
 	<jsp:include page="../header.jsp" />
 	<input type="hidden" id="userId" value="${userId}">
 	<div id="container" style="padding-left: 34px;">
+		<div>
+			<span id="headerTitle"><b>View User</b> -  ${socUserDetails.firstName} &nbsp; ${socUserDetails.lastName} - ${userId}</span> 
+		</div>
 		<form class="socuser" id="viewForm">
 			<fieldset class="profileDetails">
 				<legend>Personal Details </legend>
