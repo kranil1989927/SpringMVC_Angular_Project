@@ -167,7 +167,7 @@ public class UserController {
 		try {
 			socUserDetailsVOList = this.getSocUserDetailsService().getAllUsers();
 		} catch (SocietyMaintenanceException ex) {
-			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
+			LOGGER.error("Society Maintenance Exception of getting all the users due to {}", ex.getMessage(), ex);
 		} catch (Exception ex) {
 			LOGGER.error("Exception of getting all the users due to {}", ex.getMessage(), ex);
 		}
