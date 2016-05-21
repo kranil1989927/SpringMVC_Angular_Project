@@ -73,7 +73,7 @@ public class UserController {
 			model.put("userId", userId);
 			model.put("socUserDetails", socUserDetailsVO);
 		} catch (SocietyMaintenanceException ex) {
-			LOGGER.error("Service exception while getting the user details of user id : {} due to : {}", userId, ex.getMessage());
+			LOGGER.error("Society Maintenance Service exception while getting the user details of user id : {} due to : {}", userId, ex.getMessage());
 		} catch (Exception ex) {
 			LOGGER.error("Exception while getting the user details of user id : {} due to : {}", userId, ex.getMessage());
 		}
