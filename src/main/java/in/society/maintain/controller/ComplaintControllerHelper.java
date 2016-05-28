@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import in.society.maintain.common.CommonUtils;
 import in.society.maintain.service.ComplaintDetailsVO;
-import in.society.maintain.service.UserDetailsVO;
 
 @Component
 public class ComplaintControllerHelper {

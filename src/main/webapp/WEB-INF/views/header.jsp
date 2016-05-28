@@ -17,8 +17,8 @@
 					</ul></li>
 				<li><a href="#">Manage Complaints<span></span></a>
 					<ul>
-						<li><a href="#">Add Complaint</a></li>
-						<li><a href="#">View All</a></li>
+						<li><a href='<c:url value="/complaint/add"/>'>Add Complaint</a></li>
+						<li><a href='<c:url value="/complaint/search"/>'>View All</a></li>
 					</ul></li>
 				<li><a href="#">Manage Amenities<span></span></a>
 					<ul>
