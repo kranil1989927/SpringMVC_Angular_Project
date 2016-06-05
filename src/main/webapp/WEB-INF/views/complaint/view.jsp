@@ -10,37 +10,43 @@
 	<jsp:include page="../header.jsp" />
 	<div>
 		<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
+		<input type="hidden" id="complaintId" value="${complaintId}"/>
 		<div id="container" style="padding-left: 34px;">
 			<div>
-				<span id="headerTitle"><b>Raise Complaint</b></span> 
+				<span id="headerTitle"><b>Update Complaint - ${complaintId}</b></span> 
 			</div>
-			<form class="socuser" name="socUserMaintain">
+			<form class="socuser" id="complaintViewForm">
 				<fieldset class="profileDetails">
 					<legend>Complaint Details </legend>
 					<div class="container">
 						<div class="personalInformation">
 						<p>
-							<label>Complaint No. </label> <input type="text"  id="firstName" /> 
+							<label>Compliant # </label>
+							<span class="viewName">${complaintId} </span>
 						</p>
 						<p>
-							<label>Type </label> <input type="text"  id="userName"/>
+							<label>Complaint Type </label>
+							<span class="viewName">${complaintDetails.complaintType} </span> 							
 						</p>
 						<p>
 							<label>Description </label>
-							<textarea rows="3" cols="100"  id="address"></textarea>
+							<span class="viewName">${complaintDetails.complaintDescription} </span>
 						</p>
 						<p>
-							<label>Mobile </label> <input type="text" id="phoneNo" />
+							<label>Mobile </label> 
+							<span class="viewName">${complaintDetails.phoneNo} </span>
 						</p>
 						<p>
-							<label>Status </label> <input type="text"  id="panNo" />
+							<label>Status </label> 
+							<span class="viewName">${complaintDetails.complaintStatus} </span>
 						</p>
 						<p>
-							<label>Available Time </label> <input type="text"  id="panNo" />
+							<label>Available Time </label> 
+							<span class="viewName">${complaintDetails.availableTime} </span>
 						</p>
 						<p>
 							<label>Complaint Log </label>
-							<textarea rows="3" cols="100"  id="address"></textarea>
+							<span class="viewName">${complaintDetails.complaintLog} </span>
 						</p>
 						</div>
 					</div>
@@ -48,12 +54,21 @@
 				
 				<fieldset class="row1">
 					<div align="center" class="button-left">
-						<input type="submit" class="button" value="Add" />
+						<input type="submit" class="button" value="Update" id="updateComplaint"/>
 						<button class="button">Cancel</button>
 					</div>
 				</fieldset>
 			</form>
 		</div>
 	</div>
+	<script language="javascript" type="text/javascript">
+		debugger;
+		$( document ).ready(function() {
+		    $('#complaintViewForm').submit(function(){
+		    	 location.href = $('#context').val() +"/complaint/update/"+$('#complaintId').val();
+		    	 return false;
+		    });
+		});
+	</script>
 </body>
 </html>

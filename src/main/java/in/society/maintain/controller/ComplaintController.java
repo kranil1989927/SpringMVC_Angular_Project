@@ -52,24 +52,14 @@ public class ComplaintController {
 	}
 	
 	/**
-	 * Method to get all the society complaints.
+	 * Method to get all the society complaints search page.
 	 * 
 	 * @param model {@link ModelMap}
 	 * @return All society complaints view page.
 	 */
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String getAllComplaints(ModelMap model) {
+	public String getSearchPage(ModelMap model) {
 		LOGGER.debug("Fetching all the society complaints");
-
-		List<ComplaintDetailsVO> complaintDetailsVOList = null;
-		try {
-			complaintDetailsVOList = this.getComplaintDetailService().getAllComplaints();
-			model.put("complaintDetailsVOList", complaintDetailsVOList);
-		} catch (SocietyMaintenanceException ex) {
-			LOGGER.error("Society Maintenance Exception of getting all the complaints due to {}", ex.getMessage(), ex);
-		} catch (Exception ex) {
-			LOGGER.error("Exception of getting all the complaints due to {}", ex.getMessage(), ex);
-		}
 		return SEARCH_COMPLAINT;
 	}
 	
@@ -147,6 +137,27 @@ public class ComplaintController {
 			LOGGER.error("Exception while saving the compliant of compliant id : {} due to : {}", "", ex.getMessage());
 		}
 		return complaintDetailsFormBean;
+	}
+	
+	/**
+	 * Method to get all the society complaints.
+	 * 
+	 * @param model {@link ModelMap}
+	 * @return All society complaints.
+	 */
+	@RequestMapping(value = "/viewAllComplaint", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<ComplaintDetailsVO> getAllComplaints(ModelMap model) {
+		LOGGER.debug("Fetching all the society users");
+		List<ComplaintDetailsVO> complaintDetailsVOList = null;
+		try {
+			complaintDetailsVOList = this.getComplaintDetailService().getAllComplaints();
+		} catch (SocietyMaintenanceException ex) {
+			LOGGER.error("Society Maintenance Exception of getting all the complaints due to {}", ex.getMessage(), ex);
+		} catch (Exception ex) {
+			LOGGER.error("Exception of getting all the complaints due to {}", ex.getMessage(), ex);
+		}
+		return complaintDetailsVOList;
 	}
 
 	public ComplaintDetailService getComplaintDetailService() {

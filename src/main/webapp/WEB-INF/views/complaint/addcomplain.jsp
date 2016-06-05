@@ -26,9 +26,9 @@
 							<label>Complaint Type </label> 
 							<select id="complaintType">
 							  <option value="none">---Select---</option>
-							  <option value="electric">Electrical</option>
-							  <option value="plumber">Plumber</option>
-							  <option value="painting">Painting</option>
+							  <option value="Electric">Electrical</option>
+							  <option value="Plumber">Plumber</option>
+							  <option value="Painting">Painting</option>
 							</select>
 						</p>
 						<p>
@@ -42,9 +42,9 @@
 							<label>Status </label> 
 							<select id="complaintStatus">
 							  <option value="none">---Select---</option>
-							  <option value="open">Open</option>
-							  <option value="close">Close</option>
-							  <option value="inprogress">In Progress</option>
+							  <option value="Open">Open</option>
+							  <option value="Close">Close</option>
+							  <option value="In Progress">In Progress</option>
 							</select>
 						</p>
 						<p>
@@ -103,7 +103,6 @@
 						  return false;
 					  }
 				});
-				
 				return false;
 			};
 		});
