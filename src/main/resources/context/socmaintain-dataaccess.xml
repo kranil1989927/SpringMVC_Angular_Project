@@ -26,12 +26,10 @@
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="annotatedClasses">
 			<list>
-				<value>in.society.maintain.model.User</value>
-				<value>in.society.maintain.model.Complaint</value>
 				<value>in.society.maintain.model.LoginDetails</value>
 				<value>in.society.maintain.model.UserRole</value>
-				<value>in.society.maintain.model.Module</value>
 				<value>in.society.maintain.model.SocUser</value>
+				<value>in.society.maintain.model.ComplaintDetail</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import in.society.maintain.controller.UserController;
 import in.society.maintain.model.LoginDetails;
 import in.society.maintain.model.SocUser;
 
@@ -17,7 +16,7 @@ import in.society.maintain.model.SocUser;
 public class SocUserDetailsServiceHelper {
 
 	/** Logger */
-	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(SocUserDetailsServiceHelper.class);
 
 	public List<SocUserDetailsVO> populateSocUserDetailsVOListFromModelList(List<SocUser> socUserList) {
 		List<SocUserDetailsVO> socUserDetailsVOList = new ArrayList<SocUserDetailsVO>(socUserList.size());

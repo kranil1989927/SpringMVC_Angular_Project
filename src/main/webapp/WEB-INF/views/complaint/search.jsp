@@ -7,6 +7,6 @@
 <title>Search Complaint</title>
 </head>
 <body>
-
+	<jsp:include page="../header.jsp" />
 </body>
 </html>

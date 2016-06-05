@@ -2,17 +2,19 @@ package in.society.maintain.controller;
 
 public class ComplaintDetailsFormBean {
 
-	private Integer complaintNo;
+	private String complaintNo;
 	private String complaintType;
 	private String complaintDescription;
 	private String phoneNo;
 	private String availableTime;
+	private String complaintStatus;
+	private String complaintLog;
 
-	public Integer getComplaintNo() {
+	public String getComplaintNo() {
 		return complaintNo;
 	}
 
-	public void setComplaintNo(Integer complaintNo) {
+	public void setComplaintNo(String complaintNo) {
 		this.complaintNo = complaintNo;
 	}
 
@@ -46,6 +48,22 @@ public class ComplaintDetailsFormBean {
 
 	public void setAvailableTime(String availableTime) {
 		this.availableTime = availableTime;
+	}
+
+	public String getComplaintStatus() {
+		return complaintStatus;
+	}
+
+	public void setComplaintStatus(String complaintStatus) {
+		this.complaintStatus = complaintStatus;
+	}
+
+	public String getComplaintLog() {
+		return complaintLog;
+	}
+
+	public void setComplaintLog(String complaintLog) {
+		this.complaintLog = complaintLog;
 	}
 
 }

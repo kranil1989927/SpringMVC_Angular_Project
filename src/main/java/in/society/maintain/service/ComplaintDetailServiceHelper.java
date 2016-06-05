@@ -5,67 +5,47 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import in.society.maintain.common.CommonUtils;
-import in.society.maintain.model.Complaint;
-import in.society.maintain.model.User;
+import in.society.maintain.model.ComplaintDetail;
 
 @Component
 public class ComplaintDetailServiceHelper {
 
-	public Complaint populateComplaint(ComplaintDetailsVO complaintDetailsVO) {
-
-		Complaint complaint = new Complaint();
-
-		/*
-		 * if (null != Integer.valueOf(userDetailsVO.getUserId())) {
-		 * user.setUserId(userDetailsVO.getUserId()); }
-		 */
-
-		if (!CommonUtils.isNullorEmpty(complaintDetailsVO.getComplaintType())) {
-			complaint.setComplaintType(complaintDetailsVO.getComplaintType());
+	public List<ComplaintDetailsVO> populateComplaintDetailVOListFromModelList(List<ComplaintDetail> complaintDetailList) {
+		List<ComplaintDetailsVO> complaintDetailsVOList = new ArrayList<ComplaintDetailsVO>(complaintDetailList.size());
+		for (ComplaintDetail complaintDetail : complaintDetailList) {
+			ComplaintDetailsVO complaintDetailsVO = populateComplaintDetailVOFromModel(complaintDetail);
+			complaintDetailsVOList.add(complaintDetailsVO);
 		}
-		if (!CommonUtils.isNullorEmpty(complaintDetailsVO.getComplaintDescription())) {
-			complaint.setComplaintDescription(complaintDetailsVO.getComplaintDescription());
-		}
-		
-		if (!CommonUtils.isNullorEmpty(complaintDetailsVO.getPhoneNo())) {
-			complaint.setPhoneNo(complaintDetailsVO.getPhoneNo());
-		}
-		if (!CommonUtils.isNullorEmpty(complaintDetailsVO.getAvailableTime())) {
-			complaint.setAvailableTime(complaintDetailsVO.getAvailableTime());
-		}
-
-		return complaint;
+		return complaintDetailsVOList;
 	}
 
-	public UserDetailsVO populateUserDetailVO(User user) {
+	public ComplaintDetailsVO populateComplaintDetailVOFromModel(ComplaintDetail complaintDetail) {
+		ComplaintDetailsVO complaintDetailsVO = new ComplaintDetailsVO();
+		complaintDetailsVO.setComplaintNo(complaintDetail.getComplaintNo());
+		complaintDetailsVO.setComplaintType(complaintDetail.getComplaintType());
+		complaintDetailsVO.setComplaintDescription(complaintDetail.getComplaintDescription());
+		complaintDetailsVO.setAvailableTime(complaintDetail.getAvailableTime());
+		complaintDetailsVO.setPhoneNo(complaintDetail.getPhoneNo());
+		complaintDetailsVO.setComplaintStatus(complaintDetail.getComplaintStatus());
+		complaintDetailsVO.setComplaintLog(complaintDetail.getComplaintLog());
 
-		UserDetailsVO userDetailsVO = new UserDetailsVO();
-
-		if (null != Integer.valueOf(user.getUserId())) {
-			userDetailsVO.setUserId(user.getUserId());
-		}
-		if (!CommonUtils.isNullorEmpty(user.getUserName())) {
-			userDetailsVO.setUserName(user.getUserName());
-		}
-		if (!CommonUtils.isNullorEmpty(user.getPassword())) {
-			userDetailsVO.setPassword(user.getPassword());
-		}
-		return userDetailsVO;
+		return complaintDetailsVO;
 	}
 
-	public List<ComplaintDetailsVO> populateComplaintDetailVOList(List<Complaint> complaint) {
+	public ComplaintDetail populateComplaintDetailModelFromVO(ComplaintDetailsVO complaintDetailsVO) {
+		ComplaintDetail complaintDetail = new ComplaintDetail();
 
-		List<ComplaintDetailsVO> complaintDetailsVOlist = new ArrayList<ComplaintDetailsVO>();
-		for (Complaint complaintValue : complaint) {
-			ComplaintDetailsVO complaintDetailsVO = new ComplaintDetailsVO();
-			complaintDetailsVO.setComplaintNo(complaintValue.getComplaintNo());
-			complaintDetailsVO.setComplaintType(complaintValue.getComplaintType());
-			complaintDetailsVO.setComplaintDescription(complaintValue.getComplaintDescription());
-			complaintDetailsVO.setPhoneNo(complaintValue.getPhoneNo());
-			complaintDetailsVO.setAvailableTime(complaintValue.getAvailableTime());
-			complaintDetailsVOlist.add(complaintDetailsVO);
+		if (null != complaintDetailsVO.getComplaintNo()) {
+			complaintDetail.setComplaintNo(complaintDetailsVO.getComplaintNo());
 		}
-		return complaintDetailsVOlist;
+		complaintDetail.setComplaintType(complaintDetailsVO.getComplaintType());
+		complaintDetail.setComplaintDescription(complaintDetailsVO.getComplaintDescription());
+		complaintDetail.setPhoneNo(complaintDetailsVO.getPhoneNo());
+		complaintDetail.setAvailableTime(complaintDetailsVO.getAvailableTime());
+		complaintDetail.setComplaintStatus(complaintDetailsVO.getComplaintStatus());
+		complaintDetail.setComplaintLog(complaintDetailsVO.getComplaintLog());
+
+		return complaintDetail;
 	}
+
 }

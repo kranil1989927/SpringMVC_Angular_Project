@@ -1,18 +1,22 @@
 package in.society.maintain.service;
 
+import java.util.Date;
+
 public class ComplaintDetailsVO {
 
-	private Integer complaintNo;
+	private Long complaintNo;
 	private String complaintType;
 	private String complaintDescription;
 	private String phoneNo;
-	private String availableTime;
+	private Date availableTime;
+	private String complaintStatus;
+	private String complaintLog;
 
-	public Integer getComplaintNo() {
+	public Long getComplaintNo() {
 		return complaintNo;
 	}
 
-	public void setComplaintNo(Integer complaintNo) {
+	public void setComplaintNo(Long complaintNo) {
 		this.complaintNo = complaintNo;
 	}
 
@@ -36,16 +40,32 @@ public class ComplaintDetailsVO {
 		return phoneNo;
 	}
 
-	public void setPhoneNo(String string) {
-		this.phoneNo = string;
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
 	}
 
-	public String getAvailableTime() {
+	public Date getAvailableTime() {
 		return availableTime;
 	}
 
-	public void setAvailableTime(String availableTime) {
+	public void setAvailableTime(Date availableTime) {
 		this.availableTime = availableTime;
+	}
+
+	public String getComplaintStatus() {
+		return complaintStatus;
+	}
+
+	public void setComplaintStatus(String complaintStatus) {
+		this.complaintStatus = complaintStatus;
+	}
+
+	public String getComplaintLog() {
+		return complaintLog;
+	}
+
+	public void setComplaintLog(String complaintLog) {
+		this.complaintLog = complaintLog;
 	}
 
 }

@@ -14,8 +14,11 @@ import in.society.maintain.model.UserRole;
 
 @Repository
 public class SocUserDetailsDAOImpl implements SocUserDetailsDAO {
+	
+	/** Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SocUserDetailsDAOImpl.class);
 
+	/** sessionFactory represents SessionFactory that provides database connection session */
 	@Autowired
 	private SessionFactory sessionFactory;
 

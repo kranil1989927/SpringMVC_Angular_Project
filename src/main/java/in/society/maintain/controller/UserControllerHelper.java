@@ -1,53 +1,19 @@
 package in.society.maintain.controller;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
 import in.society.maintain.common.CommonUtils;
 import in.society.maintain.service.SocUserDetailsVO;
-import in.society.maintain.service.UserDetailsVO;
 import in.society.maintain.service.UserRoleVO;
 
 @Component
 public class UserControllerHelper {
 	
-	public UserDetailsVO populateUserDetailsVO(UserDetailsFormBean userDetailsFormBean) {
-		UserDetailsVO userDetailsVO = new UserDetailsVO();
-
-		/*if (null != Integer.valueOf(userDetailsFormBean.getUserId())) {
-			userDetailsVO.setUserId(Integer.valueOf(userDetailsFormBean.getUserId()));
-		}*/
-
-		if (!CommonUtils.isNullorEmpty(userDetailsFormBean.getUserName())) {
-			userDetailsVO.setUserName(userDetailsFormBean.getUserName());
-		}
-		if (!CommonUtils.isNullorEmpty(userDetailsFormBean.getPassword())) {
-			userDetailsVO.setPassword(userDetailsFormBean.getPassword());
-		}
-
-		return userDetailsVO;
-	}
-	public List<UserDetailsFormBean> populateUserDetailsFormBeanVOList(List<UserDetailsVO> userDetailsVO) {
-		List<UserDetailsFormBean> userDetailsFormBean = new ArrayList<UserDetailsFormBean>();
-		
-		for (UserDetailsVO userDetailVO : userDetailsVO) {
-			UserDetailsFormBean userDetailFormBean = new UserDetailsFormBean();
-			
-			userDetailFormBean.setUserId(userDetailVO.getUserId());
-			userDetailFormBean.setUserName(userDetailVO.getUserName());
-			userDetailFormBean.setPassword(userDetailVO.getPassword());
-			userDetailsFormBean.add(userDetailFormBean);
-		}
-		
-		return userDetailsFormBean;
-	}
-
-	
 	public SocUserDetailsVO populateUsersDetailsVO(SocUserFormBean socUserFormBean) {
+		
 		SocUserDetailsVO socUserDetailsVO = new SocUserDetailsVO();
 		if (!CommonUtils.isNullorEmpty(socUserFormBean.getUserId())) {
 			socUserDetailsVO.setUserId(Long.valueOf(socUserFormBean.getUserId()));
@@ -70,12 +36,12 @@ public class UserControllerHelper {
 		if (!CommonUtils.isNullorEmpty(socUserFormBean.getPanNo())) {
 			socUserDetailsVO.setPanNo(socUserFormBean.getPanNo());
 		}
-		
-		if(!CommonUtils.isNullorEmpty(socUserFormBean.getProfileImage())){
+
+		if (!CommonUtils.isNullorEmpty(socUserFormBean.getProfileImage())) {
 			String[] profilePicBase64 = socUserFormBean.getProfileImage().split(",");
 			socUserDetailsVO.setProfileImage(profilePicBase64[1].toString());
 		}
-		
+
 		if (!CommonUtils.isNullorEmpty(socUserFormBean.getPhoneNo())) {
 			socUserDetailsVO.setPhoneNo(socUserFormBean.getPhoneNo());
 		}

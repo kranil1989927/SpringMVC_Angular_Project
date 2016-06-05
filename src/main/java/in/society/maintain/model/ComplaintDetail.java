@@ -1,20 +1,24 @@
 package in.society.maintain.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "COMPLAINT")
-public class Complaint {
+public class ComplaintDetail {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "COMPLAINT_NO", unique = true, nullable = false)
-	private Integer complaintNo;
+	private Long complaintNo;
 
 	@Column(name = "COMPLAINT_TYPE")
 	private String complaintType;
@@ -25,8 +29,9 @@ public class Complaint {
 	@Column(name = "PHONE_NO")
 	private String phoneNo;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "AVAILABLE_TIME")
-	private String availableTime;
+	private Date availableTime;
 
 	@Column(name = "STATUS")
 	private String complaintStatus;
@@ -34,11 +39,11 @@ public class Complaint {
 	@Column(name = "COMPLAINT_LOG")
 	private String complaintLog;
 
-	public Integer getComplaintNo() {
+	public Long getComplaintNo() {
 		return complaintNo;
 	}
 
-	public void setComplaintNo(Integer complaintNo) {
+	public void setComplaintNo(Long complaintNo) {
 		this.complaintNo = complaintNo;
 	}
 
@@ -66,11 +71,11 @@ public class Complaint {
 		this.phoneNo = phoneNo;
 	}
 
-	public String getAvailableTime() {
+	public Date getAvailableTime() {
 		return availableTime;
 	}
 
-	public void setAvailableTime(String availableTime) {
+	public void setAvailableTime(Date availableTime) {
 		this.availableTime = availableTime;
 	}
 
@@ -106,7 +111,7 @@ public class Complaint {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Complaint other = (Complaint) obj;
+		ComplaintDetail other = (ComplaintDetail) obj;
 		if (complaintNo == null) {
 			if (other.complaintNo != null)
 				return false;

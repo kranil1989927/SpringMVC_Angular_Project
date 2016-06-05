@@ -25,6 +25,7 @@ import in.society.maintain.service.SocUserDetailsVO;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	
 	/** Logger */
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
