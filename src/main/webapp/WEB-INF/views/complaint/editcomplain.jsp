@@ -10,6 +10,9 @@
 	<jsp:include page="../header.jsp" />
 	<div>
 		<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
+		<input type="hidden" id="selComplaintType" value="${complaintDetails.complaintType}" />
+		<input type="hidden" id="selComplaintStatus" value="${complaintDetails.complaintStatus}" />
+		
 		<div id="container" style="padding-left: 34px;">
 			<div>
 				<span id="headerTitle"><b>Update Complaint - ${complaintId}</b></span> 
@@ -64,7 +67,7 @@
 				<fieldset class="row1">
 					<div align="center" class="button-left">
 						<input type="submit" class="button" value="Update" id="updateComplaint"/>
-						<button class="button">Cancel</button>
+						<button class="button" id="cancelUpdateComplaint">Cancel</button>
 					</div>
 				</fieldset>
 			</form>
@@ -72,6 +75,11 @@
 	</div>
 	<script language="javascript" type="text/javascript">
 		debugger;
+		$(window).load(function (){
+			$('#complaintType').val($('#selComplaintType').val()).trigger("chosen:updated");
+			$('#complaintStatus').val($('#selComplaintStatus').val()).trigger("chosen:updated");
+		});
+		
 		$(document).ready(function() {
 			$("#availableTime").datepicker();
 			
@@ -80,10 +88,16 @@
 				return false;
 			});
 			
+			$("#cancelUpdateComplaint").click(function(){
+				location.href = $('#context').val() + "/complaint/search";
+				return false;
+			});
+			
 			function submitComplaint(){
 				debugger;
 				var addComplaintUrl = $('#context').val() + "/complaint/save";
 				var complainForm = {};
+				complainForm.complaintNo = $('#complaintId').val();
 				complainForm.complaintType = $('#complaintType').val();
 				complainForm.complaintDescription = $('#complaintDesc').val();
 				complainForm.phoneNo = $('#phoneNo').val();
@@ -98,7 +112,7 @@
 					  dataType: "json",
 					  contentType : "application/json",
 					  success: function(data){
-						  window.alert("Complaint Added");
+						  location.href = $('#context').val() + "/complaint/search";
 						  return false;
 					  },
 					  error: function(data){

@@ -15,7 +15,7 @@ public class ComplaintControllerHelper {
 		ComplaintDetailsVO complaintDetailsVO = new ComplaintDetailsVO();
 
 		if (!CommonUtils.isNullorEmpty(complaintDetailsFormBean.getComplaintNo())) {
-			complaintDetailsVO.setComplaintNo(Long.valueOf(complaintDetailsFormBean.getComplaintType()));
+			complaintDetailsVO.setComplaintNo(Long.valueOf(complaintDetailsFormBean.getComplaintNo()));
 		}
 
 		if (!CommonUtils.isNullorEmpty(complaintDetailsFormBean.getComplaintType())) {
@@ -41,6 +41,23 @@ public class ComplaintControllerHelper {
 		}
 
 		return complaintDetailsVO;
+	}
+	
+	public ComplaintDetailsFormBean populateComplaintDetailsFormBean(ComplaintDetailsVO complaintDetailsVO) {
+		ComplaintDetailsFormBean complaintDetailsFormBean = new ComplaintDetailsFormBean();
+
+		complaintDetailsFormBean.setComplaintNo(String.valueOf(complaintDetailsVO.getComplaintNo()));
+		complaintDetailsFormBean.setComplaintType(complaintDetailsVO.getComplaintType());
+		complaintDetailsFormBean.setComplaintDescription(complaintDetailsVO.getComplaintDescription());
+		complaintDetailsFormBean.setPhoneNo(complaintDetailsVO.getPhoneNo());
+		
+		String availableTime = CommonUtils.convertToDateString(complaintDetailsVO.getAvailableTime(), "MM/dd/yyyy");
+		complaintDetailsFormBean.setAvailableTime(availableTime);
+		
+		complaintDetailsFormBean.setComplaintStatus(complaintDetailsVO.getComplaintStatus());
+		complaintDetailsFormBean.setComplaintLog(complaintDetailsVO.getComplaintLog());
+
+		return complaintDetailsFormBean;
 	}
 
 	public List<ComplaintDetailsFormBean> populateComplaintDetailsFormBeanList(List<ComplaintDetailsVO> complaintDetailsVO) {

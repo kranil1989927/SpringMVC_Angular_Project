@@ -79,8 +79,9 @@ public class ComplaintController {
 			complaintDetailsVO = this.getComplaintDetailService().getComplaintDetail(complaintId);
 			if (complaintDetailsVO != null) {
 				LOGGER.info("Complaint Details of Complaint Id : {} is fetched successfully", complaintId);
+				ComplaintDetailsFormBean complaintFormBean = this.getComplaintControllerHelper().populateComplaintDetailsFormBean(complaintDetailsVO);
 				model.put("complaintId", complaintId);
-				model.put("complaintDetails", complaintDetailsVO);
+				model.put("complaintDetails", complaintFormBean);
 			}
 		} catch (SocietyMaintenanceException ex) {
 			LOGGER.error("Society Maintenance Service exception while getting the complaint details of complaint id : {} due to : {}", complaintId, ex.getMessage());
@@ -106,8 +107,9 @@ public class ComplaintController {
 			complaintDetailsVO = this.getComplaintDetailService().getComplaintDetail(complaintId);
 			if (complaintDetailsVO != null) {
 				LOGGER.info("Complaint Details of complaint Id : {} is fetched successfully", complaintId);
+				ComplaintDetailsFormBean complaintFormBean = this.getComplaintControllerHelper().populateComplaintDetailsFormBean(complaintDetailsVO);
 				model.put("complaintId", complaintId);
-				model.put("complaintDetails", complaintDetailsVO);
+				model.put("complaintDetails", complaintFormBean);
 			}
 		} catch (SocietyMaintenanceException ex) {
 			LOGGER.error("Society Maintenance Service exception while getting the complaint details of complaint id : {} due to : {}", complaintId, ex.getMessage());
@@ -127,16 +129,17 @@ public class ComplaintController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public ComplaintDetailsFormBean saveOrUpdate(@RequestBody ComplaintDetailsFormBean complaintDetailsFormBean) {
+		ComplaintDetailsFormBean complaintFormBean = complaintDetailsFormBean;
 		LOGGER.debug("Trying to save the complaint details");
 		try {
-			ComplaintDetailsVO complaintDetailsVO = this.getComplaintControllerHelper().populateComplaintDetailsVO(complaintDetailsFormBean);
+			ComplaintDetailsVO complaintDetailsVO = this.getComplaintControllerHelper().populateComplaintDetailsVO(complaintFormBean);
 			complaintDetailsVO = this.getComplaintDetailService().saveOrUpdate(complaintDetailsVO);
 		} catch (SocietyMaintenanceException ex) {
 			LOGGER.error("Service exception while saving the compliant of compliant id : {} due to : {}", "", ex.getMessage());
 		} catch (Exception ex) {
 			LOGGER.error("Exception while saving the compliant of compliant id : {} due to : {}", "", ex.getMessage());
 		}
-		return complaintDetailsFormBean;
+		return complaintFormBean;
 	}
 	
 	/**

@@ -40,4 +40,15 @@ public class CommonUtils {
 		}
 		 return convertedDate;
 	}
+	
+	public static String convertToDateString(Date date, String format){
+		SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+		String convertedDate = null;
+		try {
+			convertedDate = dateFormat.format(date);
+		} catch (Exception e) {
+			System.out.println("Excetipn while format date : " + e.getMessage());
+		}
+		 return convertedDate;
+	}
 }

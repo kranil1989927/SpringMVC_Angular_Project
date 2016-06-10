@@ -41,10 +41,10 @@
 			    },
 			    columns: [
 			       {
-			    	template: "<div><a href='"+ $('#context').val()+"/complaint/view/#: complaintNo #'>#: complaintNo #</a></div>",
+			    	template: "<div align=right><a href='"+ $('#context').val()+"/complaint/view/#: complaintNo #'>#: complaintNo #</a></div>",
 			        field: "complaintNo",
 			        title: "Complaint #",
-			        width: 100
+			        width: 80
 			    }, {
 			        field: "complaintType",
 			        title: "Complaint Type",
@@ -61,6 +61,18 @@
 			        title: "Available Time",
 			        width: 150
 			    }]
+			});
+            
+            $("#editComplaint").click(function(){
+            	console.log("Edit button is clicked");
+				var complaintGrid = $("#complaintGrid").data("kendoGrid");
+				var selectedComplaint = complaintGrid.dataItem(complaintGrid.select());
+				if(selectedComplaint !== null){	
+					console.log("Selected Complaint :" + selectedComplaint.complaintNo);
+					location.href = $('#context').val() + "/complaint/update/"+ selectedComplaint.complaintNo;
+					return false;
+				}
+				return false;
 			});
         });
     </script>
