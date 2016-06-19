@@ -43,7 +43,6 @@ public interface SocUserDetailsService {
 	 * 
 	 * @throws SocietyMaintenanceException
 	 */
-
 	List<SocUserDetailsVO> getAllUsers() throws SocietyMaintenanceException;
 
 }

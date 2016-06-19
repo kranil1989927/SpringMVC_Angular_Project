@@ -27,8 +27,8 @@
 					</ul></li>
 				<li><a href="#">Notice Board<span></span></a>
 					<ul>
-						<li><a href="#">Add Notice</a></li>
-						<li><a href="#">View All</a></li>
+						<li><a href='<c:url value="/notice/add"/>'>Add Notice</a></li>
+						<li><a href='<c:url value="/notice/search"/>'>View All</a></li>
 					</ul></li>
 				<li><a href='<c:url value="/j_spring_security_logout"/>'>Logout</a></li>
 			</ul>

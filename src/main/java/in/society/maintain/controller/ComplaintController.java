@@ -33,7 +33,7 @@ public class ComplaintController {
 	private ComplaintControllerHelper complaintControllerHelper;
 
 	
-	/** User Management View */
+	/** Complaints View */
 	private static final String COMPLAINT_DETAILS_VIEW = "/complaint/view";
 	private static final String ADD_COMPLAINT = "/complaint/addcomplain";
 	private static final String UPDATE_COMPLAINT = "/complaint/editcomplain";

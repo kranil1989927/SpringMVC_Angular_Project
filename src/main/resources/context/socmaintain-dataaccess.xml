@@ -30,6 +30,7 @@
 				<value>in.society.maintain.model.UserRole</value>
 				<value>in.society.maintain.model.SocUser</value>
 				<value>in.society.maintain.model.ComplaintDetail</value>
+				<value>in.society.maintain.model.NoticeDetail</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
