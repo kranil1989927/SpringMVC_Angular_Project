@@ -27,7 +27,7 @@
 						</p>
 						<p>
 							<label>Description </label>
-							<span class="viewName">${noticeDetails.noticeDescription} </span>
+							<span class="viewName">${noticeDetails.noticeDesc} </span>
 						</p>
 						<p>
 							<label>Notice Date </label> 
@@ -46,5 +46,13 @@
 			</form>
 		</div>
 	</div>
+	<script language="javascript" type="text/javascript">
+		$(document).ready(function() {
+			$("#updateNotice").click(function(){
+				window.location.href = $('#context').val() + "/notice/update/"+ $('#noticeId').val();
+				return false;
+			});
+		});
+	</script>
 </body>
 </html>

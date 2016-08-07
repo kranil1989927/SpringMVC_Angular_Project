@@ -1,6 +1,7 @@
 package in.society.maintain.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -23,12 +24,14 @@ public class NoticeControllerHelper {
 
 	public NoticeDetailVO populateNoticeDetailsVOFromBean(NoticeDetailFormBean noticeFormBean) {
 		NoticeDetailVO noticeDetailVO = new NoticeDetailVO();
-		if (CommonUtils.isNullorEmpty(noticeFormBean.getNoticeId())) {
+		if (!CommonUtils.isNullorEmpty(noticeFormBean.getNoticeId())) {
 			noticeDetailVO.setNoticeId(Long.valueOf(noticeFormBean.getNoticeId()));
 		}
 		noticeDetailVO.setNoticeTitle(noticeFormBean.getNoticeTitle());
 		noticeDetailVO.setNoticeDesc(noticeFormBean.getNoticeDesc());
-		noticeDetailVO.setNoticeDate(CommonUtils.convertToDate(noticeFormBean.getNoticeDate(), "MM/dd/yyyy"));
+		
+		// Always todays date while adding new notice
+		noticeDetailVO.setNoticeDate(new Date());
 
 		return noticeDetailVO;
 	}

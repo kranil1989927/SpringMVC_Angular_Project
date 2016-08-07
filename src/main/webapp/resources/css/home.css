@@ -86,6 +86,7 @@ textarea {
 	font-size: 0;
 	line-height: 0;
 	text-indent: -4000px;
+	width: 150px !important;
 }
 
 #navigation {

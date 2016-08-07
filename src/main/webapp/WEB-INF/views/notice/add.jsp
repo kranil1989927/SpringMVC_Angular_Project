@@ -11,7 +11,7 @@
 	<div>
 		<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
 		
-		<div id="container" style="padding-left: 34px;">
+		<div id="container">
 			<div>
 				<span id="headerTitle"><b>Add Notice</b></span> 
 			</div>
@@ -41,5 +41,41 @@
 			</form>
 		</div>
 	</div>
+	<script language="javascript" type="text/javascript">
+		debugger;
+		$(document).ready(function() {
+			
+			$("#addNotice").click(function(){
+				addNoticeDetails();
+				return false;
+			});
+			
+			function addNoticeDetails(){
+				debugger;
+				var addNoticeUrl = $('#context').val() + "/notice/save";
+				var noticeForm = {};
+				noticeForm.noticeTitle = $('#noticeTitle').val();
+				noticeForm.noticeDesc = $('#noticeDesc').val();
+				//noticeForm.noticeDate = $('#phoneNo').val();
+				
+				$.ajax({
+					  type: "POST",
+					  url: addNoticeUrl,
+					  data: JSON.stringify(noticeForm),
+					  dataType: "json",
+					  contentType : "application/json",
+					  success: function(data){
+						  window.alert("Notice Added");
+						  return false;
+					  },
+					  error: function(data){
+						  window.alert("Notice Added failed");
+						  return false;
+					  }
+				});
+				return false;
+			};
+		});
+	</script>
 </body>
 </html>

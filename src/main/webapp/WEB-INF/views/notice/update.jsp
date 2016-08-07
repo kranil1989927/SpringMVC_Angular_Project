@@ -27,7 +27,7 @@
 							</p>
 							<p>
 								<label>Description </label>
-								<textarea rows="4" cols="100"  id="noticeDesc">${noticeDetails.noticeDescription}</textarea>
+								<textarea rows="4" cols="100"  id="noticeDesc">${noticeDetails.noticeDesc}</textarea>
 							</p>
 						</div>
 					</div>
@@ -42,5 +42,42 @@
 			</form>
 		</div>
 	</div>
+	<script language="javascript" type="text/javascript">
+		debugger;
+		$(document).ready(function() {
+			
+			$("#updateNotice").click(function(){
+				updateNoticeDetails();
+				return false;
+			});
+			
+			function updateNoticeDetails(){
+				debugger;
+				var updateNoticeUrl = $('#context').val() + "/notice/save";
+				var noticeForm = {};
+				noticeForm.noticeId = $('#noticeId').val();
+				noticeForm.noticeTitle = $('#noticeTitle').val();
+				noticeForm.noticeDesc = $('#noticeDesc').val();
+				
+				
+				$.ajax({
+					  type: "POST",
+					  url: updateNoticeUrl,
+					  data: JSON.stringify(noticeForm),
+					  dataType: "json",
+					  contentType : "application/json",
+					  success: function(data){
+						  window.alert("Notice Updated");
+						  return false;
+					  },
+					  error: function(data){
+						  window.alert("Notice Updated failed");
+						  return false;
+					  }
+				});
+				return false;
+			};
+		});
+	</script>
 </body>
 </html>
