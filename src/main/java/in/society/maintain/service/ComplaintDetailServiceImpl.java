@@ -35,7 +35,7 @@ public class ComplaintDetailServiceImpl implements ComplaintDetailService {
 		LOGGER.debug("Saving Complaint Details");
 		try {
 			complaintDetail = this.getComplaintDetailServiceHelper().populateComplaintDetailModelFromVO(complaintDetailsVO);
-			complaintDetail = this.complaintDetailsDAO.saveOrUpdate(complaintDetail);
+			complaintDetail = this.getComplaintDetailsDAO().saveOrUpdate(complaintDetail);
 
 			if (complaintDetail.getComplaintNo() != null) {
 				LOGGER.info("Complaint No : {} is updated successfully", complaintDetail.getComplaintNo());
