@@ -75,7 +75,7 @@
 				<fieldset class="row1">
 					<div align="center" class="button-left">
 						<input type="submit" class="button" value="{{!newCtrl.socUser.userId ? 'Add' : 'Update'}}" />
-						<button class="button">Cancel</button>
+						<button class="button deleteButton" id="cancelUser" >Cancel</button>
 					</div>
 				</fieldset>
 			</form>
@@ -85,6 +85,11 @@
 		debugger;
 		$(document).ready(function() {
 			$("#startDate, #endDate").datepicker();
+			
+		    $('#cancelUser').click(function(){
+		    	 location.href = $('#context').val() +"/user/search";
+		    	 return false;
+		    });
 		});
 	</script>
 </body>

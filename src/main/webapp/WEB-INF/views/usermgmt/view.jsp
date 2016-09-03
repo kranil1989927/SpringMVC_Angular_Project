@@ -14,7 +14,7 @@
 	<input type="hidden" id="userId" value="${userId}">
 	<div id="container" style="padding-left: 34px;">
 		<div>
-			<span id="headerTitle"><b>View User</b> -  ${socUserDetails.firstName} &nbsp; ${socUserDetails.lastName} - ${userId}</span> 
+			<span id="headerTitle"><b>View User</b> -  ${socUserDetails.firstName} ${socUserDetails.lastName} - ${userId}</span> 
 		</div>
 		<form class="socuser" id="viewForm">
 			<fieldset class="profileDetails">
@@ -65,6 +65,7 @@
 			<fieldset class="row1">
 				<div align="left" class="button-left">
 					<button class="button" id="editUser" >Edit</button>
+					<button class="button deleteButton" id="cancelUser" >Cancel</button>
 				</div>
 			</fieldset>
 		</form>
@@ -73,6 +74,11 @@
 		$( document ).ready(function() {
 		    $('#viewForm').submit(function(){
 		    	 location.href = $('#context').val() +"/user/update/"+$('#userId').val();
+		    	 return false;
+		    });
+		    
+		    $('#cancelUser').click(function(){
+		    	 location.href = $('#context').val() +"/user/search";
 		    	 return false;
 		    });
 		});

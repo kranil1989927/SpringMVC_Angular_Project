@@ -61,7 +61,7 @@
 				<fieldset class="row1">
 					<div align="center" class="button-left">
 						<input type="submit" class="button" value="Add" id="addComplaint"/>
-						<button class="button">Cancel</button>
+						<button class="button" id="cancelComplaint">Cancel</button>
 					</div>
 				</fieldset>
 			</form>
@@ -74,6 +74,11 @@
 			
 			$("#addComplaint").click(function(){
 				submitComplaint();
+				return false;
+			});
+			
+			$("#cancelComplaint").click(function(){
+				window.location.href = $('#context').val() + "/complaint/search";
 				return false;
 			});
 			
@@ -95,7 +100,7 @@
 					  dataType: "json",
 					  contentType : "application/json",
 					  success: function(data){
-						  window.alert("Complaint Added");
+						  window.location.href = $('#context').val() + "/complaint/search";
 						  return false;
 					  },
 					  error: function(data){

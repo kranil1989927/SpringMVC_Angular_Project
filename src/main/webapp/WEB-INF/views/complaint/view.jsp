@@ -13,7 +13,7 @@
 		<input type="hidden" id="complaintId" value="${complaintId}"/>
 		<div id="container" style="padding-left: 34px;">
 			<div>
-				<span id="headerTitle"><b>Update Complaint - ${complaintId}</b></span> 
+				<span id="headerTitle"><b>View Complaint - ${complaintId}</b></span> 
 			</div>
 			<form class="socuser" id="complaintViewForm">
 				<fieldset class="profileDetails">
@@ -55,7 +55,7 @@
 				<fieldset class="row1">
 					<div align="center" class="button-left">
 						<input type="submit" class="button" value="Update" id="updateComplaint"/>
-						<button class="button">Cancel</button>
+						<button class="button" id="cancelComplaint">Cancel</button>
 					</div>
 				</fieldset>
 			</form>
@@ -68,6 +68,11 @@
 		    	 location.href = $('#context').val() +"/complaint/update/"+$('#complaintId').val();
 		    	 return false;
 		    });
+		    
+		    $("#cancelComplaint").click(function(){
+				window.location.href = $('#context').val() + "/complaint/search";
+				return false;
+			});
 		});
 	</script>
 </body>

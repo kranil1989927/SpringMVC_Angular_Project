@@ -51,6 +51,12 @@
 				return false;
 			});
 			
+			$("#cancelUpdateNotice").click(function(){
+				window.location.href = $('#context').val() + "/notice/search";
+				return false;
+			});
+			
+			
 			function updateNoticeDetails(){
 				debugger;
 				var updateNoticeUrl = $('#context').val() + "/notice/save";
@@ -67,7 +73,7 @@
 					  dataType: "json",
 					  contentType : "application/json",
 					  success: function(data){
-						  window.alert("Notice Updated");
+						  window.location.href = $('#context').val() + "/notice/search";
 						  return false;
 					  },
 					  error: function(data){

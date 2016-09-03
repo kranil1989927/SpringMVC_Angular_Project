@@ -44,7 +44,7 @@ public class NoticeDetailsDAOImpl implements NoticeDetailsDAO {
 	@Override
 	public List<NoticeDetail> getAllNotices() {
 		LOGGER.debug("Getting all notices");
-		return this.sessionFactory.getCurrentSession().createQuery("from NoticeDetail order by id").list();
+		return this.sessionFactory.getCurrentSession().createQuery("from NoticeDetail order by noticeDate desc").list();
 	}
 
 	/**

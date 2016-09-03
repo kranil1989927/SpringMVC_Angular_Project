@@ -40,7 +40,7 @@
 				<fieldset class="row1">
 					<div align="center" class="button-left">
 						<input type="submit" class="button" value="Update" id="updateNotice"/>
-						<button class="button">Cancel</button>
+						<button class="button" id="cancelNotice">Cancel</button>
 					</div>
 				</fieldset>
 			</form>
@@ -50,6 +50,11 @@
 		$(document).ready(function() {
 			$("#updateNotice").click(function(){
 				window.location.href = $('#context').val() + "/notice/update/"+ $('#noticeId').val();
+				return false;
+			});
+			
+			$("#cancelNotice").click(function(){
+				window.location.href = $('#context').val() + "/notice/search";
 				return false;
 			});
 		});
