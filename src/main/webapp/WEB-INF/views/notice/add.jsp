@@ -35,7 +35,7 @@
 				<fieldset class="row1">
 					<div align="center" class="button-left">
 						<input type="submit" class="button" value="Add" id="addNotice"/>
-						<button class="button">Cancel</button>
+						<button class="button" id="cancelNotice">Cancel</button>
 					</div>
 				</fieldset>
 			</form>
@@ -47,6 +47,11 @@
 			
 			$("#addNotice").click(function(){
 				addNoticeDetails();
+				return false;
+			});
+			
+			$("#cancelNotice").click(function(){
+				window.location.href = $('#context').val() + "/notice/search";
 				return false;
 			});
 			
@@ -65,7 +70,7 @@
 					  dataType: "json",
 					  contentType : "application/json",
 					  success: function(data){
-						  window.alert("Notice Added");
+						  window.location.href = $('#context').val() + "/notice/search";
 						  return false;
 					  },
 					  error: function(data){
