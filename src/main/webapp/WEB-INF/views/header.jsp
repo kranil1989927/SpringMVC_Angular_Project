@@ -22,8 +22,8 @@
 					</ul></li>
 				<li><a href="#">Manage Amenities<span></span></a>
 					<ul>
-						<li><a href="#">Request Amenities</a></li>
-						<li><a href="#">View Users</a></li>
+						<li><a href='<c:url value="/amenities/request"/>'>Request Amenities</a></li>
+						<li><a href='<c:url value="/amenities/search"/>'>View Users</a></li>
 					</ul></li>
 				<li><a href="#">Notice Board<span></span></a>
 					<ul>
