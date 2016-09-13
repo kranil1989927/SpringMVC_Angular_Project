@@ -10,55 +10,57 @@
 	<jsp:include page="../header.jsp" />
 	<div>
 		<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
-		<input type="hidden" id="selComplaintType" value="${complaintDetails.complaintType}" />
-		<input type="hidden" id="selComplaintStatus" value="${complaintDetails.complaintStatus}" />
+		<input type="hidden" id="selAmenityType" value="${amenityDetails.amenityType}" />
+		<input type="hidden" id="selAmenityStatus" value="${amenityDetails.amenityStatus}" />
 		
 		<div id="container" style="padding-left: 34px;">
 			<div>
-				<span id="headerTitle"><b>Update Complaint - ${complaintId}</b></span> 
+				<span id="headerTitle"><b>Update Amenity - ${amenityId}</b></span> 
 			</div>
-			<form class="socuser" name="complaintDetail" modelAttribute="complaintDetailForm" method="POST">
+			<form class="socuser" name="amenityRequestDetail" modelAttribute="amenityRequestDetailForm" method="POST">
 				<fieldset class="profileDetails">
-					<legend>Complaint Details </legend>
+					<legend>Amenity Details </legend>
 					<div class="container">
 						<div class="personalInformation">
 						<p>
-							<label>Compliant # </label>
-							<input type="text" id="complaintId" value="${complaintId}"/>
+							<label>Amenity # </label>
+							<input type="text" id="amenityId" value="${amenityId}"/>
 						</p>
 						<p>
-							<label>Complaint Type </label> 
-							<select id="complaintType">
+							<label>Amenity Type </label> 
+							<select id="amenityType">
 							  <option value="none">---Select---</option>
-							  <option value="Electric">Electrical</option>
-							  <option value="Plumber">Plumber</option>
-							  <option value="Painting">Painting</option>
+							  <option value="badmintonCourt">Badminton Court</option>
+							  <option value="clubhouse">Club House</option>
+							  <option value="parking">Parking</option>
+							  <option value="swimming">Swimming Pool</option>
 							</select>
 						</p>
 						<p>
-							<label>Description </label>
-							<textarea rows="3" cols="100"  id="complaintDesc">${complaintDetails.complaintDescription}</textarea>
-						</p>
-						<p>
-							<label>Mobile </label> 
-							<input type="text" id="phoneNo"  value ="${complaintDetails.phoneNo}"/>
+							<label>User Name </label>
+							<input type="text" id="userName" value ="${amenityDetails.userName}"/>
 						</p>
 						<p>
 							<label>Status </label> 
-							<select id="complaintStatus">
+							<select id="amenityStatus">
 							  <option value="none">---Select---</option>
-							  <option value="Open">Open</option>
-							  <option value="Close">Close</option>
-							  <option value="In Progress">In Progress</option>
+							  <option value="approved">Approved</option>
+							  <option value="applied">Applied</option>
+							  <option value="inprogress">In Progress</option>
+							  <option value="expired">Expired</option>
 							</select>
 						</p>
 						<p>
-							<label>Available Time </label> 
-							<input type="text"  id="availableTime" value ="${complaintDetails.availableTime}"/>
+							<label>Start Date </label> 
+							<input type="text"  id="startdate" value ="${amenityDetails.startDate}"/>
 						</p>
 						<p>
-							<label>Complaint Log </label>
-							<textarea rows="3" cols="100"  id="complaintLog" >${complaintDetails.complaintLog}</textarea>
+							<label>End Date </label> 
+							<input type="text"  id="enddate" value ="${amenityDetails.endDate}"/>
+						</p>
+						<p>
+							<label>Amenity Notes </label>
+							<textarea rows="3" cols="100"  id="amenityNotes">${amenityDetails.notes}</textarea>
 						</p>
 						</div>
 					</div>
@@ -66,8 +68,8 @@
 				
 				<fieldset class="row1">
 					<div align="center" class="button-left">
-						<input type="submit" class="button" value="Update" id="updateComplaint"/>
-						<button class="button" id="cancelUpdateComplaint">Cancel</button>
+						<input type="submit" class="button" value="Update" id="updateAmenity"/>
+						<button class="button" id="cancelUpdateAmenity">Cancel</button>
 					</div>
 				</fieldset>
 			</form>
@@ -76,47 +78,47 @@
 	<script language="javascript" type="text/javascript">
 		debugger;
 		$(window).load(function (){
-			$('#complaintType').val($('#selComplaintType').val()).trigger("chosen:updated");
-			$('#complaintStatus').val($('#selComplaintStatus').val()).trigger("chosen:updated");
+			$('#amenityType').val($('#selAmenityType').val()).trigger("chosen:updated");
+			$('#amenityStatus').val($('#selAmenityStatus').val()).trigger("chosen:updated");
 		});
 		
 		$(document).ready(function() {
-			$("#availableTime").datepicker();
+			$("#startdate").datepicker();
+			$("#enddate").datepicker();
 			
-			$("#updateComplaint").click(function(){
-				submitComplaint();
+			$("#updateAmenity").click(function(){
+				updateAmenity();
 				return false;
 			});
 			
-			$("#cancelUpdateComplaint").click(function(){
-				location.href = $('#context').val() + "/complaint/search";
+			$("#cancelUpdateAmenity").click(function(){
+				location.href = $('#context').val() + "/amenities/search";
 				return false;
 			});
 			
-			function submitComplaint(){
+			function updateAmenity(){
 				debugger;
-				var addComplaintUrl = $('#context').val() + "/complaint/save";
-				var complainForm = {};
-				complainForm.complaintNo = $('#complaintId').val();
-				complainForm.complaintType = $('#complaintType').val();
-				complainForm.complaintDescription = $('#complaintDesc').val();
-				complainForm.phoneNo = $('#phoneNo').val();
-				complainForm.availableTime = $('#availableTime').val();
-				complainForm.complaintStatus = $('#complaintStatus').val();
-				complainForm.complaintLog = $('#complaintLog').val();
+				var requestAmenityUrl = $('#context').val() + "/amenities/save";
+				var amenityRequestDetailForm = {};
+				amenityRequestDetailForm.amenityType = $('#amenityType').val();
+				amenityRequestDetailForm.userName = $('#userName').val();
+				amenityRequestDetailForm.amenityStatus = $('#amenityStatus').val();
+				amenityRequestDetailForm.startdate = $('#startdate').val();
+				amenityRequestDetailForm.enddate = $('#enddate').val();
+				amenityRequestDetailForm.amenityNotes = $('#amenityNotes').val();
 				
 				$.ajax({
 					  type: "POST",
-					  url: addComplaintUrl,
-					  data: JSON.stringify(complainForm),
+					  url: requestAmenityUrl,
+					  data: JSON.stringify(amenityRequestDetailForm),
 					  dataType: "json",
 					  contentType : "application/json",
 					  success: function(data){
-						  location.href = $('#context').val() + "/complaint/search";
+						  window.location.href = $('#context').val() + "/amenities/search";
 						  return false;
 					  },
 					  error: function(data){
-						  window.alert("Complaint Added failed");
+						  window.alert("Amenity Request is failed");
 						  return false;
 					  }
 				});

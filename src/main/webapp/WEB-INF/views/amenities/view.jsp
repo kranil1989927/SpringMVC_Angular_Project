@@ -10,43 +10,43 @@
 	<jsp:include page="../header.jsp" />
 	<div>
 		<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
-		<input type="hidden" id="complaintId" value="${complaintId}"/>
+		<input type="hidden" id="amenityId" value="${amenityId}"/>
 		<div id="container" style="padding-left: 34px;">
 			<div>
-				<span id="headerTitle"><b>View Amenity - ${complaintId}</b></span> 
+				<span id="headerTitle"><b>View Amenity - ${amenityId}</b></span> 
 			</div>
-			<form class="socuser" id="complaintViewForm">
+			<form class="socuser" id="amenityViewForm">
 				<fieldset class="profileDetails">
-					<legend>Complaint Details </legend>
+					<legend>Amenity Details </legend>
 					<div class="container">
 						<div class="personalInformation">
 						<p>
-							<label>Compliant # </label>
-							<span class="viewName">${complaintId} </span>
+							<label>Amenity # </label>
+							<span class="viewName">${amenityId} </span>
 						</p>
 						<p>
-							<label>Complaint Type </label>
-							<span class="viewName">${complaintDetails.complaintType} </span> 							
+							<label>Amenity Type </label>
+							<span class="viewName">${amenityDetails.amenityType} </span> 							
 						</p>
 						<p>
-							<label>Description </label>
-							<span class="viewName">${complaintDetails.complaintDescription} </span>
-						</p>
-						<p>
-							<label>Mobile </label> 
-							<span class="viewName">${complaintDetails.phoneNo} </span>
+							<label>User Name </label>
+							<span class="viewName">${amenityDetails.userName} </span>
 						</p>
 						<p>
 							<label>Status </label> 
-							<span class="viewName">${complaintDetails.complaintStatus} </span>
+							<span class="viewName">${amenityDetails.amenityStatus} </span>
 						</p>
 						<p>
-							<label>Available Time </label> 
-							<span class="viewName">${complaintDetails.availableTime} </span>
+							<label>Start Date </label> 
+							<span class="viewName">${amenityDetails.startDate} </span>
 						</p>
 						<p>
-							<label>Complaint Log </label>
-							<span class="viewName">${complaintDetails.complaintLog} </span>
+							<label>End Date </label> 
+							<span class="viewName">${amenityDetails.endDate} </span>
+						</p>
+						<p>
+							<label>Amenity Notes</label>
+							<span class="viewName">${amenityDetails.notes} </span>
 						</p>
 						</div>
 					</div>
@@ -54,8 +54,8 @@
 				
 				<fieldset class="row1">
 					<div align="center" class="button-left">
-						<input type="submit" class="button" value="Update" id="updateComplaint"/>
-						<button class="button" id="cancelComplaint">Cancel</button>
+						<input type="submit" class="button" value="Update" id="updateAmenity"/>
+						<button class="button" id="cancelAmenity">Cancel</button>
 					</div>
 				</fieldset>
 			</form>
@@ -64,13 +64,13 @@
 	<script language="javascript" type="text/javascript">
 		debugger;
 		$( document ).ready(function() {
-		    $('#complaintViewForm').submit(function(){
-		    	 location.href = $('#context').val() +"/complaint/update/"+$('#complaintId').val();
+		    $('#amenityViewForm').submit(function(){
+		    	 location.href = $('#context').val() +"/amenities/update/"+$('#amenityId').val();
 		    	 return false;
 		    });
 		    
-		    $("#cancelComplaint").click(function(){
-				window.location.href = $('#context').val() + "/complaint/search";
+		    $("#cancelAmenity").click(function(){
+				window.location.href = $('#context').val() + "/amenities/search";
 				return false;
 			});
 		});

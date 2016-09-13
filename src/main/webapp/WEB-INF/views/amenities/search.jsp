@@ -15,18 +15,18 @@
 	</div>
 	<br/>
 	<div id="example">
-		<div id="complaintGrid"></div>
+		<div id="amenityGrid"></div>
 		<div style="padding-top: 15px;"><span width="100%"></span></div>
 		<div>
-			<button class="button" id="editComplaint">Update</button>
+			<button class="button" id="updateAmenity">Update</button>
 		</div>
 	</div>
 	<script language="javascript" type="text/javascript">
         $(document).ready(function () {
-            $("#complaintGrid").kendoGrid({
+            $("#amenityGrid").kendoGrid({
 			    dataSource: {
 			        transport: {
-			            read:  $('#context').val()+"/complaint/viewAllComplaint",
+			            read:  $('#context').val()+"/amenities/viewAllAmenities",
 			            dataType: "JSON"
 			        },
 			        pageSize: 5
@@ -41,35 +41,39 @@
 			    },
 			    columns: [
 			       {
-			    	template: "<div align=right><a href='"+ $('#context').val()+"/complaint/view/#: complaintNo #'>#: complaintNo #</a></div>",
-			        field: "complaintNo",
-			        title: "Complaint #",
+			    	template: "<div align=right><a href='"+ $('#context').val()+"/amenities/view/#: amenityId #'>#: amenityId #</a></div>",
+			        field: "amenityId",
+			        title: "Amenity #",
 			        width: 80
 			    }, {
-			        field: "complaintType",
-			        title: "Complaint Type",
+			        field: "amenityType",
+			        title: "Amenity Type",
 			        width: 150
 			    },{
-			        field: "complaintDescription",
-			        title: "Complaint Description"
+			        field: "amenityStatus",
+			        title: "Amenity Status"
 			    }, {
-			        field: "complaintStatus",
-			        title: "Complaint Status",
+			        field: "startDate",
+			        title: "Start Date",
 			       	width: 150
 			    }, {
-			        field: "availableTime",
-			        title: "Available Time",
+			        field: "endDate",
+			        title: "End Date",
+			        width: 150
+			    }, {
+			        field: "userName",
+			        title: "Assigned To",
 			        width: 150
 			    }]
 			});
             
-            $("#editComplaint").click(function(){
-            	console.log("Edit button is clicked");
-				var complaintGrid = $("#complaintGrid").data("kendoGrid");
-				var selectedComplaint = complaintGrid.dataItem(complaintGrid.select());
-				if(selectedComplaint !== null){	
-					console.log("Selected Complaint :" + selectedComplaint.complaintNo);
-					location.href = $('#context').val() + "/complaint/update/"+ selectedComplaint.complaintNo;
+            $("#updateAmenity").click(function(){
+            	console.log("Update button is clicked");
+				var amenityGrid = $("#amenityGrid").data("kendoGrid");
+				var selectedAmenity = amenityGrid.dataItem(amenityGrid.select());
+				if(selectedAmenity !== null){	
+					console.log("Selected Amenity :" + selectedAmenity.amenityId);
+					location.href = $('#context').val() + "/amenities/update/"+ selectedAmenity.amenityId;
 					return false;
 				}
 				return false;
