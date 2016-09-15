@@ -12,6 +12,7 @@
 		<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
 		<input type="hidden" id="selAmenityType" value="${amenityDetails.amenityType}" />
 		<input type="hidden" id="selAmenityStatus" value="${amenityDetails.amenityStatus}" />
+		<input type="hidden" id="userId" value="${amenityDetails.userId }"/>
 		
 		<div id="container" style="padding-left: 34px;">
 			<div>
@@ -103,9 +104,10 @@
 				amenityRequestDetailForm.amenityType = $('#amenityType').val();
 				amenityRequestDetailForm.userName = $('#userName').val();
 				amenityRequestDetailForm.amenityStatus = $('#amenityStatus').val();
-				amenityRequestDetailForm.startdate = $('#startdate').val();
-				amenityRequestDetailForm.enddate = $('#enddate').val();
-				amenityRequestDetailForm.amenityNotes = $('#amenityNotes').val();
+				amenityRequestDetailForm.startDate = $('#startdate').val();
+				amenityRequestDetailForm.endDate = $('#enddate').val();
+				amenityRequestDetailForm.notes = $('#amenityNotes').val();
+				amenityRequestDetailForm.userId = $('#userId').val();
 				
 				$.ajax({
 					  type: "POST",

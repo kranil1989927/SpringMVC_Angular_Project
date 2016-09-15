@@ -1,5 +1,6 @@
 package in.society.maintain.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -14,11 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import in.society.maintain.common.SocietyMaintenanceException;
-import in.society.maintain.dao.SocUserDetailsDAO;
 import in.society.maintain.service.AmenityDetailService;
 import in.society.maintain.service.AmenityDetailsVO;
 import in.society.maintain.service.SocUserDetailsService;
-import in.society.maintain.service.SocUserDetailsServiceHelper;
+import in.society.maintain.service.SocUserDetailsVO;
 
 @Controller
 @RequestMapping("/amenities")
@@ -34,15 +34,11 @@ public class AmenityController {
 	/** amenityControllerHelper it takes care of additional overhead of controller */
 	@Autowired
 	private AmenityControllerHelper amenityControllerHelper;
-	
-	/** socUserDetailsServiceHelper it take cares of society user details service overhead */
-	@Autowired
-	private SocUserDetailsServiceHelper socUserDetailsServiceHelper; 
-	
+
 	/** socUserDetailsService represents socUserDetails related business operations */
 	@Autowired
 	private SocUserDetailsService socUserDetailsService;
-	
+
 	/** Amenity View */
 	private static final String AMENITY_DETAILS_VIEW = "/amenities/view";
 	private static final String REQUEST_AMENITY = "/amenities/requestforAmenities";
@@ -53,11 +49,24 @@ public class AmenityController {
 	 * Method to get a request amenity page.
 	 * 
 	 * @param model {@link ModelMap}
+	 * @param principal {@link Principal}
 	 * @return Request new amenity page
 	 */
 	@RequestMapping(value = "/request", method = RequestMethod.GET)
-	public String getRequestAmenityPage() {
+	public String getRequestAmenityPage(ModelMap model, Principal principal) {
 		LOGGER.info("Loading request amenity page");
+		try {
+			String username = principal.getName();
+			SocUserDetailsVO socUserDetailsVO = this.getSocUserDetailsService().getSocUserDetailsByUserName(username);
+			String userFullName = socUserDetailsVO.getFirstName() + " " + socUserDetailsVO.getLastName();
+			model.put("username", userFullName);
+			model.put("userId", socUserDetailsVO.getUserId());
+		} catch (SocietyMaintenanceException ex) {
+			LOGGER.error("Society Maintenance Service exception while getting the user details for Requested Aminity due to : {}", ex.getMessage());
+		} catch (Exception ex) {
+			LOGGER.error("Exception while getting the user details for Requested Aminity due to : {}", ex.getMessage());
+		}
+
 		return REQUEST_AMENITY;
 	}
 
@@ -136,10 +145,13 @@ public class AmenityController {
 	@RequestMapping(value = "/save", method = RequestMethod.POST, consumes = "application/json", produces = "application/json")
 	@ResponseBody
 	public AmenityDetailsFormBean saveOrUpdate(@RequestBody AmenityDetailsFormBean amenityDetailFormBean) {
-		AmenityDetailsFormBean amenityFormBean  = amenityDetailFormBean;
+		AmenityDetailsFormBean amenityFormBean = amenityDetailFormBean;
 		LOGGER.debug("Trying to save the amenity details");
 		try {
 			AmenityDetailsVO amenityDetailsVO = this.getAmenityControllerHelper().populateAmenityDetailsVO(amenityFormBean);
+			SocUserDetailsVO socUserDetailsVO = this.getSocUserDetailsService().getSocUserDetails(amenityDetailsVO.getUserId());
+			amenityDetailsVO.setSocUserDetailsVO(socUserDetailsVO);
+
 			amenityDetailsVO = this.getAmenityDetailService().saveOrUpdate(amenityDetailsVO);
 		} catch (SocietyMaintenanceException ex) {
 			LOGGER.error("Service exception while saving the amenity of amenity id : {} due to : {}", "", ex.getMessage());
@@ -157,17 +169,18 @@ public class AmenityController {
 	 */
 	@RequestMapping(value = "/viewAllAmenities", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public List<AmenityDetailsVO> getAllAmenities(ModelMap model) {
+	public List<AmenityDetailsFormBean> getAllAmenities(ModelMap model) {
 		LOGGER.debug("Fetching all the society amenities");
-		List<AmenityDetailsVO> amenityDetailsVOList = null;
+		List<AmenityDetailsFormBean> amenityDetailsFormBeanList = null;
 		try {
-			amenityDetailsVOList = this.getAmenityDetailService().getAllAmenities();
+			final List<AmenityDetailsVO> amenityDetailsVOList = this.getAmenityDetailService().getAllAmenities();
+			amenityDetailsFormBeanList = this.getAmenityControllerHelper().populateAmenityFormBeanListFromVO(amenityDetailsVOList);
 		} catch (SocietyMaintenanceException ex) {
 			LOGGER.error("Society Maintenance Exception of getting all the amenities due to {}", ex.getMessage(), ex);
 		} catch (Exception ex) {
 			LOGGER.error("Exception of getting all the amenities due to {}", ex.getMessage(), ex);
 		}
-		return amenityDetailsVOList;
+		return amenityDetailsFormBeanList;
 	}
 
 	public AmenityDetailService getAmenityDetailService() {
@@ -176,5 +189,9 @@ public class AmenityController {
 
 	public AmenityControllerHelper getAmenityControllerHelper() {
 		return amenityControllerHelper;
+	}
+
+	public SocUserDetailsService getSocUserDetailsService() {
+		return socUserDetailsService;
 	}
 }

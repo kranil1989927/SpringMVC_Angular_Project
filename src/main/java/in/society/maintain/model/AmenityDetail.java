@@ -32,11 +32,11 @@ public class AmenityDetail implements Serializable {
 	@Column(name = "AMENITY_STATUS")
 	private String amenityStatus;
 
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	@Column(name = "START_DATE")
 	private Date startDate;
 
-	@Temporal(TemporalType.TIME)
+	@Temporal(TemporalType.DATE)
 	@Column(name = "END_DATE")
 	private Date endDate;
 

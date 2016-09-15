@@ -44,5 +44,15 @@ public interface SocUserDetailsService {
 	 * @throws SocietyMaintenanceException
 	 */
 	List<SocUserDetailsVO> getAllUsers() throws SocietyMaintenanceException;
+	
+	/**
+	 * Method to get the society user details based on user id.
+	 * 
+	 * @param userName {@link String}
+	 * @return User Details {@link SocUserDetailsVO}
+	 * 
+	 * @throws SocietyMaintenanceException
+	 */
+	SocUserDetailsVO getSocUserDetailsByUserName(String userName) throws SocietyMaintenanceException;
 
 }

@@ -22,6 +22,9 @@ public class AmenityDetailServiceHelper {
 		amenityDetailsVO.setAmenityStatus(amenityDetail.getAmenityStatus());
 		amenityDetailsVO.setSocUserDetailsVO(this.getSocUserDetailsServiceHelper().populateSocUserDetailVOFromModel(amenityDetail.getSocUser()));
 		amenityDetailsVO.setUserId(amenityDetail.getSocUser().getUserId());
+		
+		String userName = amenityDetail.getSocUser().getFirstName() + " " + amenityDetail.getSocUser().getLastName();
+		amenityDetailsVO.setUserName(userName);
 		amenityDetailsVO.setStartDate(amenityDetail.getStartDate());
 		amenityDetailsVO.setEndDate(amenityDetail.getEndDate());
 		amenityDetailsVO.setNotes(amenityDetail.getNotes());

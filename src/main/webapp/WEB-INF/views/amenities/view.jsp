@@ -11,6 +11,8 @@
 	<div>
 		<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
 		<input type="hidden" id="amenityId" value="${amenityId}"/>
+		<input type="hidden" id="userId" value="${amenityDetails.userId }"/>
+		
 		<div id="container" style="padding-left: 34px;">
 			<div>
 				<span id="headerTitle"><b>View Amenity - ${amenityId}</b></span> 

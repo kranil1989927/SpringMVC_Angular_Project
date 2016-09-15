@@ -1,5 +1,8 @@
 package in.society.maintain.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import in.society.maintain.common.CommonUtils;
@@ -20,6 +23,7 @@ public class AmenityControllerHelper {
 		amenityDetailsFormBean.setStartDate(CommonUtils.convertToDateString(amenityDetailsVO.getStartDate(), "MM/dd/yyyy"));
 		amenityDetailsFormBean.setEndDate(CommonUtils.convertToDateString(amenityDetailsVO.getEndDate(), "MM/dd/yyyy"));
 		amenityDetailsFormBean.setNotes(amenityDetailsVO.getNotes());
+		amenityDetailsFormBean.setUserId(String.valueOf(amenityDetailsVO.getUserId()));
 
 		return amenityDetailsFormBean;
 	}
@@ -56,5 +60,13 @@ public class AmenityControllerHelper {
 		}
 
 		return amenityDetailsVO;
+	}
+
+	public List<AmenityDetailsFormBean> populateAmenityFormBeanListFromVO(List<AmenityDetailsVO> amenityDetailsVOList) {
+		List<AmenityDetailsFormBean> amenityDetailsFormBeanList = new ArrayList<AmenityDetailsFormBean>(amenityDetailsVOList.size());
+		for (AmenityDetailsVO amenityDetailsVO : amenityDetailsVOList) {
+			amenityDetailsFormBeanList.add(this.populateAmenityDetailsFormBean(amenityDetailsVO));
+		}
+		return amenityDetailsFormBeanList;
 	}
 }

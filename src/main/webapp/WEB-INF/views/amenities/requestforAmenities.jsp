@@ -13,6 +13,8 @@
 	<jsp:include page="../header.jsp" />
 	<div>
 		<input type="hidden" id="context" value="<%=request.getContextPath()%>" />
+		<input type="hidden" id="loggedInUser" value="${username}"/>
+		<input type="hidden" id="userId" value="${userId}"/>
 		<div id="container" style="padding-left: 34px;">
 			<div>
 				<span id="headerTitle"><b>Amenity Request</b></span> 
@@ -34,7 +36,7 @@
 						</p>
 						<p>
 							<label>User Name </label>
-							<input type="text" id="userName" />
+							<input type="text" id="userName" value="${username}" disabled/>
 						</p>
 						<p>
 							<label>Status </label> 
@@ -92,9 +94,10 @@
 				amenityRequestDetailForm.amenityType = $('#amenityType').val();
 				amenityRequestDetailForm.userName = $('#userName').val();
 				amenityRequestDetailForm.amenityStatus = $('#amenityStatus').val();
-				amenityRequestDetailForm.startdate = $('#startdate').val();
-				amenityRequestDetailForm.enddate = $('#enddate').val();
-				amenityRequestDetailForm.amenityNotes = $('#amenityNotes').val();
+				amenityRequestDetailForm.startDate = $('#startdate').val();
+				amenityRequestDetailForm.endDate = $('#enddate').val();
+				amenityRequestDetailForm.notes = $('#amenityNotes').val();
+				amenityRequestDetailForm.userId = $('#userId').val();
 				
 				$.ajax({
 					  type: "POST",

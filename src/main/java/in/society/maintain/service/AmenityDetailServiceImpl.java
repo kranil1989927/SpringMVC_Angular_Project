@@ -35,13 +35,12 @@ public class AmenityDetailServiceImpl implements AmenityDetailService {
 		LOGGER.debug("Saving Amenity Details");
 		try {
 			amenityDetail = this.getAmenityDetailServiceHelper().populateAmenityDetailModelFromVO(amenityDetailsVO);
-			amenityDetail = this.getAmenityDetailDAO().saveOrUpdate(amenityDetail);
-
 			if (amenityDetail.getAmenityId() != null) {
 				LOGGER.info("Amenity No : {} is updated successfully", amenityDetail.getAmenityId());
 			} else {
-				LOGGER.info("Amenity No : {} is added successfully", amenityDetail.getAmenityId());
+				LOGGER.info("Amenity No : {} is added successfully", amenityDetail.getAmenityType());
 			}
+			amenityDetail = this.getAmenityDetailDAO().saveOrUpdate(amenityDetail);
 			amenityDetailVO = this.getAmenityDetailServiceHelper().populateAmenityDetailVOFromModel(amenityDetail);
 		} catch (DataAccessException dae) {
 			LOGGER.error("Database exception while saving/updating details of amenity due to {}", dae.getMessage());

@@ -12,6 +12,7 @@ public class AmenityDetailsVO {
 	private Date endDate;
 	private String notes;
 	private Long userId;
+	private String userName;
 
 	public Long getAmenityId() {
 		return amenityId;
@@ -75,6 +76,14 @@ public class AmenityDetailsVO {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

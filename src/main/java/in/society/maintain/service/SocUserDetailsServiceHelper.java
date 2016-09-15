@@ -44,7 +44,9 @@ public class SocUserDetailsServiceHelper {
 		socUserDetailsVO.setNoOfMembers(socUser.getNoOfMembers());
 		socUserDetailsVO.setStartDate(socUser.getStartDate());
 		socUserDetailsVO.setEndDate(socUser.getEndDate());
-		socUserDetailsVO.setUserName(socUser.getLoginDetails().getUserName());
+		if (null != socUser.getLoginDetails()) {
+			socUserDetailsVO.setUserName(socUser.getLoginDetails().getUserName());
+		}
 		return socUserDetailsVO;
 	}
 

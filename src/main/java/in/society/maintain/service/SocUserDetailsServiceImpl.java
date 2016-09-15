@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import in.society.maintain.common.SocietyMaintenanceException;
+import in.society.maintain.dao.LoginDetailsDAO;
 import in.society.maintain.dao.SocUserDetailsDAO;
 import in.society.maintain.model.LoginDetails;
 import in.society.maintain.model.SocUser;
@@ -34,6 +35,14 @@ public class SocUserDetailsServiceImpl implements SocUserDetailsService {
 	/** socUserDetailsServiceHelper it take cares of user management service overhead */
 	@Autowired
 	private SocUserDetailsServiceHelper socUserDetailsServiceHelper;
+	
+	/** loginUserDetailsService represents the Logged In user related Business operations */
+	@Autowired
+	private LoginUserDetailsService loginUserDetailsService;
+	
+	/** loginDetailsDAO represents the LoggedIn user related DAO operations */
+	@Autowired
+	private LoginDetailsDAO loginDetailsDAO;
 
 	@Override
 	@Transactional
@@ -131,6 +140,25 @@ public class SocUserDetailsServiceImpl implements SocUserDetailsService {
 		}
 		return socUserDetailsVOList;
 	}
+	
+	@Override
+	@Transactional
+	public SocUserDetailsVO getSocUserDetailsByUserName(String userName) throws SocietyMaintenanceException {
+		SocUserDetailsVO socUserDetailsVO = null;
+		LOGGER.debug("Getting a society user details of user name : {}", userName);
+		try {
+			final LoginDetails loginDetails = this.getLoginDetailsDAO().loadUserByUsername(userName);
+			final SocUser socUser = loginDetails.getSocUser();
+			socUserDetailsVO = this.getSocUserDetailsServiceHelper().populateSocUserDetailVOFromModel(socUser);
+		} catch (DataAccessException dae) {
+			LOGGER.error("Database exception while getting details of society user of user name : {} due to {}", userName, dae.getMessage());
+			throw new SocietyMaintenanceException("Exception while getting details of society user of user name : " + userName + "due to : " + dae.getMessage(), dae);
+		} catch (Exception ex) {
+			LOGGER.error("Exception while getting details of society user of user name : {} due to {}", userName, ex.getMessage());
+			throw new SocietyMaintenanceException("Exception while getting details of society user of user name : " + userName + "due to : " + ex.getMessage(), ex);
+		}
+		return socUserDetailsVO;
+	}
 
 	public SocUserDetailsDAO getSocUserDAO() {
 		return socUserDAO;
@@ -138,6 +166,14 @@ public class SocUserDetailsServiceImpl implements SocUserDetailsService {
 
 	public SocUserDetailsServiceHelper getSocUserDetailsServiceHelper() {
 		return socUserDetailsServiceHelper;
+	}
+
+	public LoginUserDetailsService getLoginUserDetailsService() {
+		return loginUserDetailsService;
+	}
+
+	public LoginDetailsDAO getLoginDetailsDAO() {
+		return loginDetailsDAO;
 	}
 
 }

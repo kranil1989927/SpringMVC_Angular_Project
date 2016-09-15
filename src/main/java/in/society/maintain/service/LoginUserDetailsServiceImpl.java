@@ -29,12 +29,11 @@ public class LoginUserDetailsServiceImpl implements LoginUserDetailsService {
 	public UserDetails loadUserByUsername(final String userName) throws UsernameNotFoundException {
 		LoginDetails loginDetails = loginDetailsDAO.loadUserByUsername(userName);
 		List<GrantedAuthority> authorities = getUserRolesAuthority(loginDetails.getRoles());
-		return getUserForAuthentication(loginDetails, authorities);
+		return getUserForAuthentication(loginDetails, authorities, loginDetails.getUserId());
 	}
 
-	private User getUserForAuthentication(LoginDetails loginDetails, List<GrantedAuthority> authorities) {
-		return new User(loginDetails.getUserName(), loginDetails.getPassword(), loginDetails.isEnabled(), true, true,
-				true, authorities);
+	private User getUserForAuthentication(LoginDetails loginDetails, List<GrantedAuthority> authorities, Long userId) {
+		return new User(loginDetails.getUserName(), loginDetails.getPassword(), loginDetails.isEnabled(), true, true, true, authorities);
 	}
 
 	private List<GrantedAuthority> getUserRolesAuthority(Set<UserRole> userRoles) {
@@ -44,5 +43,9 @@ public class LoginUserDetailsServiceImpl implements LoginUserDetailsService {
 		}
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>(setAuths);
 		return authorities;
+	}
+
+	public void setLoginDetailsDAO(LoginDetailsDAO loginDetailsDAO) {
+		this.loginDetailsDAO = loginDetailsDAO;
 	}
 }
