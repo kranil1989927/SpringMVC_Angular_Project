@@ -1,5 +1,6 @@
 package in.society.maintain.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,7 +14,9 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "COMPLAINT")
-public class ComplaintDetail {
+public class ComplaintDetail implements Serializable {
+
+	private static final long serialVersionUID = 4196233716836910335L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

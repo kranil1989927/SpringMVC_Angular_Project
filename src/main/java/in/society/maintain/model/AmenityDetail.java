@@ -1,19 +1,25 @@
 package in.society.maintain.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "AMENITY_DETAIL")
-public class AmenityDetail {
+public class AmenityDetail implements Serializable {
+
+	private static final long serialVersionUID = -8774333496348578950L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,9 +32,6 @@ public class AmenityDetail {
 	@Column(name = "AMENITY_STATUS")
 	private String amenityStatus;
 
-	@Column(name = "USER_NAME")
-	private String userName;
-
 	@Temporal(TemporalType.TIME)
 	@Column(name = "START_DATE")
 	private Date startDate;
@@ -39,6 +42,10 @@ public class AmenityDetail {
 
 	@Column(name = "AMENITY_NOTES")
 	private String notes;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "USER_ID", nullable = false)
+	private SocUser socUser;
 
 	public Long getAmenityId() {
 		return amenityId;
@@ -64,14 +71,6 @@ public class AmenityDetail {
 		this.amenityStatus = amenityStatus;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -94,6 +93,14 @@ public class AmenityDetail {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public SocUser getSocUser() {
+		return socUser;
+	}
+
+	public void setSocUser(SocUser socUser) {
+		this.socUser = socUser;
 	}
 
 	@Override

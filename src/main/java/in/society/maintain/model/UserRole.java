@@ -1,5 +1,7 @@
 package in.society.maintain.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,8 +14,10 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "USER_ROLE", uniqueConstraints = @UniqueConstraint(columnNames = { "role", "userId" }) )
-public class UserRole {
+@Table(name = "USER_ROLE", uniqueConstraints = @UniqueConstraint(columnNames = { "role", "userId" }))
+public class UserRole implements Serializable {
+
+	private static final long serialVersionUID = 1750260356427032145L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

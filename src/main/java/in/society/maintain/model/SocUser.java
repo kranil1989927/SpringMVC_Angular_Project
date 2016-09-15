@@ -2,6 +2,8 @@ package in.society.maintain.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +12,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -61,11 +64,14 @@ public class SocUser implements Serializable {
 	@Column(name = "END_DATE")
 	private Date endDate;
 
-	@Column(name = "USER_PROFILE_PIC", nullable=true, columnDefinition="bytea")
+	@Column(name = "USER_PROFILE_PIC", nullable = true, columnDefinition = "bytea")
 	private byte[] profileImage;
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "socUser", cascade = CascadeType.ALL)
 	private LoginDetails loginDetails;
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "socUser")
+	private Set<AmenityDetail> amenities = new HashSet<AmenityDetail>(0);
 
 	public Long getUserId() {
 		return userId;
@@ -177,6 +183,14 @@ public class SocUser implements Serializable {
 
 	public void setLoginDetails(LoginDetails loginDetails) {
 		this.loginDetails = loginDetails;
+	}
+
+	public Set<AmenityDetail> getAmenities() {
+		return amenities;
+	}
+
+	public void setAmenities(Set<AmenityDetail> amenities) {
+		this.amenities = amenities;
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package in.society.maintain.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -13,7 +14,9 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "NOTICE_DETAILS")
-public class NoticeDetail {
+public class NoticeDetail implements Serializable {
+
+	private static final long serialVersionUID = 8277982245658338596L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
