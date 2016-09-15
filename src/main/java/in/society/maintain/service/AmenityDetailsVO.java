@@ -7,10 +7,11 @@ public class AmenityDetailsVO {
 	private Long amenityId;
 	private String amenityType;
 	private String amenityStatus;
-	private String userName;
+	private SocUserDetailsVO socUserDetailsVO;
 	private Date startDate;
 	private Date endDate;
 	private String notes;
+	private Long userId;
 
 	public Long getAmenityId() {
 		return amenityId;
@@ -36,12 +37,12 @@ public class AmenityDetailsVO {
 		this.amenityStatus = amenityStatus;
 	}
 
-	public String getUserName() {
-		return userName;
+	public SocUserDetailsVO getSocUserDetailsVO() {
+		return socUserDetailsVO;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setSocUserDetailsVO(SocUserDetailsVO socUserDetailsVO) {
+		this.socUserDetailsVO = socUserDetailsVO;
 	}
 
 	public Date getStartDate() {
@@ -66,6 +67,14 @@ public class AmenityDetailsVO {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
 }

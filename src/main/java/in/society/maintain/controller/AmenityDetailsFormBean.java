@@ -9,6 +9,7 @@ public class AmenityDetailsFormBean {
 	private String startDate;
 	private String endDate;
 	private String notes;
+	private String userId;
 
 	public String getAmenityId() {
 		return amenityId;
@@ -64,6 +65,14 @@ public class AmenityDetailsFormBean {
 
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 }

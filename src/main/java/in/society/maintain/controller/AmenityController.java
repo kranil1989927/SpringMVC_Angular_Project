@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import in.society.maintain.common.SocietyMaintenanceException;
+import in.society.maintain.dao.SocUserDetailsDAO;
 import in.society.maintain.service.AmenityDetailService;
 import in.society.maintain.service.AmenityDetailsVO;
+import in.society.maintain.service.SocUserDetailsService;
+import in.society.maintain.service.SocUserDetailsServiceHelper;
 
 @Controller
 @RequestMapping("/amenities")
@@ -31,7 +34,15 @@ public class AmenityController {
 	/** amenityControllerHelper it takes care of additional overhead of controller */
 	@Autowired
 	private AmenityControllerHelper amenityControllerHelper;
-
+	
+	/** socUserDetailsServiceHelper it take cares of society user details service overhead */
+	@Autowired
+	private SocUserDetailsServiceHelper socUserDetailsServiceHelper; 
+	
+	/** socUserDetailsService represents socUserDetails related business operations */
+	@Autowired
+	private SocUserDetailsService socUserDetailsService;
+	
 	/** Amenity View */
 	private static final String AMENITY_DETAILS_VIEW = "/amenities/view";
 	private static final String REQUEST_AMENITY = "/amenities/requestforAmenities";
