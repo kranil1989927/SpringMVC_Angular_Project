@@ -93,7 +93,7 @@ public class AmenityController {
 	@RequestMapping(value = "/update/{amenityId}", method = RequestMethod.GET)
 	public String getUpdateAmenityPage(ModelMap model, @PathVariable(value = "amenityId") Long amenityId) {
 		LOGGER.debug("Request to get the amenity details of amenity no. : {}", amenityId);
-		this.getAmenityDetailsById(model, amenityId);
+		this.getAmenityDetailsById(model, amenityId, Boolean.TRUE);
 		return UPDATE_AMENITY;
 	}
 
@@ -108,7 +108,7 @@ public class AmenityController {
 	@RequestMapping(value = "/view/{amenityId}", method = RequestMethod.GET, produces = "application/json")
 	public String getAmenityDetails(ModelMap model, @PathVariable(value = "amenityId") Long amenityId) {
 		LOGGER.debug("Request to get the amenity details of amenity no. : {}", amenityId);
-		this.getAmenityDetailsById(model, amenityId);
+		this.getAmenityDetailsById(model, amenityId, Boolean.FALSE);
 		return AMENITY_DETAILS_VIEW;
 	}
 
@@ -118,13 +118,13 @@ public class AmenityController {
 	 * @param model {@link ModelMap}
 	 * @param amenityId {@link Long}
 	 */
-	private void getAmenityDetailsById(ModelMap model, Long amenityId) {
+	private void getAmenityDetailsById(ModelMap model, Long amenityId, Boolean isUpdate) {
 		AmenityDetailsVO amenityDetailsVO = null;
 		try {
 			amenityDetailsVO = this.getAmenityDetailService().getAmenityDetail(amenityId);
 			if (amenityDetailsVO != null) {
 				LOGGER.info("Amenity Details of Amenity Id : {} is fetched successfully", amenityId);
-				AmenityDetailsFormBean amenityDetailsFormBean = this.getAmenityControllerHelper().populateAmenityDetailsFormBean(amenityDetailsVO);
+				AmenityDetailsFormBean amenityDetailsFormBean = this.getAmenityControllerHelper().populateAmenityDetailsFormBean(amenityDetailsVO, isUpdate);
 				model.put("amenityId", amenityId);
 				model.put("amenityDetails", amenityDetailsFormBean);
 			}

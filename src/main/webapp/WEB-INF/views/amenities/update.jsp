@@ -25,11 +25,11 @@
 						<div class="personalInformation">
 						<p>
 							<label>Amenity # </label>
-							<input type="text" id="amenityId" value="${amenityId}"/>
+							<input type="text" id="amenityId" value="${amenityId}" disabled/>
 						</p>
 						<p>
 							<label>Amenity Type </label> 
-							<select id="amenityType">
+							<select id="amenityType" disabled>
 							  <option value="none">---Select---</option>
 							  <option value="badmintonCourt">Badminton Court</option>
 							  <option value="clubhouse">Club House</option>
@@ -39,11 +39,11 @@
 						</p>
 						<p>
 							<label>User Name </label>
-							<input type="text" id="userName" value ="${amenityDetails.userName}"/>
+							<input type="text" id="userName" value ="${amenityDetails.userName}" disabled/>
 						</p>
 						<p>
 							<label>Status </label> 
-							<select id="amenityStatus">
+							<select id="amenityStatus" disabled>
 							  <option value="none">---Select---</option>
 							  <option value="approved">Approved</option>
 							  <option value="applied">Applied</option>
@@ -101,6 +101,7 @@
 				debugger;
 				var requestAmenityUrl = $('#context').val() + "/amenities/save";
 				var amenityRequestDetailForm = {};
+				amenityRequestDetailForm.amenityId = $('#amenityId').val();
 				amenityRequestDetailForm.amenityType = $('#amenityType').val();
 				amenityRequestDetailForm.userName = $('#userName').val();
 				amenityRequestDetailForm.amenityStatus = $('#amenityStatus').val();

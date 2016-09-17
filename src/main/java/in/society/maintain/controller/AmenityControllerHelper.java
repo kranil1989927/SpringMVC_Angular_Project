@@ -1,22 +1,30 @@
 package in.society.maintain.controller;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
 import in.society.maintain.common.CommonUtils;
+import in.society.maintain.common.SocietyMaintenanceConstants;
 import in.society.maintain.service.AmenityDetailsVO;
 
 @Component
 public class AmenityControllerHelper {
 
-	public AmenityDetailsFormBean populateAmenityDetailsFormBean(AmenityDetailsVO amenityDetailsVO) {
+	public AmenityDetailsFormBean populateAmenityDetailsFormBean(AmenityDetailsVO amenityDetailsVO, Boolean isUpdated) {
 		AmenityDetailsFormBean amenityDetailsFormBean = new AmenityDetailsFormBean();
 
 		amenityDetailsFormBean.setAmenityId(String.valueOf(amenityDetailsVO.getAmenityId()));
-		amenityDetailsFormBean.setAmenityType(amenityDetailsVO.getAmenityType());
-		amenityDetailsFormBean.setAmenityStatus(amenityDetailsVO.getAmenityStatus());
+		if (isUpdated) {
+			amenityDetailsFormBean.setAmenityType(amenityDetailsVO.getAmenityType());
+			amenityDetailsFormBean.setAmenityStatus(amenityDetailsVO.getAmenityStatus());
+		} else {
+			amenityDetailsFormBean.setAmenityType(populateAmenityType(amenityDetailsVO.getAmenityType()));
+			amenityDetailsFormBean.setAmenityStatus(populateAmityStatus(amenityDetailsVO.getAmenityStatus()));
+		}
 
 		String userName = amenityDetailsVO.getSocUserDetailsVO().getFirstName() + " " + amenityDetailsVO.getSocUserDetailsVO().getLastName();
 		amenityDetailsFormBean.setUserName(userName);
@@ -65,8 +73,30 @@ public class AmenityControllerHelper {
 	public List<AmenityDetailsFormBean> populateAmenityFormBeanListFromVO(List<AmenityDetailsVO> amenityDetailsVOList) {
 		List<AmenityDetailsFormBean> amenityDetailsFormBeanList = new ArrayList<AmenityDetailsFormBean>(amenityDetailsVOList.size());
 		for (AmenityDetailsVO amenityDetailsVO : amenityDetailsVOList) {
-			amenityDetailsFormBeanList.add(this.populateAmenityDetailsFormBean(amenityDetailsVO));
+			amenityDetailsFormBeanList.add(this.populateAmenityDetailsFormBean(amenityDetailsVO, Boolean.FALSE));
 		}
 		return amenityDetailsFormBeanList;
+	}
+
+	private String populateAmenityType(String amenityType) {
+
+		Map<String, String> amenityTypeMap = new LinkedHashMap<String, String>();
+		amenityTypeMap.put("badmintonCourt", SocietyMaintenanceConstants.BADMINTON_COURT);
+		amenityTypeMap.put("clubhouse", SocietyMaintenanceConstants.CLUB_HOUSE);
+		amenityTypeMap.put("parking", SocietyMaintenanceConstants.PARKING);
+		amenityTypeMap.put("swimming", SocietyMaintenanceConstants.SWIMMING);
+
+		return amenityTypeMap.get(amenityType);
+	}
+
+	private String populateAmityStatus(String amenityStatus) {
+
+		Map<String, String> amenityStatusMap = new LinkedHashMap<String, String>();
+		amenityStatusMap.put("inprogress", SocietyMaintenanceConstants.INPROGRESS);
+		amenityStatusMap.put("applied", SocietyMaintenanceConstants.APPLIED);
+		amenityStatusMap.put("approved", SocietyMaintenanceConstants.APPROVED);
+		amenityStatusMap.put("expired", SocietyMaintenanceConstants.EXPIRED);
+
+		return amenityStatusMap.get(amenityStatus);
 	}
 }
