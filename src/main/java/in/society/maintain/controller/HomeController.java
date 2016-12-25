@@ -46,7 +46,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/accessdenied", method = RequestMethod.GET)
 	public String accessdenied(Model model) {
-		LOGGER.debug("Login to application is failed due to access control");
+		LOGGER.debug("Login to application is failed due to access control.");
 		return "redirect:/login?error=accessfailed";
 	}
 
